@@ -1,0 +1,1355 @@
+---
+title: 'Towards the conceptualization of daily dynamics in state workaholism'
+subtitle: 'Evidence from 2 ESM studies'
+author:  | 
+ | \fontsize{9pt}{12}\selectfont Luca Menghini$^1$, Francesco Tommasi$^2$, Cristian Balducci$^3$ \fontsize{6pt}{12}\selectfont
+ | $^1$Department of General Psychology, University of Padova, Italy
+ | $^2$Department of Human Sciences, University of Verona, Italy
+ | $^3$Department of Quality of Life, University of Bologna, Italy 
+ | ![](img/logo.PNG){width=3.8in}
+ | _16th Conference \newline \fontsize{9pt}{12}\selectfont European Academy of Occupational Health Psychology_
+ | \fontsize{6pt}{12}\selectfont Granada, June 5-7 2024
+ | Symposium: _Dynamic Perspectives on Occupational Health Research_
+ |
+logo: img/logo3.png
+output:
+  beamer_presentation:
+    fonttheme: serif
+    theme: Singapore
+    slide_level: 2
+    includes:
+      in_header: mystyle.tex
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Background
+
+\begincols
+  \begincol{.45\textwidth}
+  
+\fontsize{6.5pt}{12}\selectfont Whlsm = Dysfunctional form of heavy work investment (***work addiction***): \fontsize{7.5pt}{12}\selectfont
+
+&rightarrow; **Working compulsively**
+
+&rightarrow; **working excessively**
+
+```{r , echo = FALSE, out.width="150px"}
+knitr::include_graphics("img/whlsmTime.PNG")
+```
+
+\fontsize{6.5pt}{12}\selectfont Mostly considered as a **stable trait**
+to be assessed with retrospective measures, e.g., Dutch Work Addiction
+Scale (DUWAS) \fontsize{5pt}{12}\selectfont (Schaufeli et al 2009)
+
+\endcol \begincol{.5\textwidth}
+
+\fontsize{6.5pt}{12}\selectfont
+
+**BUT** poorly explained by personality / linked to working conditions
+like overwork climate \fontsize{5pt}{12}\selectfont (Clark et al 2016;
+Mazzetti et al 2016)
+
+\fontsize{6.5pt}{12}\selectfont 
+
+**+Whole Trait Theory** \fontsize{5pt}{12}\selectfont (Fleeson, 2017)
+\fontsize{6.5pt}{12}\selectfont \newline Traits = distributions of
+**personality states**
+
+```{r , echo = FALSE, out.width="150px",fig.align='center'}
+# knitr::include_graphics("img/wholeTrait.PNG")
+```
+```{r , echo = FALSE, out.width="150px",fig.width=12,fig.height=7,fig.align='center',warning=FALSE,eval=FALSE}
+# loading packages
+library(ggplot2); library(gridExtra)
+
+# simulating & plotting distributions with equal SD
+p <- data.frame(Person=as.factor(c(rep(1,10000),rep(2,10000),rep(3,10000))),
+                Value=c(rnorm(n=10000,mean=0,sd=0.3),
+                        rnorm(n=10000,mean=1,sd=0.3),
+                        rnorm(n=10000,mean=2,sd=0.3)))
+p1 <- ggplot(p,aes(x=Value,fill=Person)) + geom_density(alpha=0.6) +
+  geom_text(aes(x=0,y=0.5),label="Person 1",size=12) +
+  geom_text(aes(x=1,y=0.5),label="Person 2",size=12) +
+  geom_text(aes(x=2,y=0.5),label="Person 3",size=12) +
+  xlab("Extroversion") + coord_flip() + ggtitle("Central tendency") +
+  theme(legend.position = "none", axis.text = element_blank(), axis.title.x = element_blank(),
+        axis.title.y=element_text(size=32), title=element_text(size=32))
+
+# simulating & plotting distributions with different SD
+p <- data.frame(Person=as.factor(c(rep(1,10000),rep(2,10000),rep(3,10000))),
+                Value=c(rnorm(n=10000,mean=0,sd=0.3),
+                        rnorm(n=10000,mean=1,sd=0.6),
+                        rnorm(n=10000,mean=2,sd=1.2)))
+p2 <- ggplot(p,aes(x=Value,fill=Person)) + geom_density(alpha=0.6) +
+  xlab("Extroversion") + coord_flip() + ggtitle("Variability") +
+  theme(legend.position = "none", axis.text = element_blank(), axis.title.x = element_blank(),
+        axis.title.y=element_text(size=32), title=element_text(size=32))
+
+# showing plot
+p <- grid.arrange(p1,p2,nrow=1)
+ggsave(p,filename="img/wholetrait.PNG")
+```
+```{r , echo = FALSE, out.width="150px",fig.align='center'}
+knitr::include_graphics("img/wholetrait.PNG")
+```
+
+\fontsize{6.5pt}{12}\selectfont \color{blue} __State workaholism__ = Daily level of compulsive overwork compared to one's \newline usual level \~ **Work craving episodes**
+
+\endcol \endcols
+
+## States of work addiction?!
+
+\begincols
+  \begincol{.4\textwidth}
+
+```{r , echo = FALSE, warning=FALSE,message=FALSE,fig.width=4,fig.height=2,out.width=140}
+rm(list=ls())
+library(ggplot2)
+p <- data.frame(Person = c(rep("Carmen",5),rep("Jose",5)),
+                Time = c(rep(1:5,5),rep(1:5,5)),
+                Workaholism = c(5.5,5,4.7,5.3,4.5,
+                                2.5,3,2.7,3.5,3.3),
+                Mean = c(rep(5,5),rep(3,5)))
+fluct <- ggplot(p,aes(x = Time, y = Workaholism, color=Person)) + 
+  geom_smooth(se=FALSE) + geom_point(size = 3) +
+  geom_hline(aes(yintercept=Mean,color=Person),size = 2, lty=2, alpha = 0.4) +
+  theme(text=element_text(size=15))
+fluct
+```
+
+\fontsize{7.5pt}{12}\selectfont \color{blue}
+__Reviewer #1__: \newline "*While I acknowledge the potential for day-to-day variations [...] I find it __challenging to align them with the concept of addiction__, which typically implies a __prolonged temporal aspect__*"
+
+\endcol 
+\begincol{.7\textwidth}
+
+\fontsize{7pt}{12}\selectfont
+
+- __Personality research__: Trait levels as distributions \newline of state levels (***baseline + variability***)
+
+- __Clinical research__: Daily fluctuations of \newline symptoms in clinical vs. nonclinical samples \newline \fontsize{6.5pt}{12}\selectfont \color{blue} - OCD: “*Today I worried about germs*” \fontsize{7pt}{12}\selectfont \color{black}
+
+- __Behav.addiction research__: Daily fluctuations of addictive behaviors in addicts vs. nonaddicts \color{blue} \newline \fontsize{6.5pt}{12}\selectfont - AUD: "*Drinking vs. nondrinking days*" \newline - PSU: "*Today I played more and more with my smartph*" \newline - GD: "*Difficult to turn down a gamble right now*" \fontsize{7pt}{12}\selectfont  \color{black}
+
+- __Drug addiction research__: "*Psychosocial factors driving goal-directed drug seeking __above [or below]__ already elevated __baselines__*" \fontsize{5.5pt}{12}\selectfont (Hoogarth, 2020)\fontsize{6.5pt}{12}\selectfont
+
+\endcol \endcols
+
+## Research questions & hypotheses
+
+- \color{blue} Can we talk about '**state Whlsm**'? \newline \color{black}  H1: Whlsm symptoms fluctuate over time \newline \color{blue}
+
+- Which are the **short-term consequences** of Whlsm? \newline \color{black} H2: Whlsm acts as a stressor (reactivity and prolonged activation, e.g., blood pressure, exhaustion, sleep quality) \newline \color{blue}
+
+- Which are the **proximal triggers** of Whlsm? \color{black} \newline H3: Internal (e.g., mood, perfectionistic concerns) & external drivers (e.g., unfinished tasks, supervisor Whlsm)
+
+# Method
+
+## Participants & procedures
+
+\begincols
+  \begincol{.5\textwidth}
+
+\fontsize{7.5pt}{12}\selectfont __Study 1__
+
+```{r , echo = FALSE, warning=FALSE,message=FALSE}
+# loading processed data
+load("data/whlsm2021_data/diary_processed_full.RData")
+wide1 <- diary[!duplicated(diary$ID),] # wide-form dataset
+```
+
+\fontsize{6.5pt}{12}\selectfont `r nrow(diary)` obs. from `r nrow(wide1)` full-time
+office workers \newline `r nrow(wide1[wide1$gender=="F",])`% women, aged `r round(mean(wide1$age),1)` ± `r round(sd(wide1$age),1)` years \newline `r round(mean(wide1$weekHours),1)` ± `r round(sd(wide1$weekHours),1)` weekly work hours.
+\fontsize{7.5pt}{12}\selectfont
+
+Design: \fontsize{6.5pt}{12}\selectfont 2-week
+ambulatory assessment protocol ($3\times10$) (see \color{blue}[osf.io/h9zvq](https://osf.io/h9zvq)\color{black})
+
+```{r , echo = FALSE, out.width="180px"}
+knitr::include_graphics("img/protocol1.PNG")
+```
+
+```{r , echo = FALSE, warning=FALSE,message=FALSE}
+wide1$Nweeks <- wide1$complObs <- wide1$complDays <- 1
+for(i in 1:nrow(wide1)){
+  if(max(diary[diary$ID==wide1[i,"ID"],"day"])>6){ wide1[i,"Nweeks"] <- 2 } # No. of weeks
+  wide1[i,"complObs"] <- nrow(diary[diary$ID==wide1[i,"ID"] & diary$aft==1,]) + # No. of complete observations
+    nrow(diary[diary$ID==wide1[i,"ID"] & diary$eve==1,]) + nrow(diary[diary$ID==wide1[i,"ID"] & diary$mor==1,])
+  wide1[i,"complDays"] <- nrow(diary[diary$ID==wide1[i,"ID"] & diary$aft==1 & diary$eve==1 & diary$aft==1,]) }
+wide1[wide1$Nweeks==1,"respRate"] <- round(100*wide1[wide1$Nweeks==1,"complObs"]/15,2) # Nweeks = 1
+wide1[wide1$Nweeks==2,"respRate"] <- round(100*wide1[wide1$Nweeks==2,"complObs"]/30,2) # Nweeks = 2
+```
+
+Response rate = `r round(mean(wide1$respRate),1)` ± `r round(sd(wide1$respRate),1)`%
+
+\endcol 
+\begincol{.5\textwidth}
+
+\fontsize{7.5pt}{12}\selectfont __Study 2__
+
+```{r , echo = FALSE, warning=FALSE,message=FALSE}
+load("data/datasets/diaryWide.RData")
+wide2 <- diaryWide[!duplicated(diaryWide$alias),]
+```
+
+\fontsize{6.5pt}{12}\selectfont `r nrow(diaryWide)` obs. from `r nrow(wide2)` young knowledge workers \newline `r nrow(wide2[wide2$gender=="F",])`% women, aged `r round(mean(wide2$age),1)` ± `r round(sd(wide2$age),1)` years \newline `r round(mean(wide2$job.hours),1)` ± `r round(sd(wide2$job.hours),1)` weekly work hours.
+\fontsize{7.5pt}{12}\selectfont
+
+Design: \fontsize{6.5pt}{12}\selectfont 2-week daily diary protocol ($4\times10$) \newline
+
+```{r , echo = FALSE, out.width="180px"}
+knitr::include_graphics("img/protocol2.PNG")
+```
+
+```{r , echo = FALSE, warning=FALSE,message=FALSE}
+wide2$complObs <- NA
+for(i in 1:nrow(wide2)){
+  wide2[i,"complObs"] <- nrow(diaryWide[diaryWide$alias==wide2[i,"alias"] & diaryWide$aft==1,]) + # No. of complete observations
+    nrow(diaryWide[diaryWide$alias==wide2[i,"alias"] & diaryWide$lunch==1,]) +
+    nrow(diaryWide[diaryWide$alias==wide2[i,"alias"] & diary$mor==1,]) }
+wide2$respRate <- round(100*wide2$complObs/30,2) 
+```
+
+Response rate = `r round(mean(wide2$respRate),1)` ± `r round(sd(wide2$respRate),1)`%
+
+\endcol \endcols
+
+## Measures
+
+\fontsize{6.5pt}{12}\selectfont
+
+```{r , echo = FALSE}
+p <- data.frame(Variable = c("State Whlsm (1-7)","Workload (1-7)",
+                             "Detachment (1-7)","Exhaustion (1-7)","Sleep (1-7)","Blood pressure (mmHg)",
+                             "Hedonic tone (1-7)","Perf. concerns (1-7)","Unf. tasks _i - 1_ (1-7)",
+                             "Supervisor overwork (1-7)",
+                             "Trait Whlsm (1-4)","OCD symptoms (0-4)","Overwork climate (1-5)","Job insecurity (1-5)"),
+                Study = c(rep("1-2",2),rep(1,4),rep(2,3),"1-2",rep(2,4)),
+                Level = c(rep("State",10),rep("Trait",4)),
+                Measure = c("6 items from DUWAS (Schaufeli et al 2009)",
+                            "3-item TDS (Menghini et al 2023)",
+                            "3 items from REQ (Sonnentag 2007)",
+                            "3 items from CBI (Kristensen et al 2005)",
+                            "4 items from MSQ (Natale et al 2014)",
+                            "Pic Solution SmartRAPID (Pikdare, Italy)",
+                            "3-item MDMQ (Menghini et al 2023)",
+                            "3 items from SAPS (Rice et al 2014)",
+                            "4 items from UTS (Syrek et al 2017)",
+                            "3 items from DUWAS (Schaufeli et al 2009)",
+                            "10-item DUWAS (Schaufeli et al 2009)",
+                            "6 items from OCI (Foa et al 2002)",
+                            "7 items from OCS (Mazzetti et al 2014)",
+                            "4 items from De Witte (2000)"))
+knitr::kable(p)
+```
+
+## Data analysis
+
+\fontsize{10pt}{12}\selectfont
+
+- Multilevel confirmatory factor analysis (MCFA) \fontsize{5pt}{12}\selectfontì
+\newline \fontsize{9pt}{12}\selectfont 
+&rightarrow; Configural cluster construct requiring equivalent factor loadings across levels = **cross-level isomorphism** \fontsize{5pt}{12}\selectfont \newline (Kim et al 2016; Stapleton et al 2016; Jack & Jorgensen 2017) \newline \fontsize{10pt}{12}\selectfont 
+
+- ICC & Level-specific reliability (McDonalds' $\omega$)  \fontsize{5pt}{12}\selectfont \newline (Geldhof et al 2014)  \newline
+\fontsize{10pt}{12}\selectfont 
+
+- Correlation analysis \fontsize{9pt}{12}\selectfont \newline &rightarrow; Homology across levels  \fontsize{5pt}{12}\selectfont \newline (Chen et al. 2005)  \newline
+\fontsize{10pt}{12}\selectfont
+
+- Multilevel regression \fontsize{9pt}{12}\selectfont \newline &rightarrow;  Level-specific consequences and antecedents 
+
+# Results
+
+## MCFA S1: Partial cross-level isomorphism?
+
+\begincols
+  \begincol{.65\textwidth}
+
+\fontsize{6.5pt}{12}\selectfont
+
+```{r , echo = FALSE, warning=FALSE,message=FALSE}
+# function to return fit indices from multiple models
+fit.ind <- function(model=NA,from_summary=FALSE,type="multilevel",models.names=NA,
+                    fits=c("npar","chisq","df","rmsea","cfi","srmr_within","srmr_between"),robust=FALSE,
+                    infocrit=TRUE,digits=3){
+  require(lavaan); require(MuMIn)
+
+  # removing level-specific fit indices when model is "monolevel"
+  if(type=="monolevel"){
+      fits <- gsub("srmr_within","srmr",fits)
+      fits <- fits[fits!="srmr_between"] }
+
+  # robust fit indices
+  if(robust==TRUE){ fits <- gsub("rmsea","rmsea.robust",
+                                 gsub("cfi","cfi.robust",
+                                      gsub("chisq","chisq.scaled",
+                                           gsub("df","df.scaled",fits)))) }
+
+  # returning dataframe of models fit indices when more than one model is considered
+  if(from_summary==FALSE){
+    if(length(model)>1){
+      fit.indices <- fitmeasures(model[[1]])[fits]
+      for(i in 2:length(model)){
+        fit.indices <- rbind(fit.indices,fitmeasures(model[[i]])[fits]) }
+      if(infocrit==TRUE){
+        fit.indices <- cbind(fit.indices,
+                             AICw=Weights(sapply(model,AIC)),BICw=Weights(sapply(model,BIC)))  }
+      if(!is.na(models.names[1])){ row.names(fit.indices) <- models.names }
+      fit.indices <- round(as.data.frame(fit.indices),digits)
+      fit.indices$BICw <- round(fit.indices$BICw,2)
+      return(as.data.frame(fit.indices))
+      } else { return(fitmeasures(model)[fits]) }
+
+    } else { # in some cases the fit indices are available only from the model's summary
+      quiet <- function(fit) { # this was written by Alicia FRANCO MARTÍNEZ on the lavaan Google group
+        sink(tempfile())
+        on.exit(sink())
+        invisible(summary(fit, standardized = TRUE, fit.measures=TRUE)) }
+      sum <- quiet(model)
+      fit.indices <- sum$FIT[fits]
+      return(fit.indices)}}
+
+# function to return reliability from MCFA
+MCFArel <- function(fit,level,items,item.labels){ require(lavaan)
+  if(level==1){
+    sl <- standardizedsolution(fit)[1:(nrow(standardizedSolution(fit))/2),] # pars within
+  } else if(level==2){
+    sl <- standardizedsolution(fit)[(nrow(standardizedSolution(fit))/2):nrow(standardizedsolution(fit)),] # pars between
+  } else { stop("Error: level can be either 1 or 2") }
+  sl <- sl$est.std[sl$op == "=~"][items] # standardized loadings of the selected items
+  names(sl) <- item.labels # item names
+  re <- 1 - sl^2 # residual variances of items
+
+  # composite reliability index
+  omega <- sum(sl)^2 / (sum(sl)^2 + sum(re))
+  return(round(omega,2))}
+
+# MCFA
+library(lavaan)
+
+# 1-factor configural invariance
+config1 <- cfa('level: 1
+                 sWHLSM =~ WHLSM1 + WHLSM2 + WHLSM3 + WHLSM4 + WHLSM5 + WHLSM6
+                 level: 2
+                 tWHLSM =~ WHLSM1 + WHLSM2 + WHLSM3 + WHLSM4 + WHLSM5 + WHLSM6', data = diary, cluster = "ID",
+                 std.lv = TRUE, estimator = "MLR")
+
+# 1-factor metric invariance
+metric1 <- cfa('level: 1
+                sWHLSM =~ L1*WHLSM1 + L2*WHLSM2 + L3*WHLSM3 + L4*WHLSM4 + L5*WHLSM5 + L6*WHLSM6
+                ## free and label variances to define factor ICC
+                sWHLSM ~~ NA*sWHLSM + wWHLSM*sWHLSM
+                level: 2
+                tWHLSM =~ L1*WHLSM1 + L2*WHLSM2 + L3*WHLSM3 + L4*WHLSM4 + L5*WHLSM5 + L6*WHLSM6
+                ## free and label variances to define factor ICC
+                tWHLSM ~~ NA*tWHLSM + bWHLSM*tWHLSM
+                ## constrain between-level variances to == ICCs
+                bWHLSM == 1 - wWHLSM ', data = diary, cluster = "ID",
+                std.lv = TRUE, estimator = "MLR")
+
+# 2-factor configural
+config2 <- cfa('level: 1
+                 sWE =~ WHLSM1 + WHLSM3 + WHLSM5
+                 sWC =~ WHLSM2 + WHLSM4 + WHLSM6
+                 level: 2
+                 tWE =~ WHLSM1 + WHLSM3 + WHLSM5
+                 tWC =~ WHLSM2 + WHLSM4 + WHLSM6', data = diary, cluster = "ID",
+                 std.lv = TRUE, estimator = "MLR")
+
+# 2-factor metric
+metric2 <- cfa('level: 1
+                sWE =~ L1*WHLSM1 + L2*WHLSM3 + L3*WHLSM5
+                sWC =~ L4*WHLSM2 + L5*WHLSM4 + L6*WHLSM6
+                ## free and label variances to define factor ICC
+                sWE ~~ NA*sWE + wWE*sWE
+                sWC ~~ NA*sWC + wWC*sWC
+                level: 2
+                tWE =~ L1*WHLSM1 + L2*WHLSM3 + L3*WHLSM5
+                tWC =~ L4*WHLSM2 + L5*WHLSM4 + L6*WHLSM6
+                ## free and label variances to define factor ICC
+                tWE ~~ NA*tWE + bWE*tWE
+                tWC ~~ NA*tWC + bWC*tWC
+                ## constrain between-level variances to == ICCs
+                bWE == 1 - wWE
+                bWC == 1 - wWC', data = diary, cluster = "ID",
+                std.lv = TRUE, estimator = "MLR")
+
+# 2-factor partial metric
+metric2.part <- cfa('level: 1
+                sWE =~ WHLSM1 + L2*WHLSM3 + L3*WHLSM5
+                sWC =~ L4*WHLSM2 + L5*WHLSM4 + L6*WHLSM6
+                ## free and label variances to define factor ICC
+                sWE ~~ NA*sWE + wWE*sWE
+                sWC ~~ NA*sWC + wWC*sWC
+                level: 2
+                tWE =~ WHLSM1 + L2*WHLSM3 + L3*WHLSM5
+                tWC =~ L4*WHLSM2 + L5*WHLSM4 + L6*WHLSM6
+                ## free and label variances to define factor ICC
+                tWE ~~ NA*tWE + bWE*tWE
+                tWC ~~ NA*tWC + bWC*tWC
+                ## constrain between-level variances to == ICCs
+                bWE == 1 - wWE
+                bWC == 1 - wWC', data = diary, cluster = "ID",
+                std.lv = TRUE, estimator = "MLR")
+# standardizedSolution(metric2.part)
+#       lhs op    rhs label est.std    se      z pvalue ci.lower ci.upper
+# 1     sWE =~ WHLSM1         0.769 0.029 26.848  0.000    0.713    0.825
+# 2     sWE =~ WHLSM3    L2   0.656 0.036 18.074  0.000    0.585    0.728
+# 3     sWE =~ WHLSM5    L3   0.537 0.044 12.132  0.000    0.450    0.624
+# 4     sWC =~ WHLSM2    L4   0.664 0.038 17.270  0.000    0.589    0.740
+# 5     sWC =~ WHLSM4    L5   0.556 0.045 12.314  0.000    0.468    0.645
+# 6     sWC =~ WHLSM6    L6   0.658 0.034 19.188  0.000    0.590    0.725
+# 7     sWE ~~    sWE   wWE   1.000 0.000     NA     NA    1.000    1.000
+# 8     sWC ~~    sWC   wWC   1.000 0.000     NA     NA    1.000    1.000
+# 9  WHLSM1 ~~ WHLSM1         0.408 0.044  9.267  0.000    0.322    0.495
+# 10 WHLSM3 ~~ WHLSM3         0.569 0.048 11.932  0.000    0.476    0.663
+# 11 WHLSM5 ~~ WHLSM5         0.712 0.048 14.967  0.000    0.618    0.805
+# 12 WHLSM2 ~~ WHLSM2         0.559 0.051 10.942  0.000    0.459    0.659
+# 13 WHLSM4 ~~ WHLSM4         0.691 0.050 13.751  0.000    0.592    0.789
+# 14 WHLSM6 ~~ WHLSM6         0.568 0.045 12.593  0.000    0.479    0.656
+# 15    sWE ~~    sWC         0.947 0.033 28.419  0.000    0.882    1.012
+# 24    tWE =~ WHLSM1         0.879 0.031 28.719  0.000    0.819    0.939
+# 25    tWE =~ WHLSM3    L2   0.823 0.050 16.329  0.000    0.724    0.922
+# 26    tWE =~ WHLSM5    L3   0.747 0.058 12.836  0.000    0.633    0.861
+# 27    tWC =~ WHLSM2    L4   0.978 0.021 46.884  0.000    0.937    1.019
+# 28    tWC =~ WHLSM4    L5   0.742 0.048 15.487  0.000    0.648    0.836
+# 29    tWC =~ WHLSM6    L6   0.911 0.033 27.803  0.000    0.847    0.975
+# 30    tWE ~~    tWE   bWE   1.000 0.000     NA     NA    1.000    1.000
+# 31    tWC ~~    tWC   bWC   1.000 0.000     NA     NA    1.000    1.000
+# 32 WHLSM1 ~~ WHLSM1         0.227 0.054  4.215  0.000    0.121    0.332
+# 33 WHLSM3 ~~ WHLSM3         0.323 0.083  3.895  0.000    0.160    0.485
+# 34 WHLSM5 ~~ WHLSM5         0.442 0.087  5.079  0.000    0.271    0.612
+# 35 WHLSM2 ~~ WHLSM2         0.044 0.041  1.068  0.286   -0.036    0.124
+# 36 WHLSM4 ~~ WHLSM4         0.449 0.071  6.321  0.000    0.310    0.589
+# 37 WHLSM6 ~~ WHLSM6         0.170 0.060  2.840  0.005    0.053    0.287
+# 38    tWE ~~    tWC         0.862 0.060 14.271  0.000    0.743    0.980
+
+# fit indices
+fit <- fit.ind(model=c(config1,metric1,config2,metric2,metric2.part),
+               models.names=c("1F conf","1F metr","2F conf","2F metr","2F metr.part"),
+               robust=TRUE)
+fit$chisq.scaled <- paste0(round(fit$chisq.scaled,1)," (",fit$df.scaled,")")
+fit$df.scaled <- fit$AICw <- fit$chisq.scaled <- fit$npar <- NULL
+fit$rmsea.robust <- gsub("0\\.",".",fit$rmsea.robust)
+fit$cfi.robust <- gsub("0\\.",".",fit$cfi.robust)
+fit$srmr_within <- gsub("0\\.",".",fit$srmr_within)
+fit$srmr_between <- gsub("0\\.",".",fit$srmr_between)
+fit$BICw <- gsub("0\\.",".",fit$BICw)
+fit[nrow(fit),] <- paste0("__",fit[nrow(fit),],"__") # bold types for the selected model
+knitr::kable(fit,col.names=c("RMSEA","CFI","SRMR$_w$","SRMR$_b$","BIC$_w$"))
+```
+
+```{r , echo = FALSE, out.width="220px"}
+knitr::include_graphics("img/mcfa1.png")
+```
+
+\endcol 
+\begincol{.35\textwidth}
+
+\fontsize{7.5pt}{12}\selectfont
+
+$N_W$ = `r nrow(na.omit(diary[,paste0("WHLSM",1:6)]))`, $N_B$ = `r nrow(wide1)` \newline
+
+Best fit for 2-factor model with **partial metric invariance** (\color{blue} not
+for item $*$\color{black}) \newline
+
+Overlapping with workload? Doesn't seem so. \newline
+
+```{r echo=FALSE,warning=FALSE,message=FALSE,tab.cap="Reliability"}
+# extracting ICCs = between-level variances
+pars <- parameterestimates(metric2.part)
+ICC.we <- gsub("0\\.",".",round(pars[pars$label=="bWE","est"],2))
+ICC.wc <- gsub("0\\.",".",round(pars[pars$label=="bWC","est"],2))
+
+# Total score ICC from lmer
+library(lme4)
+diary$WHLSM <- apply(diary[paste0("WHLSM",1:6)],1,mean)
+m <- lmer(WHLSM ~ (1|ID), data = diary)
+tau002 <- summary(m)$varcor$ID[[1]] 
+sigma2 <- summary(m)$sigma^2 # residual variance
+ICC.tot <- gsub("0\\.",".",round(tau002/(tau002 + sigma2),2))
+
+# mcfa rel
+WHLSM <- paste0("WHLSM",1:6)
+WC <- WHLSM[c(1,3,5)]
+WE <- WHLSM[c(2,4,6)]
+w.we.w <- gsub("0\\.",".",MCFArel(fit=metric2.part,level=1,items=c(1,3,5),item.labels=WE))
+w.we.b <- gsub("0\\.",".",MCFArel(fit=metric2.part,level=2,items=c(1,3,5),item.labels=WE))
+w.wc.w <- gsub("0\\.",".",MCFArel(fit=metric2.part,level=1,items=c(2,4,6),item.labels=WC))
+w.wc.b <- gsub("0\\.",".",MCFArel(fit=metric2.part,level=2,items=c(2,4,6),item.labels=WC))
+w.tot.w <- gsub("0\\.",".",MCFArel(fit=metric2.part,level=1,items=1:6,item.labels=WHLSM))
+w.tot.b <- gsub("0\\.",".",MCFArel(fit=metric2.part,level=2,items=1:6,item.labels=WHLSM))
+
+# output
+p <- data.frame(Rel=c("ICC","$\\omega_B$","$\\omega_W$"),
+           WE=c(ICC.we,w.we.b,w.we.w),
+           WC=c(ICC.wc,w.wc.b,w.wc.w),
+           Total=c(ICC.tot,w.tot.b,w.tot.w))
+colnames(p)[1] <- ""
+knitr::kable(p)
+```
+
+\endcol \endcols
+
+## MCFA S2: Full cross-level isomorphism
+
+\begincols
+  \begincol{.65\textwidth}
+
+\fontsize{6.5pt}{12}\selectfont
+
+```{r , echo = FALSE, warning=FALSE,message=FALSE}
+# MCFA
+# 1-factor configural invariance
+config1 <- cfa('level: 1
+                 swh =~ wh1 + wh2 + wh3 + wh4 + wh5 + wh6
+                 level: 2
+                 twh =~ wh1 + wh2 + wh3 + wh4 + wh5 + wh6', data = diaryWide, cluster = "alias",
+                 std.lv = TRUE, estimator = "MLR")
+
+# 1-factor metric invariance
+metric1 <- cfa('level: 1
+                swh =~ L1*wh1 + L2*wh2 + L3*wh3 + L4*wh4 + L5*wh5 + L6*wh6
+                ## free and label variances to define factor ICC
+                swh ~~ NA*swh + wwh*swh
+                level: 2
+                twh =~ L1*wh1 + L2*wh2 + L3*wh3 + L4*wh4 + L5*wh5 + L6*wh6
+                ## free and label variances to define factor ICC
+                twh ~~ NA*twh + bwh*twh
+                ## constrain between-level variances to == ICCs
+                bwh == 1 - wwh ', data = diaryWide, cluster = "alias",
+                std.lv = TRUE, estimator = "MLR")
+
+# 2-factor configural
+config2 <- cfa('level: 1
+                 sWE =~ wh1 + wh3 + wh5
+                 sWC =~ wh2 + wh4 + wh6
+                 level: 2
+                 tWE =~ wh1 + wh3 + wh5
+                 tWC =~ wh2 + wh4 + wh6', data = diaryWide, cluster = "alias",
+                 std.lv = TRUE, estimator = "MLR")
+
+# 2-factor metric
+metric2 <- cfa('level: 1
+                sWE =~ L1*wh1 + L2*wh3 + L3*wh5
+                sWC =~ L4*wh2 + L5*wh4 + L6*wh6
+                ## free and label variances to define factor ICC
+                sWE ~~ NA*sWE + wWE*sWE
+                sWC ~~ NA*sWC + wWC*sWC
+                level: 2
+                tWE =~ L1*wh1 + L2*wh3 + L3*wh5
+                tWC =~ L4*wh2 + L5*wh4 + L6*wh6
+                ## free and label variances to define factor ICC
+                tWE ~~ NA*tWE + bWE*tWE
+                tWC ~~ NA*tWC + bWC*tWC
+                ## constrain between-level variances to == ICCs
+                bWE == 1 - wWE
+                bWC == 1 - wWC', data = diaryWide, cluster = "alias",
+                std.lv = TRUE, estimator = "MLR")
+# standardizedsolution(metric2)
+#    lhs op rhs label est.std    se      z pvalue ci.lower ci.upper
+# 1  sWE =~ wh1    L1   0.657 0.040 16.316  0.000    0.578    0.736
+# 2  sWE =~ wh3    L2   0.581 0.052 11.130  0.000    0.478    0.683
+# 3  sWE =~ wh5    L3   0.527 0.038 13.733  0.000    0.452    0.602
+# 4  sWC =~ wh2    L4   0.646 0.053 12.102  0.000    0.541    0.751
+# 5  sWC =~ wh4    L5   0.556 0.049 11.282  0.000    0.459    0.652
+# 6  sWC =~ wh6    L6   0.588 0.045 13.107  0.000    0.500    0.676
+# 7  sWE ~~ sWE   wWE   1.000 0.000     NA     NA    1.000    1.000
+# 8  sWC ~~ sWC   wWC   1.000 0.000     NA     NA    1.000    1.000
+# 9  wh1 ~~ wh1         0.569 0.053 10.749  0.000    0.465    0.672
+# 10 wh3 ~~ wh3         0.663 0.061 10.944  0.000    0.544    0.782
+# 11 wh5 ~~ wh5         0.722 0.040 17.873  0.000    0.643    0.802
+# 12 wh2 ~~ wh2         0.583 0.069  8.452  0.000    0.448    0.718
+# 13 wh4 ~~ wh4         0.691 0.055 12.616  0.000    0.584    0.798
+# 14 wh6 ~~ wh6         0.654 0.053 12.414  0.000    0.551    0.758
+# 15 sWE ~~ sWC         0.934 0.052 17.997  0.000    0.833    1.036
+# 16 wh1 ~1             0.000 0.000     NA     NA    0.000    0.000
+# 17 wh3 ~1             0.000 0.000     NA     NA    0.000    0.000
+# 18 wh5 ~1             0.000 0.000     NA     NA    0.000    0.000
+# 19 wh2 ~1             0.000 0.000     NA     NA    0.000    0.000
+# 20 wh4 ~1             0.000 0.000     NA     NA    0.000    0.000
+# 21 wh6 ~1             0.000 0.000     NA     NA    0.000    0.000
+# 22 sWE ~1             0.000 0.000     NA     NA    0.000    0.000
+# 23 sWC ~1             0.000 0.000     NA     NA    0.000    0.000
+# 24 tWE =~ wh1    L1   0.886 0.045 19.846  0.000    0.799    0.974
+# 25 tWE =~ wh3    L2   0.808 0.060 13.562  0.000    0.691    0.924
+# 26 tWE =~ wh5    L3   0.837 0.074 11.343  0.000    0.692    0.981
+# 27 tWC =~ wh2    L4   0.939 0.056 16.793  0.000    0.829    1.048
+# 28 tWC =~ wh4    L5   0.750 0.055 13.554  0.000    0.642    0.859
+# 29 tWC =~ wh6    L6   0.801 0.060 13.428  0.000    0.684    0.918
+# 30 tWE ~~ tWE   bWE   1.000 0.000     NA     NA    1.000    1.000
+# 31 tWC ~~ tWC   bWC   1.000 0.000     NA     NA    1.000    1.000
+# 32 wh1 ~~ wh1         0.214 0.079  2.708  0.007    0.059    0.370
+# 33 wh3 ~~ wh3         0.348 0.096  3.612  0.000    0.159    0.536
+# 34 wh5 ~~ wh5         0.300 0.123  2.429  0.015    0.058    0.542
+# 35 wh2 ~~ wh2         0.119 0.105  1.136  0.256   -0.086    0.325
+# 36 wh4 ~~ wh4         0.437 0.083  5.268  0.000    0.275    0.600
+# 37 wh6 ~~ wh6         0.358 0.096  3.742  0.000    0.170    0.545
+# 38 tWE ~~ tWC         0.688 0.100  6.903  0.000    0.492    0.883
+# 39 wh1 ~1             2.971 0.241 12.324  0.000    2.498    3.443
+# 40 wh3 ~1             2.752 0.232 11.858  0.000    2.297    3.207
+# 41 wh5 ~1             2.549 0.208 12.272  0.000    2.142    2.956
+# 42 wh2 ~1             3.213 0.275 11.668  0.000    2.673    3.753
+# 43 wh4 ~1             3.042 0.226 13.484  0.000    2.600    3.484
+# 44 wh6 ~1             2.464 0.176 14.027  0.000    2.120    2.808
+# 45 tWE ~1             0.000 0.000     NA     NA    0.000    0.000
+# 46 tWC ~1             0.000 0.000     NA     NA    0.000    0.000
+
+
+# 2-factor partial metric
+metric2.part <- cfa('level: 1
+                sWE =~ wh1 + L2*wh3 + L3*wh5
+                sWC =~ L4*wh2 + L5*wh4 + L6*wh6
+                ## free and label variances to define factor ICC
+                sWE ~~ NA*sWE + wWE*sWE
+                sWC ~~ NA*sWC + wWC*sWC
+                level: 2
+                tWE =~ wh1 + L2*wh3 + L3*wh5
+                tWC =~ L4*wh2 + L5*wh4 + L6*wh6
+                ## free and label variances to define factor ICC
+                tWE ~~ NA*tWE + bWE*tWE
+                tWC ~~ NA*tWC + bWC*tWC
+                ## constrain between-level variances to == ICCs
+                bWE == 1 - wWE
+                bWC == 1 - wWC', data = diaryWide, cluster = "alias",
+                std.lv = TRUE, estimator = "MLR")
+
+# fit indices
+fit <- fit.ind(model=c(config1,metric1,config2,metric2,metric2.part),
+               models.names=c("1F conf","1F metr","2F conf","2F metr","2F metr.part"),
+               robust=TRUE)
+fit$chisq.scaled <- paste0(round(fit$chisq.scaled,1)," (",fit$df.scaled,")")
+fit$df.scaled <- fit$AICw <- fit$chisq.scaled <- fit$npar <- NULL
+fit$rmsea.robust <- gsub("0\\.",".",fit$rmsea.robust)
+fit$cfi.robust <- gsub("0\\.",".",fit$cfi.robust)
+fit$srmr_within <- gsub("0\\.",".",fit$srmr_within)
+fit$srmr_between <- gsub("0\\.",".",fit$srmr_between)
+fit$BICw <- gsub("0\\.",".",fit$BICw)
+fit[nrow(fit)-1,] <- paste0("__",fit[nrow(fit)-1,],"__") # bold types for the selected model
+knitr::kable(fit,col.names=c("RMSEA","CFI","SRMR$_w$","SRMR$_b$","BIC$_w$"))
+```
+
+```{r , echo = FALSE, out.width="220px"}
+knitr::include_graphics("img/mcfa2.png")
+```
+
+\endcol 
+\begincol{.35\textwidth}
+
+\fontsize{7.5pt}{12}\selectfont
+
+$N_W$ = `r nrow(na.omit(diaryWide[,paste0("wh",1:6)]))`, $N_B$ = `r nrow(wide2)` \newline
+
+\color{blue} Replaced item #1 with an item from MWS-behavioral \fontsize{5pt}{12}\selectfont(Clark et al 2020) \color{black} \newline \fontsize{7.5pt}{12}\selectfont
+
+Best fit for 2-factor model with metric invariance \newline 
+
+```{r echo=FALSE}
+# extracting ICCs = between-level variances
+pars <- parameterestimates(metric2)
+ICC.we <- gsub("0\\.",".",round(pars[pars$label=="bWE","est"],2))
+ICC.wc <- gsub("0\\.",".",round(pars[pars$label=="bWC","est"],2))
+
+# Total score ICC from lmer
+library(lme4)
+diaryWide$WHLSM <- apply(diaryWide[paste0("wh",1:6)],1,mean)
+m <- lmer(WHLSM ~ (1|alias), data = diaryWide)
+tau002 <- summary(m)$varcor$alias[[1]] 
+sigma2 <- summary(m)$sigma^2 # residual variance
+ICC.tot <- gsub("0\\.",".",round(tau002/(tau002 + sigma2),2))
+
+# mcfa rel
+WHLSM <- paste0("wh",1:6)
+WC <- WHLSM[c(1,3,5)]
+WE <- WHLSM[c(2,4,6)]
+w.we.w <- gsub("0\\.",".",MCFArel(fit=metric2,level=1,items=c(1,3,5),item.labels=WE))
+w.we.b <- gsub("0\\.",".",MCFArel(fit=metric2,level=2,items=c(1,3,5),item.labels=WE))
+w.wc.w <- gsub("0\\.",".",MCFArel(fit=metric2,level=1,items=c(2,4,6),item.labels=WC))
+w.wc.b <- gsub("0\\.",".",MCFArel(fit=metric2,level=2,items=c(2,4,6),item.labels=WC))
+w.tot.w <- gsub("0\\.",".",MCFArel(fit=metric2,level=1,items=1:6,item.labels=WHLSM))
+w.tot.b <- gsub("0\\.",".",MCFArel(fit=metric2,level=2,items=1:6,item.labels=WHLSM))
+
+# output
+p <- data.frame(Rel=c("ICC","$\\omega_b$","$\\omega_w$"),
+           WE=c(ICC.we,w.we.b,w.we.w),
+           WC=c(ICC.wc,w.wc.b,w.wc.w),
+           Total=c(ICC.tot,w.tot.b,w.tot.w))
+colnames(p)[1] <- ""
+knitr::kable(p)
+```
+
+\endcol \endcols
+
+## Pearson correlations S1
+
+\fontsize{6.5pt}{12}\selectfont
+
+```{r echo=FALSE,warning=FALSE,message=FALSE,fig.width=12,fig.height=3}
+corr.matrices <- function(data=data,text=TRUE,vars,cluster="ID",target.var=NA,
+                          m="all",var.labels=NA){ require(ggplot2); require(Rmisc); require(reshape2)
+  
+  # renaming ID variable
+  colnames(data)[which(colnames(data)==cluster)] <- "ID"
+  
+  # computing cluster means (.cm)
+  wide <- data.frame(ID=data[!duplicated(data$ID),"ID"]) # creating wide form dataset
+  for(Var in vars){ wide <- plyr::join(wide,summarySE(data,Var,"ID",na.rm=TRUE)[,c(1,3)],by="ID",type="left") } # mean scores
+  colnames(wide)[2:ncol(wide)] <- paste(colnames(wide)[2:ncol(wide)],"cm",sep=".")
+  data <- plyr::join(data,wide,by="ID",type="left") # joining cluster means to the long-form dataset
+  
+  # computing mean-centered (.mc) values
+  for(Var in vars){ data[,paste(Var,"mc",sep=".")] <- data[,Var] - data[,paste(Var,"cm",sep=".")] }
+  
+  # selecting variables
+  vars.b <- paste(vars,"cm",sep=".") # between (.cm)
+  vars.w <- paste(vars,"mc",sep=".") # within (.mc)
+  
+  # Matrix 2 (cluster means)
+  dat <- melt(cor(wide[,vars.b],wide[,vars.b],use="complete.obs",method="pearson")) 
+  if(!is.na(target.var)){ dat <- dat[dat$Var2==target.var & dat$Var1!=target.var,] }
+  if(!is.na(var.labels[1])){ Vars <- levels(as.factor(dat$Var1))[2:nlevels(as.factor(dat$Var1))]
+    for(i in 1:length(Vars)){ dat$Var1 <- gsub(Vars[i],var.labels[i],dat$Var1) }
+    dat$Var1 <- factor(dat$Var1,levels=var.labels)}
+  p2 <- ggplot(data=dat,aes(x=Var1, y=Var2, fill=value)) +
+    geom_tile() +
+    # ggtitle(paste("Between $N$ =",nrow(wide)))+labs(x="",y="")+
+    scale_fill_gradient2(low="darkblue",high="#f03b20",mid="white",midpoint=0,limit = c(-1,1), space = "Lab",
+                         name="Pearson\nCorrelation",guide="legend",breaks=round(seq(1,-1,length.out = 11),2),
+                         minor_breaks=round(seq(1,-1,length.out = 11),2)) +
+    theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(), axis.title = element_blank(),
+          axis.text.x = element_text(size=12))
+  if(text==TRUE){ p2 <- p2 + geom_text(aes(x = Var1, y = Var2, label = round(value,2)),color="black",size=5)}
+  
+  # Matrix 1 (deviations from individual means)
+  dat <- melt(cor(data[,vars.w],data[,vars.w],use="complete.obs",method="pearson"))
+  if(!is.na(target.var)){ dat <- dat[dat$Var2==target.var & dat$Var1!=target.var,] }
+  if(!is.na(var.labels[1])){ Vars <- levels(as.factor(dat$Var1))[2:nlevels(as.factor(dat$Var1))]
+    for(i in 1:length(Vars)){ dat$Var1 <- gsub(Vars[i],var.labels[i],dat$Var1) }
+    dat$Var1 <- factor(dat$Var1,levels=var.labels)}
+  p1 <- ggplot(data = dat, aes(x=Var1, y=Var2, fill=value)) + 
+    geom_tile() + 
+    # ggtitle(paste("Within $N$ =",nrow(na.omit(data[,vars.w]))))+labs(x="",y="")+
+    scale_fill_gradient2(low="darkblue",high="#f03b20",mid="white",midpoint=0,limit = c(-1,1), space = "Lab",
+                         name="Pearson\nCorrelation",guide="legend",breaks=round(seq(1,-1,length.out = 11),2),
+                         minor_breaks=round(seq(1,-1,length.out = 11),2)) +
+    theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(), axis.title = element_blank(),
+          axis.text.x = element_text(size=12))
+  if(text==TRUE){ p1 <- p1 + geom_text(aes(x = Var1, y = Var2, label = round(value,2)),color="black",size=5)}
+  
+  if(m=="all"){ return(list(p1,p2))
+  } else if(m==1){ return(p1) } else { return(p2) }
+}
+```
+
+```{r echo=FALSE,warning=FALSE,message=FALSE,fig.width=12,fig.height=3}
+# computing aggregate scores
+diary$WHLSM.retro <- apply(diary[,paste0("duwas",1:10)],1,mean)
+diary$WL <- apply(diary[,paste0("WL",1:3)],1,mean)
+diary$EE <- apply(diary[,paste0("EE",c(1,2,4))],1,mean)
+diary$SD <- apply(diary[,paste0("SQ",1:4)],1,mean)
+diary$PD <- apply(diary[,paste0("R.det",1:3)],1,mean)
+
+# sample size within
+Vars <- c("WHLSM","WHLSM.retro","WL","EE","PD","SD","SBP_aft","SBP_eve")
+nw <- nrow(na.omit(diary[,Vars]))
+```
+
+Person-mean-centered diary measure (state), *N* = `r nw`
+```{r echo=FALSE,warning=FALSE,message=FALSE,fig.width=10,fig.height=1}
+corr.matrices(data=diary,text=TRUE,vars=Vars,
+              cluster="ID",target.var="WHLSM.mc",m=1,
+              var.labels = c("Workaholism\nRetrospective","Workload","Emotional\nexhaustion","Psychological\ndetachment",
+              "Sleep\ndisturbances","Systolic BP\nAfternoon","Systolic BP\nEvening")) + theme(legend.position = "none")
+```
+Person-mean aggregates of diary measure (trait), *N* = `r nrow(wide1)`
+```{r echo=FALSE,warning=FALSE,message=FALSE,fig.width=10,fig.height=1}
+corr.matrices(data=diary,text=TRUE,Vars,
+              cluster="ID",target.var="WHLSM.cm",m=2,
+              var.labels = c("Workaholism\nRetrospective","Workload","Emotional\nexhaustion","Psychological\ndetachment",
+              "Sleep\ndisturbances","Systolic BP\nAfternoon","Systolic BP\nEvening")) + theme(legend.position = "none")
+```
+Retrospective DUWAS measure ("gold standard", trait), *N* = `r nrow(wide1)`
+```{r echo=FALSE,warning=FALSE,message=FALSE,fig.width=10,fig.height=1}
+corr.matrices(data=diary,text=TRUE,vars=c("WHLSM.retro","WHLSM",Vars[3:length(Vars)]),
+              cluster="ID",target.var="WHLSM.retro.cm",m=2,
+              var.labels = c("Mean of state\nworkaholism","Workload","Emotional\nexhaustion","Psychological\ndetachment",
+              "Sleep\ndisturbances","Systolic BP\nAfternoon","Systolic BP\nEvening")) + theme(legend.position = "none")
+```
+
+\fontsize{6.5pt}{12}\selectfont
+
+`r fontawesome::fa(name = "face-smile", height = "1em")` Similar (proportional?) correlations across levels &rightarrow; **homology**
+
+`r fontawesome::fa(name = "face-smile-wink", height = "1em")` Consistency with the retrospective DUWAS &rightarrow; **convergent validity**
+
+`r fontawesome::fa(name = "face-frown", height = "1em")` Strong correlations with workload &rightarrow; **lack of discriminant validity?**
+
+## Pearson correlations S2
+
+\fontsize{6.5pt}{12}\selectfont
+
+```{r echo=FALSE,warning=FALSE,message=FALSE,fig.width=12,fig.height=3}
+# computing aggregate scores
+diaryWide$WHLSM.retro <- apply(diaryWide[,paste0("tw_",1:10)],1,mean)
+diaryWide$WL <- apply(diaryWide[,paste0("jd",1:3)],1,mean)
+diaryWide$ht3.m <- 3 - diaryWide$ht3.m
+diaryWide$HT <- apply(diaryWide[,paste0("ht",1:3,".m")],1,mean)
+diaryWide$PC <- apply(diaryWide[,paste0("pc",1:3)],1,mean)
+diaryWide$SW <- apply(diaryWide[,paste0("sw",1:3)],1,mean)
+diaryWide$ut4 <- 8 - diaryWide$ut4
+diaryWide$UT <- apply(diaryWide[,paste0("ut",1:4)],1,mean)
+diaryWide$OCD <- apply(diaryWide[,paste0("ocs_",1:6)],1,mean)
+diaryWide$OE <- apply(diaryWide[,paste0("oe_",1:7)],1,mean)
+diaryWide$JI <- apply(diaryWide[,paste0("ji_",1:5)],1,mean)
+
+# moving unfinished tasks one day ahead (i.e., lagging)
+db <- diaryWide[!diaryWide$day %in% c(5,10),c("alias","day","UT")]
+db$day <- db$day + 1
+colnames(db)[3] <- "UT.db"
+diaryWide <- plyr::join(diaryWide,db,by=c("alias","day"))
+
+# sample size within
+Vars <- c("WHLSM","WHLSM.retro","WL","HT","PC","SW","UT.db","OCD","OE","JI")
+nw <- nrow(na.omit(diaryWide[,Vars]))
+```
+
+Person-mean-centered diary measure (state), \color{red} *N* = `r nw` \color{black}
+```{r echo=FALSE,warning=FALSE,message=FALSE,fig.width=10,fig.height=1}
+corr.matrices(data=diaryWide,text=TRUE,vars=c("WHLSM","WHLSM.retro","WL","HT","PC","SW","UT.db","OCD","OE","JI"),
+              cluster="alias",target.var="WHLSM.mc",m=1,
+              var.labels = c("Workaholism\nRetrospective","Workload",
+                             "Morning\nmood","Perfect.\nconcerns",
+                             "Supervisor\noverworkm","Unfinished\ntasks i - 1",
+                             "OCD\nsymptoms","Overwork\nendorsement","Job\ninsecurity")) + theme(legend.position = "none")
+```
+Person-mean aggregates of diary measure (trait), *N* = `r nrow(wide2)`
+```{r echo=FALSE,warning=FALSE,message=FALSE,fig.width=10,fig.height=1}
+corr.matrices(data=diaryWide,text=TRUE,vars=c("WHLSM","WHLSM.retro","WL","HT","PC","SW","UT","OCD","OE","JI"),
+              cluster="alias",target.var="WHLSM.cm",m=2,
+              var.labels = c("Workaholism\nRetrospective","Workload",
+                             "Morning\nmood","Perfect.\nconcerns",
+                             "Supervisor\noverwork","Unfinished\ntasks",
+                             "OCD\nsymptoms","Overwork\nendorsement","Job\ninsecurity")) + theme(legend.position = "none")
+```
+Retrospective DUWAS measure ("gold standard", trait), *N* = `r nrow(wide2)`
+```{r echo=FALSE,warning=FALSE,message=FALSE,fig.width=10,fig.height=1.2}
+corr.matrices(data=diaryWide,text=TRUE,vars=c("WHLSM.retro","WHLSM","WL","HT","PC","SW","UT","OCD","OE","JI"),
+              cluster="alias",target.var="WHLSM.retro.cm",m=2,
+              var.labels = c("Mean of\nstate\nworkaholism","Workload",
+                             "Morning\nmood","Perfect.\nconcerns",
+                             "Supervisor\noverwork","Unfinished\ntasks",
+                             "OCD\nsymptoms","Overwork\nendorsement","Job\ninsecurity")) + theme(legend.position = "none")
+```
+
+\fontsize{6.5pt}{12}\selectfont
+
+`r fontawesome::fa(name = "face-smile", height = "1em")` Similar (proportional?) correlations across levels
+
+`r fontawesome::fa(name = "face-smile", height = "1em")` Moderate consistency with the retrospective DUWAS except for \color{blue} supervisor overwork \color{blue}
+
+`r fontawesome::fa(name = "face-meh", height = "1em")` Moderate correlations with workload
+
+## Multilevel modeling: Consequences & antecedents
+
+\begincols
+  \begincol{.35\textwidth}
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+library(lme4); library(ggplot2); library(sjPlot); library(gridExtra)
+
+# Study 1 data preparation
+# ...................................................
+
+# Data filtering based on compliance
+clean <- diary[0,] 
+for(ID in levels(diary$ID)){ 
+  if(nrow(diary[diary$ID==ID & diary$aft==1 & diary$eve==1 & diary$mor==1,]) >= 3){ 
+    clean <- rbind(clean,diary[diary$ID==ID,]) }}
+clean$ID <- as.factor(as.character(clean$ID)) # resetting ID levels
+
+# Data filtering based on blood pressure criteria
+cleanBP <- clean[clean$bp_drugs=="No" & clean$cv_dysf=="No",]
+cleanBP$ID <- as.factor(as.character(cleanBP$ID)) # resetting ID levels
+
+# list-wise & mean centering SBP_aft
+cleanBP_aft <- as.data.frame(na.omit(cleanBP[,c("ID","SBP_aft","DBP_aft", # grouping and dependent variables
+                                                "gender","age","BMI","WHLSM", # core predictors
+                                                "sleep_dysf","psy_drugs","horm_drugs", # for robustness checks
+                                                "confounders_aft","flagBP_aft","flagTime","careless",
+                                                "position","children")])) 
+cleanBP_aft$ID <- as.factor(as.character(cleanBP_aft$ID)) # resetting participant identifier levels
+wide <- cleanBP_aft[!duplicated(cleanBP_aft$ID),] 
+for(Var in c("WHLSM")){ # person-mean-centering lv-1 continuous predictors
+  wide <- cbind(wide,aggregate(cleanBP_aft[,Var],list(cleanBP_aft$ID),mean)[,2]) # individual means
+  colnames(wide)[ncol(wide)] <- paste0(Var,".cm")
+  cleanBP_aft <- join(cleanBP_aft,wide[,c("ID",paste0(Var,".cm"))],by="ID",type="left") # joining to long-form df
+  cleanBP_aft[,paste0(Var,".mc")] <- cleanBP_aft[,Var] - cleanBP_aft[,paste0(Var,".cm")] } # mean-centered scores
+for(Var in c("age","BMI","WHLSM.cm")){ # grand-mean-centering lv-2 continuous predictors
+  cleanBP_aft[,paste0(Var,".gmc")] <- cleanBP_aft[,Var] - mean(wide[,Var]) }
+
+# list-wise deletion & mean centering EE
+cleanEE <- as.data.frame(na.omit(clean[,c("ID","EE","gender","PD","WHLSM", # core variables
+                                          "flagTime","careless","day", # for robustness checks
+                                          "position","children")])) 
+cleanEE$ID <- as.factor(as.character(cleanEE$ID)) # resetting participant identifier levels
+wide <- cleanEE[!duplicated(cleanEE$ID),] 
+for(Var in c("PD","WHLSM")){ # person-mean-centering lv-1 continuous predictors
+  wide <- cbind(wide,aggregate(cleanEE[,Var],list(cleanEE$ID),mean)[,2]) # computing individual means
+  colnames(wide)[ncol(wide)] <- paste0(Var,".cm")
+  cleanEE <- join(cleanEE,wide[,c("ID",paste0(Var,".cm"))],by="ID",type="left") # joining with long-form data
+  cleanEE[,paste0(Var,".mc")] <- cleanEE[,Var] - cleanEE[,paste0(Var,".cm")] } # computing mean-centered scores
+for(Var in c("WHLSM.cm")){ # grand-mean-centering lv-2 continuous predictors
+  cleanEE[,paste0(Var,".gmc")] <- cleanEE[,Var] - mean(wide[,Var]) }
+
+# list-wise deletion & mean centering SD
+cleanSD <- as.data.frame(na.omit(clean[,c("ID","SD","gender","PD","WHLSM", # core variables
+                                          "sleep_dysf","flagTime","careless", # for robustness checks
+                                          "position","children")])) 
+cleanSD$ID <- as.factor(as.character(cleanSD$ID)) # resetting participant identifier level
+wide <- cleanSD[!duplicated(cleanSD$ID),] 
+for(Var in c("PD","WHLSM")){ # person-mean-centering lv-1 continuous predictors
+  wide <- cbind(wide,aggregate(cleanSD[,Var],list(cleanSD$ID),mean)[,2]) # computing individual means
+  colnames(wide)[ncol(wide)] <- paste0(Var,".cm")
+  cleanSD <- join(cleanSD,wide[,c("ID",paste0(Var,".cm"))],by="ID",type="left") # joining with long-form data
+  cleanSD[,paste0(Var,".mc")] <- cleanSD[,Var] - cleanSD[,paste0(Var,".cm")] } # computing mean-centered scores
+for(Var in c("WHLSM.cm")){ # grand-mean-centering lv-2 continuous predictors
+  cleanSD[,paste0(Var,".gmc")] <- cleanSD[,Var] - mean(wide[,Var]) }
+
+# Study 1 fitting selected models
+# ...................................................
+m2_SBP_aft <- lmer(SBP_aft ~ gender + age.gmc + BMI.gmc + WHLSM.cm.gmc + WHLSM.mc + (1|ID),
+                   data=cleanBP_aft)
+m2_EE <- lmer(EE ~ gender + PD.mc + WHLSM.cm.gmc + WHLSM.mc + (1|ID),
+              data=cleanEE)
+m3_SD <- lmer(SD ~ gender + PD.mc + WHLSM.cm.gmc + WHLSM.mc + WHLSM.mc + WHLSM.mc:PD.mc + (1|ID), 
+              data=cleanSD)
+
+# Study 1 plotting
+# ...................................................
+pEE <- plot_model(m2_EE,type="pred",terms="WHLSM.mc",colors="bw",
+                  alpha=0.4,axis.title=c("State workaholism","Emotional exhaustion")) + 
+  ggtitle(paste0("N = ",nrow(cleanEE),", controlling for gender & trait Whlsm")) +
+  theme(plot.title = element_text(size=12,color="blue"),
+        axis.title = element_text(size=15))
+pBP <- plot_model(m2_SBP_aft,type="pred",terms="WHLSM.mc",colors="bw",
+                  alpha=0.4,axis.title=c("State workaholism","Afternoon SBP (mmHg)")) + 
+  ggtitle(paste0("N = ",nrow(cleanBP_aft),", controlling for age, BMI, gender & trait Whlsm")) +
+  theme(plot.title = element_text(size=10,color="blue"),
+        axis.title = element_text(size=15))
+pSD <- plot_model(m3_SD,type="pred",terms=c("WHLSM.mc","PD.mc [-1.36,1.36]"),colors="bw",
+           alpha=0.4,legend.title="Psychological\ndetachment",axis.title=c("State workaholism","Sleep disturbances")) +
+  scale_color_manual(labels=c("-1 SD","+1 SD"),values=c("black","#666666")) +
+  scale_linetype_manual(labels=c("-1 SD","+1 SD"),values=c("solid","dashed")) +
+  scale_fill_manual(labels=c("-1 SD","+1 SD"),values=c("black","#666666")) + 
+  ggtitle(paste0("N = ",nrow(cleanSD),", controlling for gender & trait Whlsm")) +
+  theme(plot.title = element_text(size=12,color="blue"),
+        axis.title = element_text(size=15),legend.title = element_text(size=15))
+```
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+library(lme4); library(ggplot2); library(sjPlot); library(gridExtra)
+
+# Study 2 data preparation
+# ...................................................
+
+# Data filtering based on compliance HT (mor) and PC (lunch)
+diaryWide$ID <- as.factor(as.character(diaryWide$alias))
+clean <- diaryWide[0,] 
+for(ID in levels(diaryWide$ID)){ 
+  if(nrow(diaryWide[diaryWide$ID==ID & 
+                    !is.na(diaryWide$HT) & !is.na(diaryWide$PC) & !is.na(diaryWide$WHLSM),]) >= 3){ 
+    clean <- rbind(clean,diaryWide[diaryWide$ID==ID,]) }}
+clean$ID <- as.factor(as.character(clean$ID)) # resetting ID levels
+# nrow(clean) # 722
+
+# Data filtering based on WHLSM
+clean2 <- diaryWide[0,] 
+for(ID in levels(diaryWide$ID)){ 
+  if(nrow(diaryWide[diaryWide$ID==ID & !is.na(diaryWide$WHLSM),]) >= 3){ 
+    clean2 <- rbind(clean2,diaryWide[diaryWide$ID==ID,]) }}
+clean2$ID <- as.factor(as.character(clean2$ID)) # resetting ID levels
+# nrow(clean2) # 839
+
+# Data filtering based on WHLSM and UT.db
+clean3 <- diaryWide[0,] 
+for(ID in levels(diaryWide$ID)){ 
+  if(nrow(diaryWide[diaryWide$ID==ID & !!is.na(diaryWide$UT.db) & !is.na(diaryWide$WHLSM),]) >= 3){ 
+    clean3 <- rbind(clean3,diaryWide[diaryWide$ID==ID,]) }}
+clean3$ID <- as.factor(as.character(clean3$ID)) # resetting ID levels
+# nrow(clean3) # 432
+
+# Data filtering based on WHLSM and SW
+clean4 <- diaryWide[0,] 
+for(ID in levels(diaryWide$ID)){ 
+  if(nrow(diaryWide[diaryWide$ID==ID & !is.na(diaryWide$SW) & !is.na(diaryWide$WHLSM),]) >= 3){ 
+    clean4 <- rbind(clean4,diaryWide[diaryWide$ID==ID,]) }}
+clean4$ID <- as.factor(as.character(clean4$ID)) # resetting ID levels
+# nrow(clean4) # 748
+
+# list-wise & mean centering based on WHLSM (aft), HT (mor), and PC (lunch)
+cleanHT.PC <- as.data.frame(na.omit(clean[,c("ID","WHLSM","gender","HT","PC","OCD","OE","JI")]))
+cleanHT.PC$ID <- as.factor(as.character(cleanHT.PC$ID)) # resetting participant identifier levels
+wide <- cleanHT.PC[!duplicated(cleanHT.PC$ID),] 
+for(Var in c("HT","PC")){ # person-mean-centering lv-1 continuous predictors
+  wide <- cbind(wide,aggregate(cleanHT.PC[,Var],list(cleanHT.PC$ID),mean)[,2]) # individual means
+  colnames(wide)[ncol(wide)] <- paste0(Var,".cm")
+  cleanHT.PC <- join(cleanHT.PC,wide[,c("ID",paste0(Var,".cm"))],by="ID",type="left") # joining to long-form df
+  cleanHT.PC[,paste0(Var,".mc")] <- cleanHT.PC[,Var] - cleanHT.PC[,paste0(Var,".cm")] } # mean-centered scores
+for(Var in c("OCD","OE","JI")){ # grand-mean-centering lv-2 continuous predictors
+  cleanHT.PC[,paste0(Var,".gmc")] <- cleanHT.PC[,Var] - mean(wide[,Var]) }
+# nrow(cleanHT.PC) # 477
+
+# list-wise & mean centering based on WHLSM
+cleanWH <- as.data.frame(na.omit(clean[,c("ID","WHLSM","gender","OCD","OE","JI")]))
+cleanWH$ID <- as.factor(as.character(cleanWH$ID)) # resetting participant identifier levels
+wide <- cleanWH[!duplicated(cleanWH$ID),] 
+for(Var in c("OCD","OE","JI")){ # grand-mean-centering lv-2 continuous predictors
+  cleanWH[,paste0(Var,".gmc")] <- cleanWH[,Var] - mean(wide[,Var]) }
+# nrow(cleanWH) # 555
+
+# list-wise & mean centering based on WHLSM (aft) & UT.db (prev aft)
+cleanUT <- as.data.frame(na.omit(clean[,c("ID","WHLSM","gender","OCD","OE","JI","UT.db")]))
+cleanUT$ID <- as.factor(as.character(cleanUT$ID)) # resetting participant identifier levels
+wide <- cleanUT[!duplicated(cleanUT$ID),] 
+for(Var in c("UT.db")){ # person-mean-centering lv-1 continuous predictors
+  wide <- cbind(wide,aggregate(cleanUT[,Var],list(cleanUT$ID),mean)[,2]) # individual means
+  colnames(wide)[ncol(wide)] <- paste0(Var,".cm")
+  cleanUT <- join(cleanUT,wide[,c("ID",paste0(Var,".cm"))],by="ID",type="left") # joining to long-form df
+  cleanUT[,paste0(Var,".mc")] <- cleanUT[,Var] - cleanUT[,paste0(Var,".cm")] } # mean-centered scores
+for(Var in c("OCD","OE","JI")){ # grand-mean-centering lv-2 continuous predictors
+  cleanUT[,paste0(Var,".gmc")] <- cleanUT[,Var] - mean(wide[,Var]) }
+# nrow(cleanUT) # 367
+
+# list-wise & mean centering based on WHLSM (aft) & SW (prev aft)
+cleanSW <- as.data.frame(na.omit(clean[,c("ID","WHLSM","gender","OCD","OE","JI","SW","bossToday")]))
+cleanSW$ID <- as.factor(as.character(cleanSW$ID)) # resetting participant identifier levels
+wide <- cleanSW[!duplicated(cleanSW$ID),] 
+for(Var in c("SW")){ # person-mean-centering lv-1 continuous predictors
+  wide <- cbind(wide,aggregate(cleanSW[,Var],list(cleanSW$ID),mean)[,2]) # individual means
+  colnames(wide)[ncol(wide)] <- paste0(Var,".cm")
+  cleanSW <- join(cleanSW,wide[,c("ID",paste0(Var,".cm"))],by="ID",type="left") # joining to long-form df
+  cleanSW[,paste0(Var,".mc")] <- cleanSW[,Var] - cleanSW[,paste0(Var,".cm")] } # mean-centered scores
+for(Var in c("OCD","OE","JI")){ # grand-mean-centering lv-2 continuous predictors
+  cleanSW[,paste0(Var,".gmc")] <- cleanSW[,Var] - mean(wide[,Var]) }
+# nrow(cleanSW) # 495
+
+# Study 2 fitting and selecting models
+# ...................................................
+m0 <- lmer(WHLSM ~ (1|ID), data=cleanHT.PC)
+m1 <- lmer(WHLSM ~ HT.mc + (1|ID), data=cleanHT.PC) # HT not working (out)
+# anova(m0,m1) # chi(1) = 0.45, p = .50
+# Weights(AIC(m0,m1)) # m1 = .05
+m1 <- lmer(WHLSM ~ PC.mc + (1|ID), data=cleanHT.PC) # PC not working (out)
+# anova(m0,m1) # chi(1) = 1.56, p = .21
+# Weights(AIC(m0,m1)) # m1 = .07
+m0 <- lmer(WHLSM ~ (1|ID), data=cleanUT)
+m1 <- lmer(WHLSM ~ UT.db.mc + (1|ID), data=cleanUT) # UT.db not working (out)
+# anova(m0,m1) # chi(1) = 0.31, p = .57
+# Weights(AIC(m0,m1)) # m1 = .05
+m0 <- lmer(WHLSM ~ (1|ID), data=cleanSW)
+m1 <- lmer(WHLSM ~ SW.mc + (1|ID), data=cleanSW) # sw working (in)
+# anova(m0,m1) # chi(1) = 10.21, p = .001
+# Weights(AIC(m0,m1)) # m1 = .81 (in)
+m2 <- lmer(WHLSM ~ SW.mc + OCD.gmc + (1|ID), data=cleanSW) # OCD not working (out)
+# anova(m1,m2) # chi(1) = 0.30, p = .58
+# Weights(AIC(m0,m1,m2)) # m1 = .13
+m2 <- lmer(WHLSM ~ SW.mc + OE.gmc + (1|ID), data=cleanSW) # OE working (in)
+# anova(m1,m2) # chi(1) = 4.68, p = .03
+# Weights(AIC(m0,m1,m2)) # m2 = .51
+m3 <- lmer(WHLSM ~ SW.mc + OE.gmc + JI.gmc + (1|ID), data=cleanSW) # JI not working (out)
+# anova(m2,m3) # chi(1) = 0.56, p = .45
+# Weights(AIC(m0,m1,m2,m3)) # m3 = .15
+m3 <- lmer(WHLSM ~ SW.mc + OE.gmc + bossToday + (1|ID), data=cleanSW) # bossToday not working (out)
+# anova(m2,m3) # chi(1) = 2.83, p = .09
+# Weights(AIC(m0,m1,m2,m3)) # m3 = .19
+
+# Study 1 plotting
+# ...................................................
+pEE <- plot_model(m2_EE,type="pred",terms="WHLSM.mc",colors="bw",
+                  alpha=0.4,axis.title=c("State workaholism","Emotional exhaustion")) + 
+  ggtitle(paste0("N = ",nrow(cleanEE),", controlling for gender & trait Whlsm")) +
+  theme(plot.title = element_text(size=12,color="blue"),
+        axis.title = element_text(size=15))
+pBP <- plot_model(m2_SBP_aft,type="pred",terms="WHLSM.mc",colors="bw",
+                  alpha=0.4,axis.title=c("State workaholism","Afternoon SBP (mmHg)")) + 
+  ggtitle(paste0("N = ",nrow(cleanBP_aft),", controlling for age, BMI, gender & trait Whlsm")) +
+  theme(plot.title = element_text(size=10,color="blue"),
+        axis.title = element_text(size=15))
+pSD <- plot_model(m3_SD,type="pred",terms=c("WHLSM.mc","PD.mc [-1.36,1.36]"),colors="bw",
+           alpha=0.4,legend.title="Psychological\ndetachment",axis.title=c("State workaholism","Sleep disturbances")) +
+  scale_color_manual(labels=c("-1 SD","+1 SD"),values=c("black","#666666")) +
+  scale_linetype_manual(labels=c("-1 SD","+1 SD"),values=c("solid","dashed")) +
+  scale_fill_manual(labels=c("-1 SD","+1 SD"),values=c("black","#666666")) + 
+  ggtitle(paste0("N = ",nrow(cleanSD),", controlling for gender & trait Whlsm")) +
+  theme(plot.title = element_text(size=12,color="blue"),
+        axis.title = element_text(size=15),legend.title = element_text(size=15))
+
+# Study 2 plotting
+pSW <- plot_model(m3,type="pred",terms="SW.mc",colors="bw",
+                  alpha=0.4,axis.title=c("Supervisor overwork","State workaholism")) + 
+  ggtitle(paste0("N = ",nrow(cleanSW),", best model with 2 predictors")) +
+  theme(plot.title = element_text(size=12,color="blue"),
+        axis.title = element_text(size=15))
+pOE <- plot_model(m3,type="pred",terms="OE.gmc",colors="bw",
+                  alpha=0.4,axis.title=c("Overwork endorsement","Trait workaholism")) +
+  theme(plot.title = element_blank(),
+        axis.title = element_text(size=15))
+```
+
+```{r echo=FALSE,warning=FALSE,message=FALSE,fig.width=4,fig.height=7,out.width="175px",out.height="210px"}
+grid.arrange(pEE,pBP,pSD,nrow=3)
+```
+
+\endcol
+\begincol{.35\textwidth}
+
+```{r echo=FALSE,warning=FALSE,message=FALSE,fig.width=4,fig.height=7,out.width="175px",out.height="210px"}
+grid.arrange(pSW,pOE,nrow=2)
+```
+
+\endcol
+\begincol{.3\textwidth}
+
+\fontsize{8pt}{12}\selectfont
+
+e.g., "*This morning my supervisor stayed busy and kept many irons in the fire*" \newline \newline \newline \newline \newline \newline e.g., "*Management encourages overtime work*"
+
+\endcol \endcols  
+
+# Discussion
+
+## Towards the conceptualization of daily \newline dynamics in state workaholism
+
+\begincols
+  \begincol{.5\textwidth}
+
+```{r , echo = FALSE, warning=FALSE,message=FALSE,fig.width=4,fig.height=2,out.width=140,fig.align='right'}
+p <- data.frame(Person = c(rep("Carmen",5),rep("Jose",5)),
+                Time = c(rep(1:5,5),rep(1:5,5)),
+                Workaholism = c(5.5,5,4.7,5.3,4.5,
+                                2.5,3,2.7,3.5,3.3),
+                Mean = c(rep(5,5),rep(3,5)))
+fluct <- ggplot(p,aes(x = Time, y = Workaholism, color=Person)) + 
+  geom_smooth(se=FALSE) + geom_point(size = 3) +
+  geom_hline(aes(yintercept=Mean,color=Person),size = 2, lty=2, alpha = 0.4) +
+  theme(text=element_text(size=15))
+fluct
+```
+
+\endcol 
+\begincol{.6\textwidth}
+
+\fontsize{8pt}{12}\selectfont
+
+- Cross-level invariance
+
+- Cross-level homology
+
+- Reactivity & prolonged activation
+
+- Management & supervision
+
+\endcol \endcols
+
+\fontsize{10pt}{12}\selectfont 
+
+- \color{blue} Can we talk about 'state Whlsm'? \newline \color{black} H1: Substantial & meaningful **fluctuations** around baselines \newline \color{blue}
+
+- Which are the hort-term consequences of Whlsm? \newline \color{black} H2: Pathogenetically similar to job demands (**allostatic load**) \newline \color{blue}
+
+- Which are the proximal triggers of Whlsm? \color{black} \newline H3: Distal & proximal **social triggers**
+
+## Implications
+
+\begincols
+  \begincol{.5\textwidth}
+
+```{r , echo = FALSE, out.height = "80px",out.width = "150px"}
+knitr::include_graphics("img/practical.png")
+```
+
+On the practical side
+
+\fontsize{10pt}{12}\selectfont 
+
+- Whlsm contributes to \newline the **costs** of work stress (*overwork disorders*)
+
+- Primary prevention: **managerial training**
+
+- Secondary prevention: **psychological detachment**
+
+\endcol 
+\begincol{.5\textwidth}
+
+```{r , echo = FALSE, out.height=="80px",out.width = "150px"}
+knitr::include_graphics("img/whlsmTime.PNG")
+```
+
+On the theoretical side
+
+\fontsize{10pt}{12}\selectfont 
+
+- *How quickly do these fluctuations occur? How large are them? How quickly do employees return to their baseline level?* \fontsize{6pt}{12}\selectfont  (thx Reviewer #1) \fontsize{10pt}{12}\selectfont 
+
+>- Whlsm vs. workload \newline (and anticipated workload)
+
+\endcol \endcols
+
+## Thank you!
+
+
+\begincols
+  \begincol{1\textwidth}
+
+```{=tex}
+\begin{center} 
+```
+
+\fontsize{6pt}{12}\selectfont _16th Conference _
+
+\fontsize{9pt}{12}\selectfont _European Academy of Occupational Health Psychology_
+
+\fontsize{6pt}{12}\selectfont Granada, June 5-7 2024
+
+Symposium: _Dynamic Perspectives on Occupational Health Research_
+
+```{r , echo = FALSE, out.width="200px",warning=FALSE,message=FALSE,fig.align='center'}
+knitr::include_graphics("img/people.PNG")
+```
+
+\fontsize{10pt}{12}\selectfont Luca Menghini, Ph.D.
+
+\fontsize{6.5pt}{12}\selectfont Department of General Psychology, University of Padova
+
+\fontsize{7.5pt}{12}\selectfont \color{blue}luca.menghini@unipd.it
+
+\fontsize{6.5pt}{12}\selectfont `r fontawesome::fa(name = "researchgate", fill="#65A1DF",height = "1em")` [profile/Luca-Menghini](https://www.researchgate.net/profile/Luca-Menghini)  `r fontawesome::fa(name = "twitter", fill="#65A1DF",height = "1em")` [@LuMenPsy](https://twitter.com/LuMenPsy) `r fontawesome::fa(name = "linkedin", fill="#65A1DF",height = "1em")` [in/menghiniluca](https://linkedin.com/in/menghiniluca/) `r fontawesome::fa(name = "github", fill="#65A1DF",height = "1em")` [Luca-Menghini](https://github.com/Luca-Menghini)
+
+\fontsize{6pt}{12}\selectfont \color{black} R code available from \color{blue} [https://luca-menghini.github.io/presentations](https://luca-menghini.github.io/presentations)
+
+```{=tex}
+\end{center}
+```
+
+\endcol \begincol{0\textwidth}
+
+\endcol \endcols
+
+# Extra slides
+
+## State workaholism scale
+
+\fontsize{6.5pt}{12}\selectfont
+
+```{r , echo = FALSE}
+p <- data.frame(Italian = c("1. Mi è sembrato di essere di fretta e in corsa contro il tempo (S1) / Oggi ho lavorato più di quanto richiesto dal mio lavoro (S2)",
+                            "2. È stato importante per me continuare a lavorare intensamente, anche quando ho dovuto fare cose che non mi piacevano",
+                            "3. Mi sono ritrovata a fare 2/3 cose contemporaneamente (es. consumare il pranzo, scrivere un promemoria e stare al telefono)",
+                            "4. Ho sentito qualcosa dentro di me che mi spingeva a lavorare intensamente",
+                            "5. Ho continuato a lavorare dopo che i miei colleghi avevano smesso",
+                            "6. Mi sono sentita obbligata a lavorare intensamente, anche se non era piacevole"),
+                English = c("1. I have seemed to be in in a hurry and racing against the clock (S1) / Today I worked beyond my job requirements (S2)",
+                            "2. It was important to me to work hard even when I wasn’t enjoining what I was doing",
+                            "3. I have found myself doing two or three things at one time such as eating lunch and writing a memo, while taking on the telephone",
+                            "4. I have felt something inside me that has driven me to work hard",
+                            "5. I have found myselfcontinuing to work after my co-workers had called it quits",
+                            "6. I have felt obliged to work hard, even when it was not enjoyable"),
+                Dim = rep(c("WE","WC"),3))
+knitr::kable(p)
+```
+
+## MCFA  Whlsm vs. External job demands
+
+\fontsize{7pt}{12}\selectfont
+
+```{=tex}
+\begin{center} 
+```
+
+Study 1
+```{r , echo = FALSE, warning=FALSE,message=FALSE}
+m1 <- cfa('level: 1
+           sWE =~ WHLSM1 + WHLSM3 + WHLSM5 + WL1 + WL2 + WL3 + WHLSM2 + WHLSM4 + WHLSM6
+           level: 2
+           tWE =~ WHLSM1 + WHLSM3 + WHLSM5 + WL1 + WL2 + WL3 +  WHLSM2 + WHLSM4 + WHLSM6', 
+          data = diary, cluster = "ID", std.lv = TRUE, estimator = "MLR")
+m2 <- cfa('level: 1
+           sWE =~ WHLSM1 + WHLSM3 + WHLSM5 + WL1 + WL2 + WL3
+           sWC =~ WHLSM2 + WHLSM4 + WHLSM6
+           level: 2
+           tWE =~ WHLSM1 + WHLSM3 + WHLSM5 + WL1 + WL2 + WL3
+           tWC =~ WHLSM2 + WHLSM4 + WHLSM6', 
+           data = diary, cluster = "ID", std.lv = TRUE, estimator = "MLR")
+m3 <- cfa('level: 1
+           sWE =~ WHLSM1 + WHLSM3 + WHLSM5
+           sWC =~ WHLSM2 + WHLSM4 + WHLSM6
+           sWL =~  WL1 + WL2 + WL3
+           level: 2
+           tWE =~ WHLSM1 + WHLSM3 + WHLSM5 + WL1 + WL2 + WL3
+           tWC =~ WHLSM2 + WHLSM4 + WHLSM6
+           tWL =~  WL1 + WL2 + WL3', 
+           data = diary, cluster = "ID", std.lv = TRUE, estimator = "MLR")
+
+# fit indices
+fit <- fit.ind(model=c(m1,m2,m3),
+               models.names=c("1F (WC/WE/WL)","2F (WC + WE/WL)","3F (WC + WE + WL"),
+               robust=TRUE)
+fit$chisq.scaled <- paste0(round(fit$chisq.scaled,1)," (",fit$df.scaled,")")
+fit$df.scaled <- fit$AICw <- fit$chisq.scaled <- fit$npar <- NULL
+fit$rmsea.robust <- gsub("0\\.",".",fit$rmsea.robust)
+fit$cfi.robust <- gsub("0\\.",".",fit$cfi.robust)
+fit$srmr_within <- gsub("0\\.",".",fit$srmr_within)
+fit$srmr_between <- gsub("0\\.",".",fit$srmr_between)
+fit$BICw <- gsub("0\\.",".",fit$BICw)
+fit[nrow(fit),] <- paste0("__",fit[nrow(fit),],"__") # bold types for the selected model
+knitr::kable(fit,col.names=c("RMSEA","CFI","SRMR$_w$","SRMR$_b$","BIC$_w$"))
+```
+
+Study 2
+```{r , echo = FALSE, warning=FALSE,message=FALSE}
+m1 <- cfa('level: 1
+           sWE =~ wh1 + wh3 + wh5 + jd1 + jd2 + jd3 + wh2 + wh4 + wh6
+           level: 2
+           tWE =~ wh1 + wh3 + wh5 + jd1 + jd2 + jd3 +  wh2 + wh4 + wh6', 
+          data = diaryWide, cluster = "alias", std.lv = TRUE, estimator = "MLR")
+m2 <- cfa('level: 1
+           sWE =~ wh1 + wh3 + wh5 + jd1 + jd2 + jd3
+           sWC =~ wh2 + wh4 + wh6
+           level: 2
+           tWE =~ wh1 + wh3 + wh5 + jd1 + jd2 + jd3
+           tWC =~ wh2 + wh4 + wh6', 
+           data = diaryWide, cluster = "alias", std.lv = TRUE, estimator = "MLR")
+m3 <- cfa('level: 1
+           sWE =~ wh1 + wh3 + wh5
+           sWC =~ wh2 + wh4 + wh6
+           sjd =~  jd1 + jd2 + jd3
+           level: 2
+           tWE =~ wh1 + wh3 + wh5 + jd1 + jd2 + jd3
+           tWC =~ wh2 + wh4 + wh6
+           tjd =~  jd1 + jd2 + jd3', 
+           data = diaryWide, cluster = "alias", std.lv = TRUE, estimator = "MLR")
+
+# fit indices
+fit <- fit.ind(model=c(m1,m2,m3),
+               models.names=c("1F (WC/WE/WL)","2F (WC + WE/WL)","3F (WC + WE + WL"),
+               robust=TRUE)
+fit$chisq.scaled <- paste0(round(fit$chisq.scaled,1)," (",fit$df.scaled,")")
+fit$df.scaled <- fit$AICw <- fit$chisq.scaled <- fit$npar <- NULL
+fit$rmsea.robust <- gsub("0\\.",".",fit$rmsea.robust)
+fit$cfi.robust <- gsub("0\\.",".",fit$cfi.robust)
+fit$srmr_within <- gsub("0\\.",".",fit$srmr_within)
+fit$srmr_between <- gsub("0\\.",".",fit$srmr_between)
+fit$BICw <- gsub("0\\.",".",fit$BICw)
+fit[nrow(fit),] <- paste0("__",fit[nrow(fit),],"__") # bold types for the selected model
+knitr::kable(fit,col.names=c("RMSEA","CFI","SRMR$_w$","SRMR$_b$","BIC$_w$"))
+```
+
+```{=tex}
+\end{center}
+```
+
+\fontsize{6.5pt}{12}\selectfont
+WC = working compulsively, WE = working excessively, WL = workload items
