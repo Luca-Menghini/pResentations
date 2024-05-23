@@ -1228,7 +1228,7 @@ knitr::include_graphics("img/people.PNG")
 
 \fontsize{6.5pt}{12}\selectfont `r fontawesome::fa(name = "researchgate", fill="#65A1DF",height = "1em")` [profile/Luca-Menghini](https://www.researchgate.net/profile/Luca-Menghini)  `r fontawesome::fa(name = "twitter", fill="#65A1DF",height = "1em")` [@LuMenPsy](https://twitter.com/LuMenPsy) `r fontawesome::fa(name = "linkedin", fill="#65A1DF",height = "1em")` [in/menghiniluca](https://linkedin.com/in/menghiniluca/) `r fontawesome::fa(name = "github", fill="#65A1DF",height = "1em")` [Luca-Menghini](https://github.com/Luca-Menghini)
 
-\fontsize{6pt}{12}\selectfont \color{black} R code available from \color{blue} [https://luca-menghini.github.io/presentations](https://luca-menghini.github.io/presentations)
+\fontsize{6pt}{12}\selectfont \color{black} R code available from \color{blue} [https://luca-menghini.github.io/pResentations](https://luca-menghini.github.io/pResentations)
 
 ```{=tex}
 \end{center}
@@ -1295,7 +1295,7 @@ m3 <- cfa('level: 1
 
 # fit indices
 fit <- fit.ind(model=c(m1,m2,m3),
-               models.names=c("1F (WC/WE/WL)","2F (WC + WE/WL)","3F (WC + WE + WL"),
+               models.names=c("1F (WC/WE/WL)","2F (WC + WE/WL)","3F (WC + WE + WL)"),
                robust=TRUE)
 fit$chisq.scaled <- paste0(round(fit$chisq.scaled,1)," (",fit$df.scaled,")")
 fit$df.scaled <- fit$AICw <- fit$chisq.scaled <- fit$npar <- NULL
@@ -1334,7 +1334,7 @@ m3 <- cfa('level: 1
 
 # fit indices
 fit <- fit.ind(model=c(m1,m2,m3),
-               models.names=c("1F (WC/WE/WL)","2F (WC + WE/WL)","3F (WC + WE + WL"),
+               models.names=c("1F (WC/WE/WL)","2F (WC + WE/WL)","3F (WC + WE + WL)"),
                robust=TRUE)
 fit$chisq.scaled <- paste0(round(fit$chisq.scaled,1)," (",fit$df.scaled,")")
 fit$df.scaled <- fit$AICw <- fit$chisq.scaled <- fit$npar <- NULL
@@ -1352,4 +1352,4 @@ knitr::kable(fit,col.names=c("RMSEA","CFI","SRMR$_w$","SRMR$_b$","BIC$_w$"))
 ```
 
 \fontsize{6.5pt}{12}\selectfont
-WC = working compulsively, WE = working excessively, WL = workload items
+WC = working compulsively, WE = working excessively, WL = workload
