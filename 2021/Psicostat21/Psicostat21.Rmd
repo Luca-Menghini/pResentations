@@ -1,0 +1,422 @@
+---
+title: 'Crisi di replicabilità e neoliberismo accademico: una breve presentazione per una lunga discussione'
+author: |
+ | ![](logo5.PNG){width=2.3in} \fontsize{8pt}{7.2}\selectfont 
+ |
+ | **Luca Menghini, Ph.D.**
+ |
+ | Dipartimento di Psicologia, Università di Bologna
+ |
+ |
+ | **Psicostat 3.3**
+ |
+ | Padova, 5 novembre 2021
+logo: logo4.PNG
+output:
+  beamer_presentation:
+    fonttheme: serif
+    theme: Singapore
+    slide_level: 2
+    includes:
+      in_header: mystyle.tex
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE,tidy.opts = list(width.cutoff=80))
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = NA
+)
+library(Cairo)
+
+```
+
+## Outline
+
+\fontsize{8pt}{12}\selectfont
+- **Background**: crisi di replicabilità & QRP
+
+- **Open science**: buone pratiche per scienze replicabili
+
+- **Neoliberismo accademico**: quando le buone intenzioni non bastano
+
+- **Nuovi (o vecchi?) orizzonti**: l'open science (non) ci salverà?
+
+- **Spunti finali** 
+
+
+# Background
+
+## "*Una crisi c'è sempre ogni volta che qualcosa non va*"
+
+\fontsize{7pt}{12}\selectfont
+- **Crisi di replicabilità**: su 100 repliche studi pubblicati, solo 36% hanno mostrato risultati significativi \fontsize{5pt}{12}\selectfont(Open Science Collaboration, 2015) \fontsize{7pt}{12}\selectfont
+
+- **Crisi di validità**: in psicologia, la validità di certi test è un 'taboo', nessuno cerca di confutarla. Invece di sviluppare misure sempre più valide, si usano sempre le stesse \fontsize{5pt}{12}\selectfont(Schimmack, 2021) \fontsize{7pt}{12}\selectfont
+
+- **Crisi di credibilità**: "Management science is attracting concerns about the credibility of its claims from both internal and external stakeholders"\fontsize{5pt}{12}\selectfont \newline(Byington & Felps *Acad Manag Learn Educ* 2017)\fontsize{7pt}{12}\selectfont
+
+- ...
+
+## Non solo replicablità
+
+```{r , echo = FALSE, out.width=270}
+knitr::include_graphics("reproducible-definition-grid.jpg")
+```
+
+\fontsize{5.5pt}{12}\selectfont
+The turning way project: https://the-turing-way.netlify.app/
+
+## Questionable research practices (QRP)
+
+```{r , echo = FALSE, out.width=270}
+knitr::include_graphics("qrp.PNG")
+```
+
+\fontsize{5}{12}\selectfont
+Banks et al *J of Manag* (2016); Bosco et al *Pers Psychol* (2015)
+
+## QRP prevalence
+
+\fontsize{6.5pt}{12}\selectfont
+- On 384 US Management faculty members: 92% HARKing, 86% salami slicing, \newline 79% author gifting, 69% p-hacking 
+\fontsize{5pt}{12}\selectfont(Bedeian et al *Acad Manag Learn Educ* 2010)
+
+\fontsize{6.5pt}{12}\selectfont
+- Su 277 affiliate/i all'AIP (tasso di risposta: 24%): 88% **self-admitted** QRP, \newline 37% HARKing, 10-53% p-hacking \fontsize{5pt}{12}\selectfont(Agnoli et al *PloS one* 2017)
+
+```{r , echo = FALSE, out.width=210,fig.align='center'}
+knitr::include_graphics("agnoli.PNG")
+```
+
+# Open science
+
+## Open Science: Riproducibilità e accessibilità
+
+```{r , echo = FALSE, out.width=210,fig.align='center'}
+knitr::include_graphics("openRangers.PNG")
+```
+
+\fontsize{7pt}{12}\selectfont
+**Open science**: Transparent and accessible knowledge shared and developed \newline through collaborative networks.
+
+## Open data & Open materials
+
+\fontsize{7pt}{12}\selectfont
+Pratice volte a migliorare l'accessiblità, integrità e riproducibilità della ricerca, prevenendo e riducendo le QRP \fontsize{5pt}{12}\selectfont (Bansk et al *J Bus Psych* 2019)
+
+```{r , echo = FALSE, out.width=260}
+knitr::include_graphics("white.PNG")
+```
+```{r , echo = FALSE, out.width=280}
+knitr::include_graphics("open.PNG")
+```
+```{r , echo = FALSE, out.width=260}
+knitr::include_graphics("white.PNG")
+```
+
+\fontsize{7pt}{12}\selectfont
+- Open Science badges: https://www.cos.io/initiatives/badges
+
+- TOP guidelines: https://www.cos.io/initiatives/top-guidelines
+
+## Preregistration & Registered reports
+
+\fontsize{7pt}{12}\selectfont
+Pratica di specificare il piano di ricerca in anticipo, registrandolo prima di iniziare la raccolta dati, prevenendo le QRP (soprattutto HARKing & p-hacking)
+
+\begincols
+  \begincol{.8\textwidth}
+  
+```{r , echo = FALSE, out.width=250}
+knitr::include_graphics("white.PNG")
+```
+  
+\fontsize{6.6pt}{12}\selectfont
+- OSF preregistration templates: https://osf.io/zab38/wiki/home/
+  
+```{r , echo = FALSE, out.width=250}
+knitr::include_graphics("white.PNG")
+```
+  
+- Registered reports: https://www.cos.io/initiatives/registered-reports
+    
+```{r , echo = FALSE, out.width=250}
+knitr::include_graphics("white.PNG")
+```
+```{r , echo = FALSE, out.width=250}
+knitr::include_graphics("registeredreports.PNG")
+```
+  
+  \endcol
+\begincol{.2\textwidth}
+
+```{r , echo = FALSE, out.width=60, fig.align='right'}
+knitr::include_graphics("prerec.PNG")
+```
+
+  \endcol
+\endcols
+
+## Studi di replica
+
+\fontsize{7.5pt}{12}\selectfont
+*«Ultimately, science is based on the potential replicability of findings»* \newline \fontsize{5pt}{12}\selectfont(Atwater et al *Leadersh Q* 2014)
+
+<br>
+
+\fontsize{7pt}{12}\selectfont
+- **Repliche dirette** = per valutare se un **metodo** produce gli stessi risultati in un nuovo campione, viene seguito il protocollo originario senza alcuna modifica
+
+- **Repliche concettuali** = per valutare se una **teoria** produce gli stessi risultati in un nuovo studio, viene utilizzato intenzionalmente un metodo diverso
+
+- **Crowd-sourcing replications (many-lab studies)**: protocolli pubblici e chi vuole partecipa
+
+\fontsize{5pt}{12}\selectfont
+Reproducipedia: https://osf.io/5cmfa/wiki/home/
+
+Italian Reproducibility Network: https://www.itrn.org/
+
+## The scholar social dilemma
+
+\fontsize{5pt}{12}\selectfont Byington & Felps *Acad Manag Learn Educ* (2017):
+
+\fontsize{6pt}{12}\selectfont
+*«The adoption of these* ***credibility-supportive journal practices*** *could reduce the social dilemma for scholars by simultaneously* ***rewarding credible contributions*** *&* ***reducing the benefits of QRP»*** 
+
+*«Given that* ***QRP can benefit a scholar’s career****, we argue that* scientists are in a social dilemma *that has far-reaching consequences for the field.»* 
+
+*«Conversely, we might imagine a “purist” who refuses to publish results unless they are confident that the results are true, and as such, does not engage in QRP. It is our hypothesis that* such \color{blue}***“methodological purists” will have worse career outcomes than scholars engaging in QRP*** \color{black} *[...] less likely to* ***publish*** *papers in prestigious journals,* ***get jobs*** *at research-supportive universities, be* ***awarded*** *tenure, acquire* ***social prestige****, or go on to select, promote, and* ***train others*** *(e.g., supervise PhD students). Further, scientific asceticism may not be an attractive quality for potential* ***collaborators****.»*
+
+\fontsize{5pt}{12}\selectfont
+Seeber, Cattaneo, Meoli, Malighetti (2017). Self-citations as strategic response \newline to the use of metric for career decisions. *Research Policy*, 48, 478-491.
+
+# Neoliberismo
+
+## Quando le buone intenzioni non bastano
+
+\fontsize{7pt}{12}\selectfont
+**Crisi di replicabilità o crisi di fiducia?**: soluzioni alle QRP orientate sul comportamento del ricercatore (riducendone sempre più i gradi di libertà), mantenendo però una strategia organizzativa orientata alla performance in senso quantitativo \fontsize{5pt}{12}\selectfont (Sulpizio & Avanzi *GIP* 2019)
+
+```{r , echo = FALSE, out.width=60, fig.align='right'}
+knitr::include_graphics("white.PNG")
+```
+
+\fontsize{7pt}{12}\selectfont
+Spunti dalla valutazione dei rischi occupazionali: Rischio = Probabilità × Impatto
+
+- **prevenzione primaria**: agisce sul contesto e il contenuto del lavoro (Probabilità)
+
+- **prevenzione secondaria e terziaria**: agisce sui sintomi/comportamenti (Impatto)
+
+## Il modello dell'accademia neoliberale
+
+\fontsize{6pt}{12}\selectfont
+*«Negli ultimi 13 anni, processo di* ***trasformazione dell'università in senso neoliberale***: - *un'università azienda, in cui l'indrizzo della ricerca scientifica segue la logica del profitto»*
+
+\begincols
+  \begincol{.55\textwidth}
+
+- *«il* ***precariato*** *si vince solo ai 40 anni di età, avendo dedicato i precedenti 20 a nient'altro che alle pubblicazioni [...] e con grande disparità tra uomini e donne»*
+
+- ***retorica dell'eccellenza e della meritocrazia***: *«spinta a competitività, alla produttività, al publish or perish  [...] legittima il taglio delle risorse: - strutturali, + premiali»*
+
+- ***«silenzio dalla maggior parte del corpo docente***: *[...] retorica del merito come alibi: "buttati subito in acqua per imparare a nuotare in fretta" [...] impegno civico in secondo piano rispetto alla produzione scientifica»* 
+
+>- *«riforme del supporto psicologico, ma niente per contrastere la fonte del malessere»*
+  
+  \endcol
+\begincol{.45\textwidth}
+
+```{r , echo = FALSE, out.width=150}
+knitr::include_graphics("dottorandePISA.PNG")
+```
+
+\fontsize{5pt}{12}\selectfont
+"Il severo discorso di tre neolaureate durante la consegna diplomi alla Normale di Pisa": https://youtu.be/QFLMT_55FaQ
+
+  \endcol
+\endcols
+
+## Neoliberismo accademico
+
+\begincols
+  \begincol{.85\textwidth}
+
+\fontsize{7pt}{12}\selectfont
+- **Neoliberismo**: *«freedom without fairness»* \fontsize{5pt}{12}\selectfont (Chomnsky, 2017) \newline \fontsize{6pt}{12}\selectfont concetti di base: libero mercato e globalizzazione; la competizione aumenta la produttività; chi (non) ha successo (non) se lo è meritato; lo stato deve creare le condizioni ideali per il mercato: flessibilità, obiettivi definiti, orientamento ai risultati 
+
+\fontsize{7pt}{12}\selectfont
+- **Neoliberismo accademico**: *'free' market of knowledge* \newline \fontsize{6pt}{12}\selectfont concetti di base: assunto che la buona ricerca sarà finanziata e la ricerca finanziata sarà buona ricerca; privatizzazione e centri di eccellenza; orientamento alla massimizzazione degli ouput (***impact factor***); relazioni competitive e gerarchiche; avversione al criticismo verso l'università
+
+\fontsize{5pt}{12}\selectfont
+Olssen & Peters (2005) Neoliberalism, higher education and the knowledge economy: from the free market to knowledge capitalism. *J Educ Policy*, 20:3, 313-345
+
+```{r , echo = FALSE, out.width=480}
+knitr::include_graphics("white.PNG")
+```
+
+\fontsize{7pt}{12}\selectfont
+*«Non si tratta di statistica/metodologia, ma del fatto che lo scopo vero, per quanto non confessato, di molti ricercatori non è "capire" - che in teoria è il mestiere dello scienziato - ma "vincere"»* \fontsize{5pt}{12}\selectfont (Toraldo, 2021)
+  
+  \endcol
+\begincol{.15\textwidth}
+
+```{r , echo = FALSE, out.width=80}
+knitr::include_graphics("neolib.PNG")
+```
+  \endcol
+\endcols
+
+# Nuovi orizzonti?
+
+## L'Open Science ci salverà?
+
+\begincols
+  \begincol{.45\textwidth}
+  
+```{r , echo = FALSE, out.width=140}
+knitr::include_graphics("publishORperish.jpg")
+```
+  
+  \endcol
+\begincol{.55\textwidth}
+
+```{r , echo = FALSE, out.width=170}
+knitr::include_graphics("dutchUni.PNG")
+```
+
+  \endcol
+\endcols
+
+\fontsize{7pt}{12}\selectfont
+È possibile un cambio di rotta verso nuovi criteri di valutazione della ricerca?
+
+\fontsize{6pt}{12}\selectfont
+***UniPd ARQUS R.I. project "Alternative Assessment Approaches"***: 
+
+\begincols
+  \begincol{.75\textwidth}
+*identifying and defining new, alternative and innovative standards for the assessment of research and researchers, contributing to the identification of* ***new quantitative and qualitative non-bibliometric assessment criteria***
+
+  \endcol
+\begincol{.12\textwidth}
+
+  \endcol
+\endcols
+
+## L'Open Science *non* ci salverà?
+
+\fontsize{6.5pt}{12}\selectfont
+**Open Access**: termine che indica la pratica di rendere la letteratura scientifica liberamente accessibile a chiunque sia interessata/o (in un certo senso rientra nell'Open Science)
+
+\fontsize{6pt}{12}\selectfont
+- Visibilità, alto IF, accesso da paesi in via di sviluppo, professionisti e politici 
+
+- Spesso a pagamento (conflitti di interesse), **predatory journals**?
+
+```{r , echo = FALSE, out.width=300}
+knitr::include_graphics("predatory.PNG")
+```  
+
+\fontsize{5pt}{12}\selectfont Beall's list of potential predatory journals: \color{blue} https://beallslist.net/
+
+## It takes an ecosystem
+
+\fontsize{7pt}{12}\selectfont
+- *«In una riga, mi sono reso conto sempre più che* ***fare scienza meglio richiede necessariamente*** *di essere più lenti, e dunque* ***produrre meno***. *Per cui, va da sé, non c’è alcuna speranza che la nostra scienza migliori su larga scala finché noi prof ci limiteremo a contare il numero di pubblicazioni ai concorsi»* \newline \fontsize{5pt}{12}\selectfont (Crepaldi, 2021)
+
+\fontsize{7pt}{12}\selectfont
+- *«Non è retorica, è sostanza: una* ***comunità scientifica strutturata in modo "orizzontale"*** *in cui i ricercatori collaborano per risolvere problemi li risolverebbe in metà del tempo e con metà delle risorse rispetto ad una comunità "verticale" in cui la gran parte delle energie sono spese per salire nella gerarchia "sconfiggendo" gli altri a suon di p-hacking»* \newline \fontsize{5pt}{12}\selectfont (Toraldo, 2021)
+
+# Spunti finali
+
+## Spunti finali
+
+\fontsize{6.5pt}{12}\selectfont
+- **Scholars social dilemma:** le QRP compromettono la credibilità dell'ambito di ricerca, ma sono *benefiche per la carriera* del singolo (rinforzate dal sistema), mentre i "puristi" avranno meno probabilità di sopravvivere
+
+\fontsize{6.5pt}{12}\selectfont
+- **Early career**: ~~aspettando che cambi~~ *contribuendo a cambiare* il sistema, possiamo anticipare alcuni dei futuri (speriamo!) criteri di valutazione della ricerca (es. OS badges, sezione 'Open Science' nel CV, preregistrazione, replicability networks); *imparare a dire di no: "buttati tu nel mare"*
+
+- **Seniors**: auspicato impegno civico, almeno a livello istituzionale (es. nelle Commissioni, nei CDP) e didattico (es. supervisione PhD) per contrastare le retoriche del neoliberismo accademico
+
+- **In generale**: parliamo più spesso di questi temi, non solo in maniera informale, facciamo seminari, simposi, scriviamo articoli, facciamo qualcosa!
+
+## Grazie per l'attenzione!
+
+\begincols
+  \begincol{.50\textwidth}
+
+```{r , echo = FALSE, out.width="170px"}
+knitr::include_graphics("rangerSimpson.PNG")
+```
+
+```{r , echo = FALSE, out.width = "100px",allign="left"}
+knitr::include_graphics("white.PNG")
+```
+
+  \endcol
+\begincol{.50\textwidth}
+
+\fontsize{8pt}{10}\selectfont \color{blue}
+*<luca.menghini3@unibo.it>*
+
+```{r , echo = FALSE, out.width="140px"}
+knitr::include_graphics("psicostat.PNG")
+```
+```{r , echo = FALSE, out.width = "100px",allign="left"}
+knitr::include_graphics("white.PNG")
+```
+
+```{r , echo = FALSE, out.width = "90px",allign="right"}
+knitr::include_graphics("credits.PNG")
+```
+
+  \endcol
+\endcols
+
+# Riferimenti
+
+## Riferimenti
+
+\fontsize{5.5pt}{12}\selectfont
+- Agnoli, et al (2017). Questionable research practices among Italian research psychologists. *PloS one, 12*(3), e0172792.
+
+- Atwater et al (2014). Retraction of leadership articles: Causes and prevention. *Leadersh Q, 25*(6): 1174–1180
+
+- Banks et al. (2016). Questions about questionable research practices in the field of management: A guest commentary. *J Manag, 42*(1): 5–20.
+
+- Banks et al. (2019). Answers to 18 questions about Open Science practices. *J Bus Psychol*, 1–14.
+
+- Bedeian, A. G., Taylor, S. G., & Miller, A. N. 2010. Management science on the credibility bubble: Cardinal sins and various misdemeanors. *Acad Manag Learn Educ*, 9
+
+- Bluvertigo (1999). "La crisi", https://youtu.be/4JJxgV5ad98
+
+## Riferimenti
+
+\fontsize{5.5pt}{12}\selectfont
+- Bosco et al (2015). HARKing's Threat to Organizational Research: Evidence From Primary and Meta-Analytic Sources. *Pers Psychol 69*
+
+- Byington & Felps (2017). Solutions to the credibility crisis in management science. *Acad Manag Learn Educ, 16*(1), 142-162.
+
+- Chomnsky, N. (2017). *Neoliberalism Is Destroying Our Democarcy*. Youtube interview: https://youtu.be/tBzSLu3MZ6I
+
+- Crepaldi, D. (2021). Intervento sulla mailing list di Psicostat.
+
+- Olssen & Peters (2005) Neoliberalism, higher education and the knowledge economy: from the free market to knowledge capitalism. *J Educ Policy*, 20:3, 313-345
+
+## Riferimenti
+
+\fontsize{5.5pt}{12}\selectfont
+
+- Open Science Collaboration. (2015). Estimating the reproducibility of psychological science. *Science, 349*(6251).
+
+- Schimmack, U. (2021). The validation crisis in psychology. *Meta-Psychology*, 5. 
+
+- Seeber, Cattaneo, Meoli, Malighetti (2017). Self-citations as strategic response to the use of metric for career decisions. *Res Policy*, 48, 478-491.
+
+- Sulpizio, S., & Avanzi, L. (2019). Crisi di riproducibilità o crisi di fiducia?. *Giornale italiano di psicologia*, 46(1-2), 379-392.
+
+- Toraldo, A. (2021). Intervento sulla mailing list di Psicostat

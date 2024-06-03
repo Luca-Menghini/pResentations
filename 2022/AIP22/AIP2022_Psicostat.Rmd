@@ -1,0 +1,805 @@
+---
+title: 'Multimethod & Intensive Longitudinal Designs in Occupational Health Psychology'
+subtitle: 'Better understanding the individual functioning at work'
+author: | 
+ | \fontsize{9pt}{8}\selectfont Luca Menghini Ph.D.
+ |
+ | \fontsize{7pt}{7.2}\selectfont Dep. of General Psychology, University of Padova
+ | Dep. of Psychology, University of Bolonga
+ |
+ | ![](img/logo.PNG){width=3.2in} 
+ |
+ | **XXX Conference Italian Association of Psychology (AIP)**
+ |
+ | AIP 2022, Padova, 27-30 July 2022
+ |
+ | Interdisciplinary symposium:
+ |
+ | "***Connecting People and Ideas from Psychology and Statistics: \newline The Psicostat Experience***"
+ |
+logo: img/logo3.png
+output:
+  beamer_presentation:
+    fonttheme: serif
+    theme: Singapore
+    slide_level: 2
+    includes:
+      in_header: mystyle.tex
+---
+
+# OHP
+
+## Occupational Health Psychology
+
+\fontsize{9pt}{12}\selectfont
+OHP concerns the **application** of psychology to improving \newline the quality of work life, and to protecting and promoting \newline the safety, health & well-being of workers. \newline \fontsize{5.5pt}{12}\selectfont NIOSH, US Centers for Disease Control and Prevention \newline
+
+\fontsize{9pt}{12}\selectfont
+\color{blue}Work stress management: \color{black} \newline \fontsize{8pt}{12}\selectfont Identifying, quantifying, & preventing \newline the work-related environmental conditions (**job stressors**) \newline thought to impact the health and well-being of the worker (**job strain**) \newline \fontsize{5.5pt}{12}\selectfont Hurrell et al., 1998 
+
+\fontsize{9pt}{12}\selectfont
+EU regulation & monitoring: \newline \fontsize{7pt}{12}\selectfont \color{blue}2000\color{black}: EU-OSHA Commissioned report on work-reated stress \newline \color{blue}2004\color{black}: EU Social Partners' Framework Agreement on Work-related stress \newline \color{blue}2008\color{black}: D.Lgs. 81/08 Testo Unico Salute e Sicurezza sul Lavoro \newline \color{blue}1990-2021\color{black}: Eurofounds' European Working Conditions Surveys
+
+## Theories & Methods in OHP
+
+\begincols
+  \begincol{.45\textwidth}
+
+\fontsize{9pt}{12}\selectfont 
+Mainly \newline theory-based/deductive approach \newline
+
+\fontsize{8pt}{12}\selectfont
+e.g., Work stress \newline \fontsize{7.5pt}{12}\selectfont Identifying parsimonious models of **stressful job characteristics** & dimensions of **stressful appraisals**
+
+- Job Demand-Control
+
+- Effort-Reward Imbalance
+
+- Job Effort-Recovery
+
+>- ...
+  
+  \endcol
+\begincol{.50\textwidth}
+
+\fontsize{8.5pt}{12}\selectfont 
+Mainly quantitative
+
+\fontsize{7.5pt}{12}\selectfont
+- 41% cross-sectional self-reports 
+
+- 29% longitudinal self-reports
+
+- 10% multisource (self & others)
+
+- 7% (quasi-)experimental \fontsize{3pt}{12}\selectfont \newline
+
+\fontsize{8.5pt}{12}\selectfont 
+Mainly regression & SEM
+
+\fontsize{7.5pt}{12}\selectfont
+- 52% multivarate or multilevel
+
+- 45% multiple regression
+
+- 21% CFA, 5% EFA \fontsize{3pt}{12}\selectfont \newline
+
+\fontsize{5.5pt}{12}\selectfont 
+Spector & Pindek (2015) \newline N = 322 published from 2010 to 2014 \newline in *JOHP* and *Work & Stress*
+
+  \endcol
+\endcols
+
+## Issues & perspectives in OHP
+
+\fontsize{9pt}{12}\selectfont
+**Long-standing issues:**
+
+- mostly based on **cross-sectional questionnaires**
+
+- common method bias, retrospective, response style & traits 
+
+- hard to find objective measures \newline
+
+**Current perspectives:**
+
+- Intensive longitudinal designs \newline \fontsize{7pt}{12}\selectfont Daily diaries & Experience sampling methods
+
+\fontsize{9pt}{12}\selectfont
+- Applied psychophysiology \newline  \fontsize{7pt}{12}\selectfont Ambulatory assessment & Multimethod approach
+
+\fontsize{9pt}{12}\selectfont
+- \color{blue} Multilevel modeling \newline  \fontsize{7pt}{12}\selectfont \color{blue} of group phenomena & intraindividual fluctuations over time
+
+# Psicostat
+
+## My experience at Psicostat
+
+\fontsize{7pt}{12}\selectfont
+*We are an interdisciplinary research group interested in Psychology and Statistics. Our goal is to promote the connection between the two fields in order to benefit the progress of scientific research.*
+
+\color{blue} Dagli "incontri clandestini" sulle meta-analisi Psicostat 2.0...
+
+```{r , echo = FALSE, out.width="300px",fig.align='center'}
+knitr::include_graphics("img/psicostat.PNG")
+```
+
+\color{blue} ...alla Comunità Psicostat verso l'edizione 3.3
+
+## Psicostat $\times$ Multilevel
+
+```{r , echo = FALSE, out.width="270px",fig.align='center'}
+knitr::include_graphics("img/multilevel.PNG")
+```
+
+\fontsize{7pt}{12}\selectfont
+$Y_{ij} =$ \color{blue} $\beta_0$ \color{black} + \color{red} $\beta_1$ \color{black} $X_{ij} + \epsilon_{ij}$ (*lv 2: between*) 
+
+$Y_{ij} =$ \color{blue} $(\beta_0 + \lambda_{0j})$ \color{black} + \color{red} $(\beta_1 + \lambda_{1j})$ \color{black} $X_{ij} + \epsilon_{ij}$ (*lv 1: within*)
+
+## Theory $\lor$ Method ?
+
+\begincols
+  \begincol{.40\textwidth}
+
+```{r , echo = FALSE, out.width="140px"}
+knitr::include_graphics("img/balto.PNG")
+```
+  
+  \endcol
+\begincol{.60\textwidth}
+
+\fontsize{9pt}{12}\selectfont 
+- «sentiamo il parere dello statistico» \newline
+
+- «nel nostro ambito queste cose non hanno importanza» \newline
+
+- «non lo fa nessuno, perché ci perdi tempo?» \newline
+
+>- «hai un profilo troppo metodologico»
+
+  \endcol
+\endcols
+
+## Construct validation: Theory $\wedge$ Method
+
+\fontsize{10pt}{12}\selectfont 
+*"Construct validation refers to the process of simultaneously validating measures of psychological constructs and the theories of which the constructs are a part"* \fontsize{5.5pt}{12}\selectfont (Strauss & Smith, 2009) \newline
+
+\fontsize{10pt}{12}\selectfont 
+Construct validation in a multilevel framework:
+
+1. Cross-level isomorphism \newline \fontsize{7pt}{12}\selectfont Same construct on different levels? \fontsize{10pt}{12}\selectfont 
+
+2. Cross-level homology \newline \fontsize{7pt}{12}\selectfont Same relationships on different levels? \fontsize{10pt}{12}\selectfont 
+
+3. Multimethod approach \newline \fontsize{7pt}{12}\selectfont Same conclusions with different methods? \fontsize{10pt}{12}\selectfont 
+
+# Isomorphism
+
+## Cross-level isomorphism & measurment invariance
+
+\fontsize{8pt}{12}\selectfont
+*Isomorphism*: \newline \fontsize{6.5pt}{12}\selectfont similarity among elements
+
+\fontsize{8pt}{12}\selectfont
+*Psychometric isomorphism*: \newline \fontsize{6.5pt}{12}\selectfont equivalence (***invariance***) of measurements among different populations (multigroup), over time (longitudinal) or between 'clusters' (multilevel)
+
+\fontsize{8pt}{12}\selectfont
+***Cross-level isomorphism***: \newline \fontsize{6.5pt}{12}\selectfont “implies that higher-level constructs have similar meanings and properties as their lower-level counterparts” \fontsize{5.5pt}{12}\selectfont Tay et al., 2014
+
+```{r , echo = FALSE, warning=FALSE,message=FALSE,fig.width=5,fig.height=2,out.width='250px',out.height='100px'}
+df <- data.frame(Subject = as.factor(c(rep("S01",6),rep("S02",6))),
+                 time = rep(1:6,2),
+                 Work.Stress = c(2,1,3,4,3,2,   6,6,3,7,6,6))
+library(ggplot2)
+ggplot(df,aes(x=time,y=Work.Stress,color=Subject)) + geom_smooth(lwd=1.2) + geom_point(cex=3) + ylim(0,8) +
+  geom_line(aes(y=mean(df[df$Subject=="S01","Work.Stress"])),color="salmon",lty=2,lwd=0.9) + 
+  geom_line(aes(y=mean(df[df$Subject=="S02","Work.Stress"])),lty=2,lwd=0.9) + labs(x="Time",y="Work stress level")
+```
+
+## Cross-level isomorphism: From method to theory
+
+```{r , echo = FALSE, out.width="250px"}
+knitr::include_graphics("img/stapelton.PNG")
+```
+
+\fontsize{5.5pt}{12}\selectfont
+Stapleton, L. M., Yang, J. S., & Hancock, G. R. (2016). Construct meaning in multilevel \newline settings. *Journal of Educational and Behavioral Statistics, 41*(5), 481–520
+
+## Example 1: Configural multilevel construct
+
+\begincols
+  \begincol{.45\textwidth}
+
+\fontsize{6pt}{12}\selectfont \color{blue}
+***Job Demand*** (lv2) \newline perceived amount/difficulty of one’s job
+
+***Task Demand*** (lv1) \newline perceived amount/difficulty of a job task \newline \color{black}
+
+\fontsize{7pt}{12}\selectfont
+Sample & procedure: \newline \fontsize{6pt}{12}\selectfont
+139 full-time office workers \newline
+7 surveys/day over 3 workdays \newline
+Four 7-point VAS items \newline
+
+```{r warning=FALSE,message=FALSE,echo=FALSE,fig.width=5,fig.height=1.7,}
+# loading data
+rm(list=ls())
+load("data/ESM_s1.RData")
+library(Rmisc); library(ggplot2); library(gridExtra); library(reshape2)
+vars <- c("d1","d2","d3","d4")
+s <- s1.w
+s$JD <- s$JC <- NULL
+
+# plotting mean score by time point
+wide <- cbind(summarySE(s,"d1",c("day","within.day"),na.rm=T)[,1:4],summarySE(s,"d2",c("day","within.day"),na.rm=T)[,4],
+              summarySE(s,"d3",c("day","within.day"),na.rm=T)[,4],summarySE(s,"d4",c("day","within.day"),na.rm=T)[,4])
+colnames(wide)[4:7] <- vars
+wide <- wide[wide$within.day!=1,]
+wide$time <- wide$within.day -1 # computing time
+wide[wide$day==2,"time"] <- wide[wide$day==2,"time"] + 7
+wide[wide$day==3,"time"] <- wide[wide$day==3,"time"] + 14
+ggplot(wide,aes(x=within.day,y=d1)) + # plotting
+  geom_smooth(color="darkblue",se=FALSE,span=0.8) + geom_point(color="darkblue") +
+  geom_smooth(aes(y=d2),color="blue",se=FALSE,span=0.8) + geom_point(aes(y=d2),color="blue") +
+  geom_smooth(aes(y=d3),color="lightblue",se=FALSE,span=0.8) + geom_point(aes(y=d3),color="lightblue") +
+  geom_smooth(aes(y=d4),color="cadetblue",se=FALSE,span=0.8) + geom_point(aes(y=d4),color="cadetblue") +
+  facet_wrap(facets="day",nrow=1) + xlab("Time within day (1 ~ 90 min)") + ylab("Mean item scores")
+
+# plotting correlation matrix between
+wide <- cbind(summarySE(s,"d1","ID",na.rm=T)[,c(1,3)],summarySE(s,"d2","ID",na.rm=T)[,3], # computing mean scores
+              summarySE(s,"d3","ID",na.rm=T)[,3],summarySE(s,"d4","ID",na.rm=T)[,3])
+colnames(wide)[2:ncol(wide)] <- paste(vars,"cm",sep=".")
+s <- plyr::join(s,wide,by="ID",type="left")
+s$d1.mc <- s$d1 - s$d1.cm # computing person-mean-centered scores
+s$d2.mc <- s$d2 - s$d2.cm
+s$d3.mc <- s$d3 - s$d3.cm
+s$d4.mc <- s$d4 - s$d4.cm
+colnames(wide)[2:ncol(wide)] <- vars
+p1 <- ggplot(melt(cor(wide[,2:ncol(wide)],wide[,2:ncol(wide)],use="complete.obs",method="pearson")), # plotting lv2-corr
+             aes(x=Var1, y=Var2, fill=value)) + geom_tile() + ggtitle("lv2 (means)")+labs(x="",y="")+
+    scale_fill_gradient2(low="white",high="#f03b20",mid="#FFC2B0",midpoint=0.5,limit = c(0,1), space = "Lab",
+                         name="Pearson r",guide="legend",breaks=round(seq(0,1,length.out = 3),2),
+                         minor_breaks=round(seq(0,1,length.out = 3),2))+
+    theme(text=element_text(face="bold"),legend.text = element_text(size=8))
+DATA <- s[,paste(vars,"mc",sep=".")]
+colnames(DATA) <- vars
+p2 <- ggplot(melt(cor(DATA,DATA,use="complete.obs",method="pearson")),
+             aes(x=Var1, y=Var2, fill=value)) + geom_tile() + ggtitle("lv1 (mean-centered)")+labs(x="",y="")+
+    scale_fill_gradient2(low="white",high="#f03b20",mid="#FFC2B0",midpoint=0.5,limit = c(0,1), space = "Lab",
+                         name="Pearson r",guide="legend",breaks=round(seq(0,1,length.out = 3),2),
+                         minor_breaks=round(seq(0,1,length.out = 3),2))+
+    theme(text=element_text(face="bold"),legend.text = element_text(size=8))
+grid.arrange(p1,p2,nrow=1)
+```
+  
+  \endcol
+\begincol{.60\textwidth}
+
+   \begincol{.42\textwidth}
+
+\fontsize{5pt}{12}\selectfont
+```{r }
+# configural
+m1 <- 'level: 1
+       TD =~ d1 + d2 + d3 + d4
+       level:2
+       JD =~ d1 + d2 + d3 + d4'
+```
+
+\endcol
+  \begincol{.55\textwidth}
+      
+\fontsize{5pt}{12}\selectfont
+```{r }
+# weak invariance
+m2 <- 'level: 1
+       TD =~ a*d1 + b*d2 + c*d3 + d*d4
+       level:2
+       JD =~ a*d1 + b*d2 + c*d3 + d*d4'
+```     
+      
+  \endcol
+
+\fontsize{6pt}{12}\selectfont
+```{r warning=FALSE,message=FALSE}
+library(lavaan)
+conf <- cfa(m1, data = s, cluster = "ID", std.lv = TRUE)
+weak <- cfa(m2, data = s, cluster = "ID", std.lv = TRUE)
+```
+\fontsize{5pt}{12}\selectfont
+```{r warning=FALSE,message=FALSE,echo=FALSE}
+fit.ind <- function(model=NA,from_summary=FALSE,type="multilevel",models.names=NA,
+                    fits=c("npar","chisq","rmsea","cfi","srmr_within","srmr_between")){ 
+  require(lavaan); require(MuMIn)
+  
+  # removing level-specific fit indices when model is "monolevel"
+  if(type=="monolevel"){
+      fits <- gsub("srmr_within","srmr",fits)
+      fits <- fits[fits!="srmr_between"] }
+  if(from_summary==FALSE){
+    # returning dataframe of models fit indices when more than one model is considered
+    if(length(model)>1){
+      fit.indices <- fitmeasures(model[[1]])[fits]
+      for(i in 2:length(model)){
+        fit.indices <- rbind(fit.indices,fitmeasures(model[[i]])[fits]) }
+      if(!is.na(models.names[1])){
+        row.names(fit.indices) <- models.names }
+      return(as.data.frame(fit.indices))
+      } else { return(fitmeasures(model)[fits]) }
+    
+    } else { # in some cases the fit indices are available only from the model's summary 
+      quiet <- function(fit) { # this was written by Alicia FRANCO MARTÍNEZ on the lavaan Google group
+        sink(tempfile())
+        on.exit(sink()) 
+        invisible(summary(fit, standardized = TRUE, fit.measures=TRUE)) } 
+      sum <- quiet(model)
+      fit.indices <- sum$FIT[fits]
+      return(fit.indices)}}
+library(MuMIn)
+cbind(round(fit.ind(model=list(conf,weak),models.names=c("conf","weak")),3),
+      AIC_weight=round(Weights(AIC(conf,weak)),2))
+```
+
+```{r , echo = FALSE, out.width="250px"}
+knitr::include_graphics("img/white.PNG")
+```
+```{r , echo = FALSE, out.width="250px"}
+knitr::include_graphics("img/white.PNG")
+```
+
+\fontsize{5.5pt}{12}\selectfont
+Menghini, Pastore, & Balducci \newline (2022) *Eu J Psych Assessment* https://doi.org/10.1027/1015-5759/a000725
+
+  \endcol
+\endcols
+
+## Example 1: Standardized loadings
+
+```{r , echo = FALSE, out.width="230px"}
+knitr::include_graphics("img/weakInv.PNG")
+```
+
+# Homology
+
+## Homology across levels
+
+\fontsize{8pt}{12}\selectfont
+*Homology*: \newline \fontsize{6.5pt}{12}\selectfont similar relationships (***nomological network***) across levels ('nomological isomorphism') \newline \fontsize{5.5pt}{12}\selectfont Kozlowski & Klein, 2000
+
+\fontsize{8pt}{12}\selectfont
+*Homologous theory*: \newline \fontsize{6.5pt}{12}\selectfont Theory predicting *similar* patterns of relationships (significance, direction, and/or magnitude) between two levels of analysis \fontsize{5.5pt}{12}\selectfont \newline Chen, G., Bliese, P. D., & Mathieu, J. E. (2005). Conceptual framework and statistical procedures for delineating and testing multilevel theories of homology. *Organizational Research Methods, 8*, 375-409.
+
+```{r , echo = FALSE, out.width="250px"}
+knitr::include_graphics("img/homology.PNG")
+```
+
+## Homology: From method to theory
+
+\fontsize{7pt}{12}\selectfont
+"Tests of homology can and should play an integral role in the validation \newline of multilevel constructs and theories"  \fontsize{5.5pt}{12}\selectfont \newline Chen et al., 2004
+
+```{r , echo = FALSE, out.width="220px"}
+knitr::include_graphics("img/homology2.PNG")
+```
+
+\fontsize{7pt}{12}\selectfont
+***Ecological fallacy***: thinking that relationships oberved among groups (*between*) \newline necessarily hold at the individual level (*within*) \newline \fontsize{5.5pt}{12}\selectfont Piantadosi et al 1988 
+
+\fontsize{7pt}{12}\selectfont 
+***Ergodicità***: implies equivalence between variability *within* and *between* \newline Richiede *omogeneità* & *stazionarietà*, rarely met by psychological processes \newline &rightarrow; need to analyze the two levels separately? \fontsize{5.5pt}{12}\selectfont \newline Molenaar, 2004
+
+## Example 2: Metaphorical theory
+
+\begincols
+  \begincol{.45\textwidth}
+
+```{r , echo = FALSE, out.width="130px"}
+knitr::include_graphics("img/jdc.PNG")
+```
+```{r , echo = FALSE, out.width="150px"}
+knitr::include_graphics("img/white.PNG")
+```
+```{r warning=FALSE,message=FALSE,echo=FALSE,fig.width=5,fig.height=1.7,}
+# weak invariance models for task demand, task control, & momentary strain (tense arousal)
+S <- na.omit(s[,c("ID",paste("d",1:4,sep=""),paste("c",1:3,sep=""),paste("t",1:3,sep=""))])
+weak.td <- cfa(model='level: 1
+                      TC =~ a*d1 + b*d2 + c*d3 + d*d4
+                      level: 2
+                      JC =~ a*d1 + b*d2 + c*d3 + d*d4',data=s,cluster="ID",std.lv=TRUE)
+weak.tc <- cfa(model='level: 1
+                      TC =~ a*c1 + b*c2 + c*c3
+                      level: 2
+                      JC =~ a*c1 + b*c2 + c*c3',data=s,cluster="ID",std.lv=TRUE)
+weak.ta <- cfa(model='level: 1
+                      MS =~ a*t1 + b*t2 + c*t3
+                      level: 2
+                      JS =~ a*t1 + b*t2 + c*t3',data=s,cluster="ID",std.lv=TRUE)
+
+# predicting factor scores at both levels
+s[!is.na(s$d1) & !is.na(s$d2) & !is.na(s$d3) & !is.na(s$d4),"TD"] <- as.numeric(lavPredict(weak.td,level=1))
+s[!is.na(s$c1) & !is.na(s$c2) & !is.na(s$c3),"TC"] <- as.numeric(lavPredict(weak.tc,level=1))
+s[!is.na(s$t1) & !is.na(s$t2) & !is.na(s$t3),"MS"] <- as.numeric(lavPredict(weak.ta,level=1))
+wide$JD <- as.numeric(lavPredict(weak.td,level=2))
+wide$JC <- as.numeric(lavPredict(weak.tc,level=2))
+wide$JS <- as.numeric(lavPredict(weak.ta,level=2))
+
+# plotting mean score by time point
+S <- cbind(summarySE(s,"TD",c("day","within.day"),na.rm=T)[,1:4],summarySE(s,"TC",c("day","within.day"),na.rm=T)[,4],
+              summarySE(s,"MS",c("day","within.day"),na.rm=T)[,4])
+colnames(S)[4:6] <- c("TD","TC","MS")
+S <- S[S$within.day!=1,]
+S$time <- S$within.day -1 # computing time
+S[wide$day==2,"time"] <- S[S$day==2,"time"] + 7
+S[wide$day==3,"time"] <- S[S$day==3,"time"] + 14
+labS <- c("TD"="Task Demand","TC"="Task Control","MS"="Momentary Strain") # labels
+p <- ggplot(S,aes(x=within.day,y=TD)) + # plotting
+  geom_smooth(color="blue",se=FALSE,span=0.8) + geom_point(color="blue") +
+  geom_smooth(aes(y=TC),color="green",se=FALSE,span=0.8) + geom_point(aes(y=TC),color="green") +
+  geom_smooth(aes(y=MS),color="violet",se=FALSE,span=0.8) + geom_point(aes(y=MS),color="violet") +
+  facet_wrap(facets="day",nrow=1) + xlab("Time within day (1 ~ 90 min)") + ylab("Lv-1 factor scores")+
+  scale_colour_manual(name="",values=c("TD"="blue","TC"="green","MS"="violet"),labels=labS)
+
+# plotting correlation matrix between
+p1 <- ggplot(melt(cor(wide[,c("JD","JC","JS")],wide[,c("JD","JC","JS")],use="complete.obs",method="pearson")), # plotting lv2-corr
+             aes(x=Var1, y=Var2, fill=value)) + geom_tile() + ggtitle(paste("lv2, N=",
+                                                                            nrow(na.omit(wide[,c("JD","JC","JS")])),
+                                                                            sep=""))+labs(x="",y="")+
+    scale_fill_gradient2(low="blue",high="red",mid="white",midpoint=0,limit = c(-1,1), space = "Lab",
+                         name="Pearson r",guide="legend",breaks=round(seq(-1,1,length.out = 3),2),
+                         minor_breaks=round(seq(-1,1,length.out = 3),2))+
+    theme(text=element_text(face="bold"),legend.text = element_text(size=8))
+p2 <- ggplot(melt(cor(s[,c("TD","TC","MS")],s[,c("TD","TC","MS")],use="complete.obs",method="pearson")),
+             aes(x=Var1, y=Var2, fill=value)) + geom_tile() + ggtitle(paste("lv2, N=",
+                                                                            nrow(na.omit(s[,c("TD","TC","MS")])),
+                                                                            sep=""))+labs(x="",y="")+
+    scale_fill_gradient2(low="blue",high="red",mid="white",midpoint=0,limit = c(-1,1), space = "Lab",
+                         name="Pearson r",guide="legend",breaks=round(seq(-1,1,length.out = 3),2),
+                         minor_breaks=round(seq(-1,1,length.out = 3),2))+
+    theme(text=element_text(face="bold"),legend.text = element_text(size=8))
+
+p
+```
+```{r , echo = FALSE, out.width="150px"}
+knitr::include_graphics("img/white.PNG")
+```
+```{r warning=FALSE,message=FALSE,echo=FALSE,fig.width=5,fig.height=1.7,}
+grid.arrange(p1,p2,nrow=1)
+```
+  
+  \endcol
+\begincol{.60\textwidth}
+
+\fontsize{9pt}{12}\selectfont
+***Job Demand-Control*** (lv2) 
+
+\fontsize{7pt}{12}\selectfont
+- Higher \color{blue}Job Demand \color{black}and lower \color{green}Job Control \color{black} imply higher \color{violet}Job Strain \color{black}
+
+- \color{green}JC \color{black} mitigates the effect of \color{blue}JD \color{black} on \color{violet}JS \color{black} \newline
+
+\fontsize{9pt}{12}\selectfont
+***Task Demand-Control*** (lv1) 
+
+\fontsize{7pt}{12}\selectfont
+- Higher-than-usual \color{blue}TD \color{black} and lower-than-usual \color{green}TC \color{black} imply higher \color{violet}Momentary Strain \color{black}
+
+>- \color{green}TC \color{black} mitigates the effect of \color{blue}TD \color{black} on \color{violet}MS \color{black}
+      
+  \endcol
+\endcols
+
+## Example 2: Configural similarity
+
+\begincols
+  \begincol{.45\textwidth}
+
+```{r , echo = FALSE, out.width="130px"}
+knitr::include_graphics("img/jdc.PNG")
+```
+```{r , echo = FALSE, out.width="150px"}
+knitr::include_graphics("img/white.PNG")
+```
+```{r warning=FALSE,message=FALSE,echo=FALSE,fig.width=5,fig.height=1.7,}
+p
+```
+```{r , echo = FALSE, out.width="150px"}
+knitr::include_graphics("img/white.PNG")
+```
+```{r warning=FALSE,message=FALSE,echo=FALSE,fig.width=5,fig.height=1.7,}
+grid.arrange(p1,p2,nrow=1)
+```
+  
+  \endcol
+\begincol{.60\textwidth}
+
+\fontsize{6pt}{12}\selectfont
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+# computing aggregated scores
+s <- plyr::join(s,wide[,c("ID","JS")],by="ID",type="left")
+s$MS <- s$JS + s$MS
+long <- s
+library(lme4) 
+```
+```{r }
+lv2 <- lm("JS ~ JD + JC + JD:JC", data = wide)
+```
+\fontsize{5pt}{12}\selectfont
+```{r echo=FALSE}
+round(summary(lv2)$coefficients[,1:3],2)
+```
+```{r , echo = FALSE, out.width="250px"}
+knitr::include_graphics("img/white.PNG")
+```
+
+\fontsize{6pt}{12}\selectfont
+```{r warning=FALSE,message=FALSE}
+library(lme4)
+lv1 <- lmer("MS ~ TD + TC + TD:TC + (1|ID)", data = long)
+```    
+\fontsize{5pt}{12}\selectfont
+```{r warning=FALSE,message=FALSE,echo=FALSE}
+round(summary(lv1)$coefficients,2)
+```    
+      
+  \endcol
+\endcols
+
+# Multimethod
+
+## Multimethod approach
+
+\fontsize{8pt}{12}\selectfont
+*Multi-modal constructs*: \newline \fontsize{6.5pt}{12}\selectfont constructs manifesting at different epistemological levels (e.g., stress)
+
+\fontsize{8pt}{12}\selectfont
+*Principle of trianglulation*: \newline \fontsize{6.5pt}{12}\selectfont strategy of fixing a particular position or finding by examining it from at least three different points of view (e.g., PsychoPhysiological assessment)
+
+\fontsize{8pt}{12}\selectfont
+*Trianglulation in Work Stress Assessment* \fontsize{5.5pt}{12}\selectfont (Cox et al. 2000; Kristensen, 1996)
+```{r , echo = FALSE, out.width="270px"}
+knitr::include_graphics("img/triang.PNG")
+```
+
+## Example 3: Workload & Stress
+
+\begincols
+  \begincol{.45\textwidth}
+
+\fontsize{7.5pt}{12}\selectfont \color{blue}
+RQ: Is workload associated with stress? \newline \color{black}
+
+\fontsize{7pt}{12}\selectfont
+Sample & procedure: \newline \fontsize{6pt}{12}\selectfont
+135 full-time office workers \newline
+3 surveys/day + BP over 10 workdays \newline
+
+```{r warning=FALSE,message=FALSE,echo=FALSE,fig.width=5,fig.height=2.2,}
+# loading data
+rm(list=ls())
+load("data/diary_aggregated.RData")
+library(Rmisc); library(ggplot2); library(gridExtra); library(reshape2)
+s <- diary[,c("ID","day","WL","workHours","EE","SBP_aft")]
+vars <- c("WL","workHours","EE","SBP_aft")
+
+# plotting mean score by time point
+wide <- cbind(summarySE(s,"WL","day",na.rm=T)[,c(1,3)],summarySE(s,"workHours","day",na.rm=T)[,3],
+              summarySE(s,"EE","day",na.rm=T)[,3],summarySE(s,"SBP_aft","day",na.rm=T)[,3])
+colnames(wide)[2:5] <- vars
+wide <- melt(wide,id.vars="day")
+wide$week <- 1
+wide[wide$day>6,"week"] <- 2 
+wide[wide$week==2,"day"] <- wide[wide$week==2,"day"] - 6
+
+# plotting
+ggplot(wide[wide$variable%in%c("WL","EE"),],aes(x=day,y=value,color=variable)) +  
+  geom_smooth(se=FALSE,span=0.8) + geom_point() +
+  facet_wrap(facets="week",nrow=1) + xlab("Workday (1=Mon, 5=Fry)") + ylab("Mean scores (1-7)") +
+  scale_color_manual(values=c("WL"="blue","EE"="salmon"),labels=c("WL"="Workload","EE"="Emotional Exhaustion"),name="") +
+  theme(legend.position = "top",legend.key.width = unit(1.7,"cm"),legend.box="horizontal")
+```
+```{r warning=FALSE,message=FALSE,echo=FALSE,fig.width=5,fig.height=1.5,}
+ggplot(wide[wide$variable%in%c("workHours"),],aes(x=day,y=value,color=variable)) +  
+  geom_smooth(se=FALSE,span=0.8) + geom_point() +
+  facet_wrap(facets="week",nrow=1) + xlab("Workday (1=Mon, 5=Fry)") + ylab("Working hours (No.)") +
+  scale_color_manual(values=c("workHours"="darkblue"),labels=c("workHours"="Work Hours"),name="") +
+  theme(legend.position = "none")
+
+ggplot(wide[wide$variable%in%c("SBP_aft"),],aes(x=day,y=value,color=variable)) +  
+  geom_smooth(se=FALSE,span=0.8) + geom_point() +
+  facet_wrap(facets="week",nrow=1) + xlab("Workday (1=Mon, 5=Fry)") + ylab("Syst. BP (mmHg)") +
+  scale_color_manual(values=c("SBP_aft"="red"),labels=c("SBP_aft"="SBP"),name="") +
+  theme(legend.position = "none")
+```
+  
+  \endcol
+\begincol{.60\textwidth}
+
+  \endcol
+\endcols
+
+## Example 3: Workload & Stress
+
+\begincols
+  \begincol{.45\textwidth}
+
+\fontsize{7.5pt}{12}\selectfont \color{blue}
+RQ: Is workload associated with stress? \newline \color{black}
+
+\fontsize{7pt}{12}\selectfont
+Sample & procedure: \newline \fontsize{6pt}{12}\selectfont
+135 full-time office workers \newline
+3 surveys/day + BP over 10 workdays \newline
+
+```{r warning=FALSE,message=FALSE,echo=FALSE,fig.width=5,fig.height=2.2,}
+# loading data
+rm(list=ls())
+load("data/diary_aggregated.RData")
+library(Rmisc); library(ggplot2); library(gridExtra); library(reshape2)
+s <- diary[,c("ID","day","WL","workHours","EE","SBP_aft")]
+vars <- c("WL","workHours","EE","SBP_aft")
+
+# plotting mean score by time point
+wide <- cbind(summarySE(s,"WL","day",na.rm=T)[,c(1,3)],summarySE(s,"workHours","day",na.rm=T)[,3],
+              summarySE(s,"EE","day",na.rm=T)[,3],summarySE(s,"SBP_aft","day",na.rm=T)[,3])
+colnames(wide)[2:5] <- vars
+wide <- melt(wide,id.vars="day")
+wide$week <- 1
+wide[wide$day>6,"week"] <- 2 
+wide[wide$week==2,"day"] <- wide[wide$week==2,"day"] - 6
+
+# plotting
+ggplot(wide[wide$variable%in%c("WL","EE"),],aes(x=day,y=value,color=variable)) +  
+  geom_smooth(se=FALSE,span=0.8) + geom_point() +
+  facet_wrap(facets="week",nrow=1) + xlab("Workday (1=Mon, 5=Fry)") + ylab("Mean scores (1-7)") +
+  scale_color_manual(values=c("WL"="blue","EE"="salmon"),labels=c("WL"="Workload","EE"="Emotional Exhaustion"),name="") +
+  theme(legend.position = "top",legend.key.width = unit(1.7,"cm"),legend.box="horizontal")
+```
+```{r warning=FALSE,message=FALSE,echo=FALSE,fig.width=5,fig.height=1.5,}
+ggplot(wide[wide$variable%in%c("workHours"),],aes(x=day,y=value,color=variable)) +  
+  geom_smooth(se=FALSE,span=0.8) + geom_point() +
+  facet_wrap(facets="week",nrow=1) + xlab("Workday (1=Mon, 5=Fry)") + ylab("Working hours (No.)") +
+  scale_color_manual(values=c("workHours"="darkblue"),labels=c("workHours"="Work Hours"),name="") +
+  theme(legend.position = "none")
+
+ggplot(wide[wide$variable%in%c("SBP_aft"),],aes(x=day,y=value,color=variable)) +  
+  geom_smooth(se=FALSE,span=0.8) + geom_point() +
+  facet_wrap(facets="week",nrow=1) + xlab("Workday (1=Mon, 5=Fry)") + ylab("Syst. BP (mmHg)") +
+  scale_color_manual(values=c("SBP_aft"="red"),labels=c("SBP_aft"="SBP"),name="") +
+  theme(legend.position = "none")
+```
+  
+  \endcol
+\begincol{.60\textwidth}
+
+```{r warning=FALSE,message=FALSE,echo=FALSE,fig.width=5,fig.height=2.3,}
+# plotting correlation matrix between
+wide <- cbind(summarySE(s,"WL","ID",na.rm=T)[,c(1,3)],summarySE(s,"workHours","ID",na.rm=T)[,3],
+              summarySE(s,"EE","ID",na.rm=T)[,3],summarySE(s,"SBP_aft","ID",na.rm=T)[,3])
+colnames(wide)[2:ncol(wide)] <- paste(vars,"cm",sep=".")
+s <- plyr::join(s,wide,by="ID",type="left")
+s$WL.mc <- s$WL - s$WL.cm # computing person-mean-centered scores
+s$EE.mc <- s$EE - s$EE.cm
+s$workHours.mc <- s$workHours - s$workHours.cm
+s$SBP_aft.mc <- s$SBP_aft - s$SBP_aft.cm
+colnames(wide)[2:ncol(wide)] <- vars
+cors <- cor(wide[,2:ncol(wide)],use="complete.obs",method="pearson")
+cors[upper.tri(cors)] <- NA
+cors <- melt(cors,na.rm=TRUE)
+ggplot(cors,aes(x=Var1, y=Var2, fill=value)) + geom_tile() + ggtitle("lv2 (means)")+labs(x="",y="")+
+    scale_fill_gradient2(low="white",high="#f03b20",mid="#FFC2B0",midpoint=0.5,limit = c(0,1), space = "Lab",
+                         name="Pearson r",guide="legend",breaks=round(seq(0,1,length.out = 3),2),
+                         minor_breaks=round(seq(0,1,length.out = 3),2))+
+    theme(text=element_text(face="bold"),legend.text = element_text(size=8)) +
+  geom_text(aes(label=gsub("0\\.","\\.",round(value,2))))
+
+DATA <- s[,paste(vars,"mc",sep=".")]
+colnames(DATA) <- vars
+cors <- cor(DATA,use="complete.obs",method="pearson")
+cors[upper.tri(cors)] <- NA
+cors <- melt(cors,na.rm=TRUE)
+ggplot(cors,aes(x=Var1, y=Var2, fill=value)) + geom_tile() + ggtitle("lv1 (mean-centered)")+labs(x="",y="")+
+    scale_fill_gradient2(low="white",high="#f03b20",mid="#FFC2B0",midpoint=0.5,limit = c(0,1), space = "Lab",
+                         name="Pearson r",guide="legend",breaks=round(seq(0,1,length.out = 3),2),
+                         minor_breaks=round(seq(0,1,length.out = 3),2))+
+    theme(text=element_text(face="bold"),legend.text = element_text(size=8)) +
+  geom_text(aes(label=gsub("0\\.","\\.",round(value,2))))
+```  
+   
+  \endcol
+\endcols
+
+# Discussion & Refs
+
+## Theory $\wedge$ Method
+
+\fontsize{10pt}{12}\selectfont 
+*"Construct validation refers to the process of simultaneously validating measures of psychological constructs and the theories of which the constructs are a part"* \fontsize{5.5pt}{12}\selectfont (Strauss & Smith, 2009) \newline
+
+\fontsize{10pt}{12}\selectfont 
+Construct validation in a multilevel framework:
+
+1. Cross-level isomorphism \newline \fontsize{7pt}{12}\selectfont Same construct on different levels? &rightarrow; anche con \color{blue} multilevel IRT  \color{black}\fontsize{5.5pt}{12}\selectfont (Tay et al., 2014) \fontsize{10pt}{12}\selectfont 
+
+2. Cross-level homology \newline \fontsize{7pt}{12}\selectfont Same relationships on different levels? \fontsize{10pt}{12}\selectfont 
+
+3. Multimethod approach \newline \fontsize{7pt}{12}\selectfont Same conclusions with different methods? \fontsize{10pt}{12}\selectfont 
+
+## Thank you!
+
+```{r , echo = FALSE, out.width = "280px"}
+knitr::include_graphics("img/thankyou.PNG")
+```
+
+\begincols
+  \begincol{.70\textwidth}
+
+\fontsize{7.5pt}{12}\selectfont
+**Luca Menghini Ph.D.**, \newline \fontsize{7pt}{12}\selectfont Department of General Psychology, \newline University of Padova
+
+- [luca.menghini.3@phd.unipd.it]()
+
+- [@LuMenPsy](https://twitter.com/LuMenPsy)
+
+- researchgate.net/profile/Luca-Menghini
+
+>- linkedin.com/in/menghiniluca/
+
+  \endcol
+\begincol{.19\textwidth}
+
+
+```{r , echo = FALSE, out.width = "85px",fig.align='left'}
+knitr::include_graphics("img/qr.PNG")
+```
+
+  \endcol
+\endcols
+
+## Psicostat $\times$ Spritz (Spritzostat?)
+
+\begincols
+  \begincol{.30\textwidth}
+
+```{r , echo = FALSE, out.width = "85px",fig.align='left'}
+knitr::include_graphics("img/spritz.PNG")
+```
+
+  \endcol
+\begincol{.60\textwidth}
+
+\fontsize{9pt}{12}\selectfont
+Vi aspettiamo più tardi all'AIPeritivo! ;) \newline
+
+https://github.com/Luca-Menghini/psicostat_aip2022
+
+
+  \endcol
+\endcols
+
+## References (1/2)
+
+\fontsize{6pt}{12}\selectfont
+Chen, G., Bliese, P. D., & Mathieu, J. E. (2005). Conceptual framework and statistical procedures for delineating and testing multilevel theories of homology. *Organizational Research Methods, 8*, 375-409.
+
+Chen, G., Mathieu, J. E., & Bliese, P. D. (2004). A framework for conducting multilevel construct validation. In F. J. Yammarino & F. Dansereau (Eds.), *Research in multilevel issues: Multilevel issues in organizational behavior and processes* (pp. 273-303). Oxford, UK: Elsevier.
+
+Cox, T., Griffiths, A., & Rial-González, E. (2000). Research on Work-related Stress. Report commisioned by the European Agency for Safety and Health at Work (EU-OSHA). Luxembourg: Office for Official Pubblication of the European Communities
+
+Kristensen, T. S. (1996). Job stress and cardiovascular disease: A theoretic critical review. Journal of Occupational Health Psychology, 1(3), 246–260. https://doi.org/10.1037//1076-8998.1.3.246
+
+Molenaar (2004). A Manifesto on Psychology as Idiographic Science: Bringing the Person \newline Back Into Scientific Psychology, This Time Forever. *Measurement, 1*(4)
+
+## References (2/2)
+
+\fontsize{6pt}{12}\selectfont
+Piantadosi, S., Byar, D. P., & Green, S. B. (1988). The ecological fallacy. *American journal of epidemiology, 127*(5), 893-904.
+
+Spector, P. E., & Pindek, S. (2016). The future of research methods in work and occupational health psychology. *Applied Psychology, 65*(2), 412-431.
+
+Stapleton, L. M., Yang, J. S., & Hancock, G. R. (2016). Construct meaning in multilevel settings. *Journal of Educational and Behavioral Statistics, 41*(5), 481–520
+
+Strauss, M. E., & Smith, G. T. (2009). Construct validity: Advances in theory and methodology. *Annual review of clinical psychology, 5*, 1. 
+
+Tay, L., Woo, S. E., & Vermunt, J. K. (2014). A conceptual and methodological framework for psychometric isomorphism: Validation of multilevel construct measures. *Organizational Research Methods, 17*, 77-106.

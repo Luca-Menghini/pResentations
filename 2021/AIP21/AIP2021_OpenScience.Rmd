@@ -1,0 +1,125 @@
+---
+title: 'Riproducibilità e open science in psicologia del lavoro e delle organizzazioni: Sfide e opportunità per i ricercatori a inizio carriera'
+author: |
+ | ![](logo.PNG){width=2.3in} \fontsize{8pt}{7.2}\selectfont 
+ |
+ | **Luca Menghini & Cristian Balducci**
+ |
+ | Dipartimento di Psicologia, Università di Bologna
+ |
+ |
+ | **AIP - Psicologia per le Organizzazioni**
+ |
+ | XVII Congresso Nazionale, Verona, 23-25 settembre 2021
+ |
+ | Simposio "*Ricercatori a inizio carriera: Contributi dal network E-CARE*"
+ |
+logo: logo3.png
+output:
+  beamer_presentation:
+    fonttheme: serif
+    theme: Singapore
+    slide_level: 2
+    includes:
+      in_header: mystyle.tex
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE,tidy.opts = list(width.cutoff=80))
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = NA
+)
+library(Cairo)
+
+```
+
+## Outline
+
+\fontsize{8pt}{12}\selectfont
+- ...
+
+- Predittori e conseguenze del workaholism
+
+- Riproducibilità e replicabilità
+
+- Trasparenza e open science
+
+- Pre-registrazione
+
+- Studi di replica
+
+- Conclusioni
+
+
+# Background
+
+# Replicabilità
+
+## Riproducibilità e replicablità
+
+\begincols
+  \begincol{.5\textwidth}
+  
+\fontsize{8pt}{12}\selectfont
+**Riproducibilità del metodo**
+
+\fontsize{6.5pt}{12}\selectfont
+- capacità di produrre gli **stessi risultati** di uno studio precedente utilizzando gli **stessi materiali** e gli **stessi dati** usati nello studio originale
+
+- condizione minima necessaria affinché un risultato sia **credibile**
+
+- non fornisce nuova evidenza per un fenomeno. Nuova evidenza è data da nuovi studi che testano la replicabilità di effetti trovati in studi precedenti
+
+```{r , echo = FALSE, out.width = "1px",fig.align="left"}
+knitr::include_graphics("white.PNG")
+```
+
+  \endcol
+\begincol{.5\textwidth}
+\fontsize{8pt}{12}\selectfont
+
+**Replicabilità dei risultati**
+
+\fontsize{6.5pt}{12}\selectfont
+- capacità di produrre gli **stessi risultati** di uno studio precedente con **nuovi dati**, eseguendo le **stesse procedure** dello studio originario
+
+- se **'fallisce'**, promuove innovazione teorica e può ridurre la fiducia nell'esistenza di un certo fenomeno/processo
+
+- se **'ha successo'**, può aumentare la fiducia nell'esistenza di un effetto
+
+```{r , echo = FALSE, out.width = "1px",fig.align="left"}
+knitr::include_graphics("white.PNG")
+```
+
+  \endcol
+\endcols
+
+## Riproducibilità e replicabilità
+
+```{r , echo = FALSE, out.width=300}
+knitr::include_graphics("reproducible-definition-grid.jpg")
+```
+
+## Minacce alla 
+
+# Open science
+
+## Open science framework
+
+## TOP guidelines
+
+## Open science vs. open access
+
+# Pre-registrazione
+
+# Studi di replica
+
+# Riferimenti
+
+## Riferimenti
+
+\fontsize{6pt}{12}\selectfont
+
+- Toth, A.A., Banks, G.C., Mellor, D. et al. Study Preregistration: An Evaluation of a Method for Transparent Reporting. *J Bus Psychol 36*, 553–571 (2021)

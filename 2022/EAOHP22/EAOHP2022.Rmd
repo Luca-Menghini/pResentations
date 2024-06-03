@@ -1,0 +1,164 @@
+---
+title: 'Workplace Stress in Real-Time'
+subtitle: 'Towards the Psychophysiological Assessment of Stressors and Strain Under Ecological Conditions'
+author: | 
+ | \fontsize{8pt}{7.2}\selectfont Luca Menghini$^1$
+ |
+ | \fontsize{7pt}{7.2}\selectfont $^1$Department of General Psychology, University of Padova, Italy
+ |
+ | ![](img/logo.PNG){width=2in} 
+ |
+ | **15th European Academy of Occupational Health Psychology Conference**
+ |
+ | EAOHP 2022, Bordeaux, 6-8th July 2022
+ |
+ | *Early career showcase*
+ |
+logo: img/logo3.png
+output:
+  beamer_presentation:
+    fonttheme: serif
+    theme: Singapore
+    slide_level: 2
+    includes:
+      in_header: mystyle.tex
+---
+
+# Background
+
+# Ph.D. project
+
+## Study 1: Wirst-worn wearable sensor validation
+
+\begincols
+  \begincol{.72\textwidth}
+  
+```{r , echo = FALSE, out.width = "150px",fig.align="left"}
+knitr::include_graphics("img/white.PNG")
+```
+
+\fontsize{7pt}{10}\selectfont
+>- **Goal**: evaluating the accuracy of the E4 in measuring HRV and skin conductance over 9 conditions widely used in stress reactivity studies (3min each)
+
+- **Participants**: 40 healthy volunteers (19f, 30.2 ± 12.7y)
+
+- **References**: ECG, finger skin conductance
+```{r , echo = FALSE, out.width = "240px",fig.align="left"}
+knitr::include_graphics("img/study1_figure1.PNG")
+```
+
+  \endcol
+\begincol{.46\textwidth}
+
+```{r , echo = FALSE, out.width = "150px",fig.align="left"}
+knitr::include_graphics("img/white.PNG")
+```
+
+```{r , echo = FALSE, out.width = "120px",fig.align="right"}
+knitr::include_graphics("img/study1_method.PNG")
+```
+
+  \endcol
+\endcols
+
+## Main results: HRV
+
+\begincols
+  \begincol{.70\textwidth}
+
+\fontsize{6pt}{10}\selectfont
+**RMSSD** = Root Mean Square of Successive Differences (ms)
+
+```{r , echo = FALSE, out.width = "150px",fig.align="left"}
+knitr::include_graphics("img/white.PNG")
+```
+
+```{r , echo = FALSE, out.width = "150px",fig.align="center"}
+knitr::include_graphics("img/study1_result2.PNG")
+```
+
+  \endcol
+\begincol{.30\textwidth}
+
+```{r , echo = FALSE, out.width = "80px",fig.align="left"}
+knitr::include_graphics("img/study1_result1.PNG")
+```
+
+  \endcol
+\endcols
+
+\fontsize{6pt}{10}\selectfont
+- HRV measures are affected by wrist movements, cognitive & emotional stress, nonstationarity, and larger wrist circumferences (BMI)
+
+- **Seated rest** (with no prior stress) shows the best accuracy for HRV
+
+
+## Measures: Experience Sampling Method
+
+```{r , echo = FALSE, out.width="320px"}
+knitr::include_graphics("img/EJPA.PNG")
+```
+\fontsize{7pt}{12}\selectfont Open data & materials with ESM psychometrics: \color{blue} **https://osf.io/87a9p/** \color{black}
+
+- \color{blue} **Affective Strain**\color{black}: "How do you feel right now?" \newline Multidimensional Mood Questionnaire \fontsize{5pt}{12}\selectfont (Wilhelm & Schoebi, 2007) \fontsize{7pt}{12}\selectfont \newline using 2 (original) or 3 (updated) seven-point VAS items for each dimension: \newline (1) **Negative Valence** (e.g., "well-unwell") \newline (2) **Tense Arousal** (e.g., "calm-tense") \newline (3) **Fatigue** (e.g., "awake-tired")
+
+- \color{blue} **Workload**\color{black}: Task Demand Scale using 4 seven-point VAS items \newline (e.g., "the job task required to work very fast")
+
+
+# Next steps
+
+## Merci de votre attention!
+
+```{r , echo = FALSE, out.width = "270px",fig.align='center'}
+knitr::include_graphics("img/thankyou.PNG")
+```
+
+\fontsize{7.5pt}{12}\selectfont
+**Luca Menghini Ph.D.**, University of Bologna, Italy \newline - Mail: \color{blue}luca.menghini3@unibo.it\color{black} \newline - Twitter: \color{blue} @LuMenPsy \color{black} \newline - Linkedin: \color{blue}linkedin.com/in/menghiniluca/
+
+\color{blue}&rightarrow; Early career showcase - Workplace Stress in Real-Time \newline \fontsize{5pt}{12}\selectfont(Friday 8, 10:30, Room 33)\color{black}
+
+# References
+
+## References (1/4)
+
+\fontsize{5pt}{12}\selectfont
+
+- Atroszko, P. A., et al. (2019). Beyond the myths about work addiction: Toward a consensus on definition and trajectories for future studies on problematic overworking. *Journal of Behavioral Addictions, 8*(1), 7–15. https://doi.org/10.1556/2006.8.2019.11
+
+- Benedetti, A. A., et al. (2015). The effects of intrinsic and extrinsic sources of motivation on well-being depend on time of day: The moderating effects of workday accumulation. *Journal of Vocational Behavior, 88*, 38–46. https://doi.org/10.1016/j.jvb.2015.02.009
+
+- Bowling, N. A., et al. (2015). A meta-analytic examination of the potential correlates and consequences of workload. *Work and Stress, 29*(2), 95–113. https://doi.org/10.1080/02678373.2015.1033037
+
+- Beal, D. J. (2015). ESM 2.0: State of the Art and Future Potential of Experience Sampling Methods in Organizational Research. *Annual Review of Organizational Psychology and Organizational Behavior, 2*(1), 383–407. https://doi.org/10.1146/annurev-orgpsych-032414-111335
+
+- Clark, M. A., et al. (2016). All Work and No Play? A Meta-Analytic Examination of the Correlates and Outcomes of Workaholism. *Journal of Management, 42*(7), 1836–1873. https://doi.org/10.1177/0149206314522301
+
+## References (2/4)
+
+\fontsize{5pt}{12}\selectfont
+
+- Gabriel, A. S., et al. (2019). Experience Sampling Methods: A Discussion of Critical Trends and Considerations for Scholarly Advancement. *Organizational Research Methods, 22*(4), 969–1006. https://doi.org/10.1177/1094428118802626
+
+- Griffiths, et al. (2018). Ten myths about work addiction. *Journal of Behavioral Addictions, 7*(4), 845–857. https://doi.org/10.1556/2006.7.2018.05
+
+- Ilies, R., et al. (2010). Psychological and physiological reactions to high workloads: Implications for well-being. *Personnel Psychology, 63*(2), 407–436. https://doi.org/10.1111/j.1744-6570.2010.01175.x
+
+- Johnston, D. W., et al. (2019). Why does work cause fatigue? A real-time investigation of fatigue, and determinants of fatigue in nurses working 12-hour shifts. *Annals of Behavioral Medicine, 53*(6), 551–562. https://doi.org/10.1093/abm/kay065
+
+- Menghini, L. et al. (Accepted). The Italian Adaptation of the Warr's (1990) Job-related Affective Wellbeing Scale: Factorial Structure and Relationships with the Management Standard Indicator Tool. *TPM - Testing, Psychometrics, and Measurement in Applied Psychology*.
+
+## References (3/4)
+
+\fontsize{5pt}{12}\selectfont
+
+- Menghini, L., et al. (Accepted). Workplace stress in real time: Three parsimonious scales for the experience sampling measurement of stressors and strain at work. *European Journal of Psychological Assessment* 
+
+- Pindek, S., et al. (2019). The stressor–strain relationship in diary studies: A meta-analysis of the within and between levels. *Work and Stress, 33*(1), 1–21. https://doi.org/10.1080/02678373.2018.1445672
+
+- Schaufeli, W. B., et al. (2009). Being Driven to Work Excessively Hard. *Cross-Cultural Research, 43*(4), 320–348. https://doi.org/10.1177/1069397109337239
+
+- Schaufeli, W. B., et al. (2008). It takes two to tango: Workaholism is working excessively and working compulsively. *The Long Work Hours Culture: Causes, Consequences and Choices*, 203–226.
+
+- Sussman, S. (2012). Workaholism: A Review. *Journal of Addiction Research & Therapy, 135*(2), 612–615. https://doi.org/10.4172/2155-6105.S6-001
+
