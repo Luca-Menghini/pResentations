@@ -1,5 +1,5 @@
 # Luca Menghini, Ph.D.
-This repository hosts the PDF of my presentations at different National and International conferences. 
+This repository hosts the PDF and R code of my presentations at different National and International conferences. 
 
 ## 2024
 
