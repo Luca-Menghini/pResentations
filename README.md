@@ -10,10 +10,12 @@ Occupational Health Psychology](https://luca-menghini.github.io/pResentations/20
 
 ## 2022
 
-- Menghini, L. [Multimethod & Intensive Longitudinal Designs in Occupational Health Psychology](https://luca-menghini.github.io/pResentations/2022/AIP2022_Psicostat.pdf).  [[code](https://luca-menghini.github.io/pResentations/2022/AIP2022_Psicostat.Rmd)]
+- Menghini, L. 30th Conference Italian Association of Psychology (AIP), Padova, Italy, July 27-30 2022. [Multimethod & Intensive Longitudinal Designs in Occupational Health Psychology](https://luca-menghini.github.io/pResentations/2022/AIP22/AIP2022_Psicostat.pdf). [[code](https://luca-menghini.github.io/pResentations/2022/AIP22/AIP2022_Psicostat.Rmd)]
 
-- Menghini, L., Spagnoli, P., & Balducci, C. [So far so good, but for how long? An experience sampling examination of the workaholic’s short-term reactions to increased workload and workday accumulation](https://luca-menghini.github.io/pResentations/2022/EAOHP2022.pdf).  [[code](https://luca-menghini.github.io/pResentations/2022/EAOHP2022.Rmd)]
+- Menghini, L., Spagnoli, P., & Balducci, C. 15th Conference European Academy of Occupational Health Psychology (EAOHP), Bourdeaux, France, July 5-7 2024. [An experience sampling examination of the workaholic’s short-term reactions to increased workload and workday accumulation](https://luca-menghini.github.io/pResentations/2022/EAOHP22/EAOHP2022.pdf). [[code](https://luca-menghini.github.io/pResentations/2022/EAOHP22/EAOHP2022.Rmd)]
 
 ## 2021
 
-- Menghini, L. [Riproducibilità e open science in psicologia del lavoro e delle organizzazioni: Sfide e opportunità per i ricercatori a inizio carriera](https://luca-menghini.github.io/pResentations/2021/AIP2021AIP2021.pdf).  [[code](https://luca-menghini.github.io/pResentations/2021/AIP2021AIP2021.Rmd)]
+- Menghini, L. 18th Conference Italian Association of Psychology (AIP) - Work and Organizational Psychology section, Verona, Italy, September 23-25 2021. [Riproducibilità e open science in psicologia del lavoro e delle organizzazioni](https://luca-menghini.github.io/pResentations/2021/AIP21/AIP2021_OpenScience.pdf). [[code](https://luca-menghini.github.io/pResentations/2021/AIP21/AIP2021_OpenScience.Rmd)]
+
+- Menghini, L. Psicostat online meeting, Padova, Italy, November 5 2021. [Cristi di replicabilità e neoliberismo accademico](https://luca-menghini.github.io/pResentations/2021/Psicostat21/Psicostat21.pdf). [[code](https://luca-menghini.github.io/pResentations/2021/Psicostat21/Psicostat21.Rmd)]
