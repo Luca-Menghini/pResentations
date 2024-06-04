@@ -29,7 +29,7 @@ editor_options:
 ## The importance of sleep in OHP research
 
 \fontsize{9pt}{12}\selectfont
-Sleep measures are increasingly used in OHP to investigate how psychosocial conditions such as job demands, shift work, and work-home interface impact on **sleep/wake patterns & circadian rhythms**
+Increasing use of sleep measures to investigate how psychosocial conditions such as job demands and shift work impact on **sleep/wake patterns & circadian rhythms** and how sleep, in turn, impact on work-related health, safety, and performance.
 
 \begincols
   \begincol{.45\textwidth}
@@ -69,7 +69,7 @@ knitr::include_graphics("img/sleepResearchOHP.PNG")
 ```
 
 \fontsize{6.5pt}{12}\selectfont
-Scopus search of `"work" AND "sleep"` in WOP journals between 1970 and 2024 (*N* = `r nrow(p)`)
+Scopus search of `"work" AND "sleep"` in WOP \newline journals between 1970 and 2024 (*N* = `r nrow(p)`)
 
 \endcol \endcols
 
@@ -221,7 +221,7 @@ __Challenges__
 
 - Proprietary algorithms (black box)
 
-- No access to raw data \newline (low reproducibility)
+- Limited access to raw data \newline (low reproducibility)
 
 >- Consumer-oriented updates (e.g., firmware version)
 
@@ -276,13 +276,13 @@ knitr::include_graphics("img/staging.png")
 
 ## Opportunities for OHP research & pratice
 
-\begincols \begincol{.7\textwidth}
+\begincols \begincol{.8\textwidth}
 
-```{r , echo = FALSE, out.width="210px"}
+```{r , echo = FALSE, out.width="230px"}
 knitr::include_graphics("img/ourastudy.png")
 ```
 
-\endcol \begincol{.40\textwidth}
+\endcol \begincol{.35\textwidth}
 
 \fontsize{7pt}{12}\selectfont
 
