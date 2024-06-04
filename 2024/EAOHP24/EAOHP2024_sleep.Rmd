@@ -210,7 +210,7 @@ More acceptable & accessible (lower costs, better design, less expertise needed)
 
 Consumer-oriented features (e.g., battery and memory capacity) &rightarrow; large scale \newline
 
-Multi-sensor features integrating acceleration and cardiac activity (PPG) \newline &rightarrow; sleep staging \newline &rightarrow; better accuracy?
+Multi-sensor features integrating acceleration and cardiac activity (PPG) \newline &rightarrow; sleep staging? \newline &rightarrow; better accuracy?
 
 \endcol \begincol{.45\textwidth}
 
@@ -278,7 +278,7 @@ knitr::include_graphics("img/staging.png")
 
 \begincols \begincol{.8\textwidth}
 
-```{r , echo = FALSE, out.width="230px"}
+```{r , echo = FALSE, out.width="240px"}
 knitr::include_graphics("img/ourastudy.png")
 ```
 
