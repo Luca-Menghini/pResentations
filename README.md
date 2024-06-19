@@ -18,4 +18,4 @@ Occupational Health Psychology](https://luca-menghini.github.io/pResentations/20
 
 - Menghini, L. 18th Conference Italian Association of Psychology (AIP) - Work and Organizational Psychology section, Verona, Italy, September 23-25 2021. [Riproducibilità e open science in psicologia del lavoro e delle organizzazioni](https://luca-menghini.github.io/pResentations/2021/AIP21/AIP2021_OpenScience.pdf). [[code](https://luca-menghini.github.io/pResentations/2021/AIP21/AIP2021_OpenScience.Rmd)]
 
-- Menghini, L. Psicostat online meeting, Padova, Italy, November 5 2021. [Cristi di replicabilità e neoliberismo accademico](https://luca-menghini.github.io/pResentations/2021/Psicostat21/Psicostat21.pdf). [[code](https://luca-menghini.github.io/pResentations/2021/Psicostat21/Psicostat21.Rmd)]
+- Menghini, L. Psicostat online meeting, Padova, Italy, November 5 2021. [Crisi di replicabilità e neoliberismo accademico](https://luca-menghini.github.io/pResentations/2021/Psicostat21/Psicostat21.pdf). [[code](https://luca-menghini.github.io/pResentations/2021/Psicostat21/Psicostat21.Rmd)]
