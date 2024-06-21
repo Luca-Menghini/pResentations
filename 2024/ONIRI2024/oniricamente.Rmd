@@ -275,11 +275,16 @@ Moore & Piwek (2017). Regulating wellbeing in the brave new quantified workplace
 
 ## Collaborazioni
 
-- La __psicologia del sonno__ è un ambito intrinsecamente interdisciplinare \newline
+La __psicologia del sonno__ è un ambito intrinsecamente interdisciplinare \newline
+&rightarrow; Necessità di rafforzare le collaborazioni tra ambiti diversi della ricerca e della pratica professionale in psicologia \newline
 
-- Necessità di rafforzare le collaborazioni tra ambiti diversi della ricerca e della pratica professionale in psicologia \newline
+\fontsize{10pt}{12}\selectfont
 
-- Il sonno è uno stato biologico non negoziabile, ma in quale direzione sta andando la nostra società?
+- Lavoro $\times$ Clinica: \newline es. Strategie cognitive (es. MTC) per la riduzione delle perseverazioni cognitive legate al lavoro
+
+- Lavoro $\times$ Sperimentale: \newline es. Micro-architettura del sonno nell'insonnia paradossale, Risorse cognitive e *task performance*, lavoro a turni
+
+- Lavoro $\times$ Sviluppo: \newline es. Dalle condizioni lavorative e di *work-life balance* dei genitori al sonno dei bambini
 
 ## Grazie per l'attenzione!
 
