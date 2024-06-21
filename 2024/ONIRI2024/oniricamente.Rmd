@@ -1,0 +1,319 @@
+---
+title: 'Stress, perseverazioni cognitive \newline e prestazioni sul lavoro'
+subtitle: 'Il contributo della ricerca sul sonno per la \newline psicologia della salute occupazionale'
+author:  | 
+ | \fontsize{9pt}{12}\selectfont Luca Menghini Ph.D. \fontsize{6pt}{12}\selectfont
+ | Dipartimento di Psicologia Generale
+ | Human Inspired Technology Research Centre
+ | Psicostat core team
+ | _Università degli Studi di Padova_
+ | ![](img/logo.PNG){width=3.9in}
+ | _ONIRICAMENTE \newline \fontsize{9pt}{12}\selectfont Giornata di studi sulla Psicologia del Sonno_
+ | \fontsize{6pt}{12}\selectfont Padova, 21 giugno 2024 \color{blue}
+ |
+logo: img/logo3.png
+output:
+  beamer_presentation:
+    fonttheme: serif
+    theme: Singapore
+    slide_level: 2
+    includes:
+      in_header: mystyle.tex
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+## L'importanza del sonno per la salute occupazionale
+
+\fontsize{9pt}{12}\selectfont
+Utilizzo crescente di misure legate al sonno per investigare come **condizioni psicosociali** (es. carico di lavoro, lavoro a turni) impattano sui **ritmi sonno-veglia** e la **qualità del sonno** e come questi ultimi, a loro volta, impattano sulla salute, la sicurezza e le prestazioni lavorative
+
+\begincols
+  \begincol{.45\textwidth}
+
+```{r , echo = FALSE, out.width="130px",fig.height=5,fig.width=4,warning=FALSE}
+rm(list=ls())
+p <- read.csv("data/scopus_Sleep&Work.csv")
+kw <- character()
+for(i in 1:nrow(p)){
+  kw <- c(kw,tolower(strsplit(p[i,"Author.Keywords"],split=";")[[1]])) }
+kw[substr(kw,1,1)==" "] <- substr(kw[substr(kw,1,1)==" "],2,
+                                  nchar(kw[substr(kw,1,1)==" "]))
+k <- data.frame(word = levels(as.factor(kw)))
+for(i in 1:nrow(k)){ k[i,"freq"] <- length(kw[kw==k[i,"word"]]) }
+k <- k[order(k$freq, decreasing = TRUE),]
+
+# plotting
+library(ggplot2); library(ggwordcloud)
+k <- k[k$freq > 7,]
+k[k$freq > 1000,"Freq"] <- 1000
+k[k$freq > 100 & k$freq < 1000,"Freq"] <- 500
+k[k$freq > 20 & k$freq < 100,"Freq"] <- 50
+k[k$freq > 10 & k$freq <= 20,"Freq"] <- 15
+k[k$freq <= 10,"Freq"] <- 10
+ggplot(data = k,
+       aes(label = word, size = Freq, col = as.character(Freq))) +
+  geom_text_wordcloud(rm_outside = TRUE, max_steps = 1,
+                      grid_size = 1, eccentricity = .9)+
+  scale_size_area(max_size = 14)+
+  theme_void()
+```
+
+\endcol \begincol{.65\textwidth}
+
+```{r , echo = FALSE, out.width="190px",fig.align='center'}
+knitr::include_graphics("img/sleepResearchOHP.PNG")
+```
+
+\fontsize{6.5pt}{12}\selectfont
+Scopus search of `"work" AND "sleep"` in WOP \newline journals between 1970 and 2024 (*N* = `r nrow(p)`)
+
+\endcol \endcols
+
+# Recupero
+
+## Stress, *detachment* e recupero
+
+```{r , echo = FALSE, out.width="300px"}
+knitr::include_graphics("img/detachment.PNG")
+```
+
+\fontsize{7pt}{12}\selectfont ___Stressor-Detachment model___ \newline Sonnentag & Fritz (2015) *J Org Behav* \color{blue} [doi:10.1002/job.1924](https://doi.org/10.1002/job.1924)
+
+## Sleep quality & psychological detachment \newline in 'workaholic days'
+
+```{r , echo = FALSE, out.width="320px"}
+knitr::include_graphics("img/workaholism.PNG")
+```
+
+\fontsize{7pt}{12}\selectfont Menghini & Balducci (Accepted) *J Occup Health Psych*
+
+# Prestazioni
+
+## Dallo stress alla prestazione 
+
+```{r , echo = FALSE, out.width="300px"}
+knitr::include_graphics("img/jdr2.PNG")
+```
+
+\fontsize{7pt}{12}\selectfont Demerouti et al. (2009). *Res Occup Stress Well Being* \color{blue} [doi:10.1108/S1479-3555(2009)0000007006](https://doi.org/10.1108/S1479-3555(2009)0000007006)
+
+## Qualità del sonno e prestazioni lavorative
+
+```{r , echo = FALSE, out.width="280px"}
+knitr::include_graphics("img/performance.jpg")
+```
+
+\fontsize{7pt}{12}\selectfont ___A meta-analysis of sleep and work performance___ \newline Henderson & Horan (2020). *J Org Behav* \color{blue} [doi:10.1002/job.2486](https://doi.org/10.1002/job.2486)
+
+## Altre conseguenze individuali mediate dal sonno
+
+\begincols
+  \begincol{.7\textwidth}
+
+```{r , echo = FALSE, out.width="220px"}
+knitr::include_graphics("img/work-sleep.PNG")
+```
+
+\endcol \begincol{.35\textwidth}
+
+\fontsize{7pt}{12}\selectfont ___The relationship between sleep and work: A meta-analysis___ \newline Litwiller et al. (2017). \newline _J Applied Psych_ \color{blue} \newline [doi:10.1037/apl0000169](https://doi.org/10.1037/apl0000169)
+
+\endcol \endcols
+
+# Turni
+
+## Lavoro a turni, sonno e salute
+
+\fontsize{8pt}{12}\selectfont ___Shift Work (Sleep) Disorder___ = sintomi di insonnia o sonnolenza eccessiva associati ad orari lavorativi che si sovrappongono ricorrentemente agli abituali periodi di sonno \fontsize{6.5pt}{12}\selectfont (ICSD-3, 2014) \fontsize{8pt}{12}\selectfont
+
+\begincols
+  \begincol{.45\textwidth}
+
+\fontsize{6.5pt}{12}\selectfont \color{blue} Pallesen et al. (2021) *Front Org Psych* \color{black} \newline \fontsize{8pt}{12}\selectfont
+Prevalenza stimata intorno al \newline 26.5% [21.0, 32.8] \newline
+
+```{r , echo = FALSE, out.width="100px"}
+knitr::include_graphics("img/swsd.PNG")
+```
+
+
+\endcol \begincol{.6\textwidth}
+
+\fontsize{6.5pt}{12}\selectfont \color{blue}
+Harris et al. (2024) *Sleep Med Rev* \fontsize{8pt}{12}\selectfont \color{black} \newline
+Meta-analysis on sleep & health outcomes \newline in new shift workers (*N* = 48) \newline + Sleep  & Mental health problems (not physical)
+
+```{r , echo = FALSE, out.width="135px"}
+knitr::include_graphics("img/newshift.PNG")
+```
+
+\endcol \endcols
+
+## Verso una migliore regolamentazione \newline dei turni di lavoro
+
+\fontsize{7pt}{12}\selectfont \color{blue}
+Garde et al. (2020) *Scand J Work Environ Health* [doi:10.5271/sjweh.3920](https://doi.org/10.5271/sjweh.3920) \fontsize{10pt}{12}\selectfont \newline
+Evidence-based recommendations on night shift work scheduling \newline \fontsize{10pt}{12}\selectfont \color{black}
+
+Al fine di ridurre i problemi di salute e gli infortuni sul lavoro legati al lavoro a turni:
+
+- **Max 3 giorni** consecutivi con turno notturno
+
+- **Min 11 ore** di intervallo tra turni consecutivi
+
+- **Max 9 ore** di durata del turno
+
+# Metodi
+
+## La misurazione del sonno \newline in psicologia della salute occupazionale
+
+\fontsize{10pt}{12}\selectfont `r fontawesome::fa(name = "clock-rotate-left", height = "1em")`
+Primariamente basata su __self-report retrospettivi__ \newline \color{blue} _Come valuti la qualità del tuo sonno, in generale?_ \newline \color{black}
+
+`r fontawesome::fa(name = "calendar-days", height = "1em")`
+Recente aumento nell'uso dei __diari del sonno__ \newline \color{blue} _Come valuti la qualità del tuo sonno nella scorsa notte?_ \newline \color{black}
+
+`r fontawesome::fa(name = "heart-pulse", height = "1em")`
+Molto raramente basata su __indicatori oggettivi__ \newline (es. PSG, attigrafia, *wearable sleep trackers*)
+
+## Is it time to include wearable sleep trackers in the applied psychologists' toolbox?
+
+```{r , echo = FALSE, out.width="300px"}
+knitr::include_graphics("img/sjp.PNG")
+```
+
+Critical review of state-of-the-art ambulatory sleep assessment in applied psychology research and professional practice
+
+## Dalla PSG portatile ai sensori _wearable_ commerciali
+
+```{r , echo = FALSE, out.width="330px"}
+knitr::include_graphics("img/asa.png")
+```
+
+## Verso una valutazione rigorosa delle \newline tecnologie per il monitoraggio del sonno
+
+```{r , echo = FALSE, out.width="300px"}
+knitr::include_graphics("img/papers.png")
+```
+
+# Sfide
+
+## 'Insonnia paradossale' e approcci multi-metodo
+
+\fontsize{7pt}{12}\selectfont Rezaie et al. (2018). *Sleep Med Rev* \color{blue} [doi:10.1016/j.smrv.2018.01.002](https://doi.org/10.1016/j.smrv.2018.01.002)
+
+\fontsize{11pt}{12}\selectfont
+- __Discrepanze del sonno__ = differenze tra parametri del sonno oggettivi e soggettivi (e.g., sottostima TST, sovrastima WASO)
+
+- __Insonnia paradossale__ = caso estremo di discrepanze del sonno con sintomi soggettivi di insonnia non confermati da parametri oggettivi (dal 9 al 50% dei pazienti con insonnia) \newline
+
+
+\begincols
+  \begincol{.5\textwidth}
+
+```{r , echo = FALSE, out.width="140px"}
+knitr::include_graphics("img/paradox.png")
+```
+
+\endcol \begincol{.6\textwidth}
+
+\color{black}
+&rightarrow; Necessità di integrare misure soggettive e oggettive (es. ESM, EMA) \newline \newline
+
+\fontsize{7.5pt}{12}\selectfont
+Menghini et al (2021) *Chronob Int* \color{blue} [doi:10.1080/07420528.2021.1903481](https://doi.org/10.1080/07420528.2021.1903481)
+
+\endcol \endcols
+
+## Fare ricerca con sensori commerciali
+
+\begincols \begincol{.55\textwidth}
+
+```{r , echo = FALSE, out.width="190px"}
+knitr::include_graphics("img/ourastudy.png")
+```
+
+\endcol \begincol{.5\textwidth}
+
+\fontsize{9pt}{12}\selectfont
+
+- Work-in-progress validity \newline \fontsize{7.5pt}{12}\selectfont varia tra dispositivi, popolazioni e applicazioni \fontsize{9pt}{12}\selectfont
+
+- Come scegliere il dispositivo? \newline \fontsize{7.5pt}{12}\selectfont es. memoria e batteria (almeno 1-2 settimane), costo, sensori, connettività, performance \fontsize{9pt}{12}\selectfont
+
+- *Black box* e formato dei dati \newline \fontsize{7.5pt}{12}\selectfont Usare i dati grezzi quando disponibili, altrimenti usare la massima risuluzione (es. 1-min) \fontsize{9pt}{12}\selectfont 
+
+- *Compliance* e dati mancanti
+
+\endcol \endcols
+
+\fontsize{7pt}{12}\selectfont
+Willoughby et al. (2023) *Sleep Med* \color{blue} [doi:10.1016/j.sleep.2023.08.010](https://doi.org/10.1016/j.sleep.2023.08.010) \color{black} \newline 50+ million night's sleep from ~220,000 Oura ring users in 35 countries \newline (~242 nights/person)
+
+## Intrusività e privacy
+
+\begincols \begincol{.55\textwidth}
+
+```{r , echo = FALSE, out.width="190px"}
+knitr::include_graphics("img/privacy.png")
+```
+
+\endcol \begincol{.5\textwidth}
+
+\fontsize{9pt}{12}\selectfont
+
+- Valutazione di aspetti extra-lavorativi \fontsize{7.5pt}{12}\selectfont ( vita privata) \fontsize{9pt}{12}\selectfont
+
+- Percezione di intrusività \fontsize{7.5pt}{12}\selectfont \newline Il datore di lavoro entra nella mia vita privata
+
+\endcol \endcols
+
+\fontsize{7pt}{12}\selectfont
+Moore & Piwek (2017). Regulating wellbeing in the brave new quantified workplace \newline _Employee Relations_ \color{blue} [doi:10.1108/ER-06-2016-0126](https://doi.org/10.1108/ER-06-2016-0126)
+
+## Collaborazioni
+
+- La __psicologia del sonno__ è un ambito intrinsecamente interdisciplinare \newline
+
+- Necessità di rafforzare le collaborazioni tra ambiti diversi della ricerca e della pratica professionale in psicologia \newline
+
+- Il sonno è uno stato biologico non negoziabile, ma in quale direzione sta andando la nostra società?
+
+## Grazie per l'attenzione!
+
+\begincols
+  \begincol{1\textwidth}
+
+```{=tex}
+\begin{center} 
+```
+
+\fontsize{6pt}{12}\selectfont _ONIRICAMENTE_
+
+\fontsize{9pt}{12}\selectfont _Giornata di studi sulla Psicologia del Sonno_
+
+\fontsize{6pt}{12}\selectfont Padova, 21 giugno 2024
+
+```{r , echo = FALSE, out.width="200px",warning=FALSE,message=FALSE,fig.align='center'}
+knitr::include_graphics("img/thankyou.PNG")
+```
+
+\fontsize{10pt}{12}\selectfont Luca Menghini, Ph.D.
+
+\fontsize{6.5pt}{12}\selectfont Department of General Psychology, University of Padova
+
+\fontsize{7.5pt}{12}\selectfont \color{blue}luca.menghini@unipd.it
+
+\fontsize{6.5pt}{12}\selectfont `r fontawesome::fa(name = "researchgate", fill="#65A1DF",height = "1em")` [profile/Luca-Menghini](https://www.researchgate.net/profile/Luca-Menghini)  `r fontawesome::fa(name = "twitter", fill="#65A1DF",height = "1em")` [@LuMenPsy](https://twitter.com/LuMenPsy) `r fontawesome::fa(name = "linkedin", fill="#65A1DF",height = "1em")` [in/menghiniluca](https://linkedin.com/in/menghiniluca/) `r fontawesome::fa(name = "github", fill="#65A1DF",height = "1em")` [Luca-Menghini](https://github.com/Luca-Menghini)
+
+\fontsize{6pt}{12}\selectfont \color{black} R code available from \color{blue} [https://luca-menghini.github.io/pResentations](https://luca-menghini.github.io/pResentations)
+
+```{=tex}
+\end{center}
+```
+
+\endcol \begincol{0\textwidth}
+
+\endcol \endcols
