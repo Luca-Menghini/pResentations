@@ -112,7 +112,7 @@ knitr::include_graphics("img/performance.jpg")
 \begincols
   \begincol{.7\textwidth}
 
-```{r , echo = FALSE, out.width="220px"}
+```{r , echo = FALSE, out.width="200px"}
 knitr::include_graphics("img/work-sleep.PNG")
 ```
 
