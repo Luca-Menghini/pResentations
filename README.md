@@ -7,8 +7,11 @@ This repository hosts the PDF and R code of my presentations at different Nation
 
 - Menghini, L., Tommasi, F., & Balducci, C. 16th Conference European Academy of Occupational Health Psychology (EAOHP), Granada, Spain, June 5-7 2024. [Towards the conceptualization of daily dynamics in state workaholism: Evidence from two experience sampling method studies](https://luca-menghini.github.io/pResentations/2024/EAOHP24/EAOHP2024.pdf). [[code](https://luca-menghini.github.io/pResentations/2024/EAOHP24/EAOHP2024.Rmd)]
 
-- Menghini, L., Balducci, C., de Zambotti, M. 16th Conference European Academy of Occupational Health Psychology (EAOHP), Granada, Spain, June 5-7 2024. [Wearable Sleep Trackers in
-Occupational Health Psychology](https://luca-menghini.github.io/pResentations/2024/EAOHP24/EAOHP2024_sleep.pdf). [[code](https://luca-menghini.github.io/pResentations/2024/EAOHP24/EAOHP2024_sleep.Rmd)]
+- Menghini, L., Balducci, C., de Zambotti, M. 16th Conference European Academy of Occupational Health Psychology (EAOHP), Granada, Spain, June 5-7 2024. [Wearable Sleep Trackers in Occupational Health Psychology](https://luca-menghini.github.io/pResentations/2024/EAOHP24/EAOHP2024_sleep.pdf). [[code](https://luca-menghini.github.io/pResentations/2024/EAOHP24/EAOHP2024_sleep.Rmd)]
+
+- Menghini, L., Tommasi, F., & Balducci, C. 20th Congress Italian Association of Psychology (AIP) - Oragnizational Psychology section, Bergamo, Italy, September 4-6 2024. [Verso le origini del workaholism: Predittori distali e prossimali della dipendenza da lavoro in un campione di lavoratrici e lavoratori a inizio carriera](https://luca-menghini.github.io/pResentations/2024/EAOHP24/EAOHP2024_sleep.pdf). [[code](https://luca-menghini.github.io/pResentations/2024/AIP2024/AIP2024_Preregistration_Menghini.pdf)]
+
+- Menghini, L., & Psicostat Core Team. 20th Congress Italian Association of Psychology (AIP) - Oragnizational Psychology section, Bergamo, Italy, September 4-6 2024. [Preregistrazione ed etica della ricerca: Un’opportunità mancata o il futuro della Psicologia del Lavoro e delle Organizzazioni?](https://luca-menghini.github.io/pResentations/2024/EAOHP24/EAOHP2024_sleep.pdf). [[code](https://luca-menghini.github.io/pResentations/2024/AIP2024/AIP2024_Workaholism_Menghini.pdf)]
 
 ## 2022
 
