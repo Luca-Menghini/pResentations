@@ -1,0 +1,394 @@
+---
+title: 'Preregistrazione ed etica della ricerca'
+subtitle: 'Un’opportunità mancata o il futuro della \newline Psicologia del Lavoro e delle Organizzazioni? '
+author: | 
+ | \fontsize{9pt}{8}\selectfont Luca Menghini & *Psicostat* Core Team
+ |
+ | \fontsize{7pt}{7.5}\selectfont Università degli Studi di Padova
+ |
+ | ![](img/logo.PNG){width=3.2in} 
+ |
+ | **XX Congresso Nazionale della sezione di**
+ | ***Psicologia per le Organizzazioni***
+ |
+ | AIP 2024, Bergamo, 4-6 settembre 2024
+ |
+ | Simposio:
+ | "***Psicologia critica nonviolenta e trasparente:***
+ | ***Idee e riflessioni in prosieguo***"
+ |
+logo: img/logo4.png
+output:
+  beamer_presentation:
+    fonttheme: serif
+    theme: Singapore
+    slide_level: 2
+    includes:
+      in_header: mystyle.tex
+---
+
+# Background
+
+## Dalla crisi…
+
+\fontsize{9pt}{12}\selectfont
+
+- di **replicabilità**: Su 100 studi di replica pubblicati \newline soltanto 36 hanno mostrato risultati significativi \newline \fontsize{6.5pt}{12}\selectfont Open Science Collaboration (2015) \fontsize{9pt}{12}\selectfont
+
+- di **validità**: In psicologia, la validità di certi test è un ‘taboo’, \newline nessuno cerca di confutarla. Invece di sviluppare misure \newline sempre più valide, si usano sempre le stesse \fontsize{6.5pt}{12}\selectfont \newline Schimmack (2021) \fontsize{9pt}{12}\selectfont
+
+- di **riproducibilità**: Incapacità di ottenere gli stessi risultati di uno studio precedente usando gli stessi dati e le stesse analisi, \newline es. solo il 70% dei risultati riportati su 3 riviste APA nel 2012 \newline \fontsize{6.5pt}{12}\selectfont Artner et al (2021) \fontsize{9pt}{12}\selectfont
+
+- di **credibilità**: “*Management science is attracting concerns about the credibility of its claims from both internal and external stakeholders*” \fontsize{6.5pt}{12}\selectfont \newline Byington & Felps (2017) 
+
+\fontsize{12pt}{12}\selectfont
+*"Una crisi c'è sempre ogni volta \newline che qualcosa non va"* \fontsize{6.5pt}{12}\selectfont Bluvertigo (1999)
+
+## ...alla rinascita \newline _The Open Science Movement_
+
+```{r , echo = FALSE, out.width="200px",fig.align='center'}
+knitr::include_graphics("img/openRangers.PNG")
+```
+
+\fontsize{8pt}{12}\selectfont
+*Open science*: Conoscenza trasparente e accessibile \newline che viene condivisa e sviluppata attraverso network collaborativi
+
+## NB: _Open Science_ $\neq$ _Open Access_
+
+\fontsize{9pt}{12}\selectfont
+
+- _Open science_: Conoscenza trasparente e accessibile che viene condivisa e sviluppata attraverso network collaborativi
+
+- _Open access_: pratica di rendere la letteratura scientifica liberamente accessibile a chiunque sia interessata/o, \newline spesso implicando **conflitti di interesse**
+
+```{r , echo = FALSE, out.width=300}
+knitr::include_graphics("img/predatory.PNG")
+```  
+
+\fontsize{7pt}{12}\selectfont Beall's list of potential predatory journals: \color{blue} https://beallslist.net/
+
+## La preregistrazione contro le \newline _Questionable Research Practices_
+
+```{r , echo = FALSE, out.width="300px",fig.align='center'}
+knitr::include_graphics("img/preRecRanger.PNG")
+```
+
+## Preregistration & *Registered Reports*
+
+\fontsize{9pt}{12}\selectfont
+Pratica di specificare il piano di ricerca in anticipo, registrandolo prima di iniziare la raccolta dati, prevenendo le pratiche di ricerca discutibili (soprattutto *HARKing* & *p-hacking*)
+
+\begincols
+  \begincol{.8\textwidth}
+  
+```{r , echo = FALSE, out.width=250}
+knitr::include_graphics("img/white.PNG")
+```
+  
+\fontsize{8pt}{12}\selectfont
+- OSF preregistration templates: \newline \color{blue} https://osf.io/zab38/wiki/home/ \color{black}
+  
+- Registered reports (RR): \newline \color{blue} https://www.cos.io/initiatives/registered-reports
+    
+```{r , echo = FALSE, out.width=250}
+knitr::include_graphics("img/registeredreports.PNG")
+```
+  
+  \endcol
+\begincol{.2\textwidth}
+
+```{r , echo = FALSE, out.width=60, fig.align='right'}
+knitr::include_graphics("img/prerec.PNG")
+```
+
+  \endcol
+\endcols
+  
+## Preregistrazione e *Registered Reports* in PLO
+
+```{r , echo = FALSE, out.width="280px"}
+knitr::include_graphics("img/scopus.PNG")
+```
+
+\fontsize{8pt}{12}\selectfont
+
+- \color{blue}[EAWOP 2023](https://eawop2023.org/static/sites/tcekd_eawop_2022/book-of-abstracts.pdf)\color{black}: 1 contributo *Open Science* su 1600+ \newline (29 contributi su "*preregistered studies*", 0 su RR)
+
+- \color{blue}[EAOHP 2024](https://eaohp.org/wp-content/uploads/2024/08/EAOHP-2024-BoP_Final.pdf)\color{black}: 0 contributi *Open Science* \newline (9 contributi su "*preregistered studies*", 0 su RR)
+
+- Analisi di 202 riviste nell'area "*Management*" vs. 55 "*Psychology, Social*" \newline
+&rightarrow; pratiche *Open Science* meno menzionate da riviste I/O (0.5-62.9% vs. 18.2-72.7% ), in particolare la preregistrazione (1% vs. 23.6%) \newline 
+&rightarrow; Solo 5 su 202 riviste I/O prevedono RR \newline
+\fontsize{6.5pt}{12}\selectfont \color{blue} [Torka et al. (2023)](https://doi.org/10.1080/1359432X.2023.2206571) 
+
+# In pratica
+
+## _Preregistration templates_
+
+\begincols
+  \begincol{.5\textwidth}
+
+```{r , echo = FALSE, out.width="150px"}
+knitr::include_graphics("img/template.PNG")
+```
+
+  \endcol
+\begincol{.55\textwidth}
+
+\fontsize{7pt}{12}\selectfont
+
+- Template base *Open Science Framework* \newline \color{blue} https://osf.io/zab38/wiki/home/ \color{black}
+
+- Studi qualitativi \newline es. \color{blue} [Haven et al (2020)](https://docs.google.com/document/d/16vLoRAs6RmXKy0v1RCx6osSaYk4r64Hgl6S4_KtWbeM/edit#heading=h.fwbi14d4b65g) ([paper](https://doi.org/10.1177/1609406920976417)) \color{black}
+
+- Analisi di dati secondari \newline e *post-registration* \newline es. \color{blue} https://osf.io/x4gzt/ \color{black}
+
+- _Diary studies_ \newline es. \color{blue} https://osf.io/2chmu/ \color{black}
+
+>- Review e meta-analisi \newline es. \color{blue} [Template OSF](https://docs.google.com/document/d/1fU-EY36gId9FWHsP4-lE2SF9IVCFBMKUzBJmHD9bBYQ/edit?usp=sharing) \newline
+
+\color{red} \fontsize{9pt}{12}\selectfont
+Sample size justification \newline \color{black} \fontsize{7pt}{12}\selectfont Lakens, D. (2022). Sample size justification. Collabra: psychology, 8(1), 33267. \color{blue} [doi:10.1525/collabra.33267](https://doi.org/10.1525/collabra.33267)
+
+  \endcol
+\endcols
+
+
+
+## Archivi pubblici 
+
+\fontsize{9pt}{12}\selectfont
+
+\begincols
+  \begincol{.5\textwidth}
+
+```{r , echo = FALSE, out.width="140px"}
+knitr::include_graphics("img/archives.PNG")
+```
+
+  \endcol
+\begincol{.55\textwidth}
+
+- \color{blue} https://osf.io/registries \color{black} \fontsize{6.5pt}{12}\selectfont \newline (10.000+ registrazioni) \fontsize{9pt}{12}\selectfont
+
+- \color{blue} https://aspredicted.org/
+
+- https://prereg-psych.org/
+
+- https://egap.org/registry/ 
+
+- https://www.zotero.org/
+
+- \color{black} Journal repositories
+
+- ... \newline
+
+\fontsize{9pt}{12}\selectfont
+Possibilità di impostare limiti di accesso, embargo, condivisione anonimizzata \newline del documento, ecc.
+
+  \endcol
+\endcols
+
+## Deviazioni dalla preregistrazione
+
+\fontsize{10pt}{12}\selectfont
+È possibile (e normale) fare delle deviazioni rispetto a quanto preregistrato. L'importante è essere trasparenti su \newline cosa è stato cambiato e perché. \newline
+\fontsize{6.5pt}{12}\selectfont
+
+es. Menghini & Balducci (2024) \color{blue} [doi:10.1037/ocp0000383](https://doi.org/10.1037/ocp0000383) \color{black} \newline Prerec: \color{blue} https://osf.io/h9zvq \color{black}, Deviations: \color{blue} https://osf.io/bprvg \color{black} 
+
+_**Appendix S7 : Deviations from pre registered hypotheses and methods** \newline In this document we highlight, justify, and/or provide additional results for the \newline substantive and methodological deviations from what originally preregistered before collecting... \newline 1. Exclusion of morning blood pressure recordings... \newline 2. Exclusion of mastery and relaxation recovery experiences \newline 3. Exclusion of further moderators \newline 4. Covariate selection \newline 5. ..._
+
+## Peer review
+
+\fontsize{8pt}{12}\selectfont
+__Reviewer #2__: _I appreciate the **rigor and transparency** provided by the registered report format of your study. However, I noticed **some variations** in the hypotheses as outlined in the registered report compared to those presented in the final manuscript... Could you provide some insight into the reasons behind?_ \newline __Authors__: _Please, see Suppl. Material S7_ \newline __Reviewer #2__: *Ok* \newline
+
+```{r , echo = FALSE, out.width="200px"}
+knitr::include_graphics("img/reviewers.png")
+```
+
+\fontsize{6.5pt}{12}\selectfont Credit: \color{blue} [Reviewer 2 Must Be Stopped! Facebook group](https://www.facebook.com/groups/reviewer2) \color{black}
+
+# Motivi
+
+## Motivi per preregistrare il proprio studio: \newline #1 Motivi scientifici `r fontawesome::fa(name = "face-grin-tears", fill="#3333B2",height = "1em")`
+
+\fontsize{9pt}{12}\selectfont
+- __Riduzione dei gradi di libertà arbitrari dei ricercatori__ \newline 
+&rightarrow; $-$ *HARKing* & *p-hacking* &rightarrow; $-$ Errore di I tipo \newline 
+&rightarrow; + chiara distinzione tra analisi confermative vs. esplorative \newline
+&rightarrow; + replicabilità e credibilità dei risultati
+
+- __Maggiore trasparenza e riproducibilità__ \newline
+Analisi di 208 articoli preregistrati vs. 111 non preregistrati \newline &rightarrow; Maggiore trasparenza e riproducibilità nei primi, es. *sample size rationale* (72 vs. 29%), discussione dei casi esclusi (78 vs. 51%) \newline
+&rightarrow; Minore numero di risultati (falsi?) significativi (44 vs. 66%) \newline \fontsize{6.5pt}{12}\selectfont \color{blue} [Toth et al (2021)](https://doi.org/10.1007/s10869-020-09695-3) \color{black} \fontsize{9pt}{12}\selectfont
+
+- __Migliori *chances* di accettazione in fase di *Peer Review*__ (?) \newline ![](img/reviewers.png){width=170}
+
+## Motivi per preregistrare il proprio studio: \newline #2 Motivi etici `r fontawesome::fa(name = "scale-balanced",fill="#3333B2",height = "1em")`
+
+\fontsize{10pt}{12}\selectfont
+
+- Implicazioni pratiche della pubblicazione di risultati falsi \newline (es. *policy*, *best practices*, istanze legali) \fontsize{6.5pt}{12}\selectfont \newline Vi curereste con un farmaco i cui test non sono stati preregistrati? \newline \fontsize{10pt}{12}\selectfont
+
+- Spreco di fondi pubblici (e privati) \newline \fontsize{6.5pt}{12}\selectfont Quanti soldi investiamo per finanziare ricerche poco credibili?  \fontsize{10pt}{12}\selectfont \newline
+
+- Perdita di credibilità e di 'senso' professionale \newline \fontsize{6.5pt}{12}\selectfont _Chi svolge attività di ricerca in psicologia agisce con onestà, lealtà, trasparenza, autonomia ed equità [...] nell’interesse di partecipanti, [...] comunità scientifica e opinione pubblica [...] Essere integri signifca [...] prevenire e rimuovere le situazioni di conflitto di interessi [...] evitare di alterare i risultati di ricerca._ \newline \color{blue} [Codice Etico AIP (2022)](https://aipass.org/wp-content/uploads/2023/02/Codice-Etico_luglio-2022.pdf) \color{black}
+
+## Motivi per *non* preregistrare il proprio studio (?)
+
+\fontsize{9pt}{12}\selectfont
+
+\begincols
+  \begincol{.55\textwidth}
+
+- "*Mi prenderebbe troppo tempo*" \newline
+&rightarrow; Meno tempo per scrivere il draft
+
+- "*Incatena le idee*" \newline
+&rightarrow; Esplicitare le deviazioni
+
+- "*E se poi voglio cambiare qualcosa?*" \newline
+&rightarrow; Esplicitare le deviazioni
+
+- "*Mi rubano le idee*" \newline
+&rightarrow; Restrizioni di accesso o embargo
+
+- Privacy e confidenzialità \newline
+&rightarrow; Restrizioni di accesso o embargo
+
+- "*Non è adatta a tutti gli studi*" \newline
+&rightarrow; Diversi tipi di template
+
+>- \color{red} "*Non mi aiuterà a pubblicare*"
+
+  \endcol
+\begincol{.4\textwidth}
+
+\fontsize{7.5pt}{12}\selectfont
+Da 10 minuti a 5 giorni per impostare una bozza di preregistrazione (M = 3.8 h, SD = 8.73 h) \newline \newline \newline
+
+\fontsize{6.5pt}{12}\selectfont
+\color{blue} [Toth et al (2021)](https://doi.org/10.1007/s10869-020-09695-3) \color{black} \newline
+Survey di 288 ricercatori che hanno preregistrato studi su OSF \newline + 78 ricercatori I/O che non hanno mai preregistrato \newline \newline
+
+  \endcol
+\endcols
+
+
+## "_Non mi aiuterà a pubblicare_"
+
+\fontsize{9pt}{12}\selectfont
+"*Why would I elect to put my research program  \newline __on hold for 6 months__ as I navigate preregistering the report, revising IRB protocols, etc.? \newline To be candid, avoiding a claim by some publication bias Nazi that I HARKed or p-hacked, simply is __not a strong enough incentive__ for me to go through this exercise. \newline Now, __if ALL of the top journals__ required preregistering, then that would be different. But, there are dozens of top journals in IO/OB/ Management/Psychology, etc. \newline and none of them require preregistering a study. \newline Or, __if my department/university required__ that I preregister reports in order to be eligible for tenure, promotion, etc., \newline then, I would do it.*"
+
+\fontsize{7pt}{12}\selectfont
+\color{blue} [Toth et al (2021), p. 565](https://doi.org/10.1007/s10869-020-09695-3) \color{black}
+
+## _The scholar social dilemma_ \newline e le ombre del neoliberismo accademico
+
+\begincols
+  \begincol{.85\textwidth}
+
+\fontsize{7.5pt}{12}\selectfont
+
+*«Given that* ***QRP can benefit a scholar’s career****, we argue that* scientists are in a social dilemma *that has far-reaching consequences for the field.» \newline \newline «Conversely, [...] __“methodological purists” will have worse career outcomes__ than scholars engaging in QRP [...] less likely to __publish__ papers in prestigious journals, __get jobs__ at research-supportive universities, be __awarded__ tenure, acquire __social prestige__, or go on to select, promote, and __train others__ (e.g., PhD). Further, scientific asceticism may not be an attractive quality for potential __collaborators__.»* 
+
+\fontsize{6pt}{12}\selectfont Byington & Felps (2017) \newline
+
+\fontsize{9pt}{12}\selectfont
+È possibile un cambio di rotta verso \newline nuovi criteri di valutazione della ricerca?
+
+  \endcol
+\begincol{.15\textwidth}
+
+```{r , echo = FALSE, out.width=80}
+knitr::include_graphics("img/neolib.PNG")
+```
+
+  \endcol
+\endcols
+
+# Conclusioni
+
+## Preregistrazione ed etica della ricerca: \newline Un’opportunità mancata o il futuro della \newline Psicologia del Lavoro e delle Organizzazioni?
+
+\fontsize{10pt}{12}\selectfont
+
+\begincols
+  \begincol{.5\textwidth}
+
+La preregistrazione e le altre pratiche *Open Science* sono ancora scarsamente diffuse in PLO rispetto ad altri ambiti della ricerca in psicologia \newline
+
+Diverse forme di __resistenza__ legate, tra le altre cose, al sistema di valutazione delle prestazioni, a conflitti di interesse e ad alcuni pregiudizi
+
+  \endcol
+\begincol{.5\textwidth}
+
+Evidenti __vantaggi scientifici__ in termini di riproducibilità, replicabilità e credibilità delle ricerche condotte e dei loro risultati \newline
+
+Diverse __implicazioni etiche__ legate ai risvolti pratici della nostra ricerca, a chi la finanzia e all'etica professionale \newline
+
+  \endcol
+\endcols
+
+## Grazie!
+
+\begincols
+  \begincol{1\textwidth}
+
+```{=tex}
+\begin{center} 
+```
+
+\fontsize{6pt}{12}\selectfont _XX Congresso Nazionale_
+
+\fontsize{9pt}{12}\selectfont _AIP Piscologia per le Organizzazioni_
+
+\fontsize{6pt}{12}\selectfont Bergamo, 4-6 settembre 2024
+
+Simposio: _Psicologia critica nonviolenta e trasparente_
+
+```{r , echo = FALSE, out.width="200px",warning=FALSE,message=FALSE,fig.align='center'}
+knitr::include_graphics("img/thankyou2.PNG")
+```
+
+\fontsize{10pt}{12}\selectfont Luca Menghini, Ph.D.
+
+\fontsize{6.5pt}{12}\selectfont Dipartimento di Psicologia Generale, Università degli Studi di Padova
+
+\fontsize{7.5pt}{12}\selectfont \color{blue}luca.menghini@unipd.it
+
+\fontsize{6.5pt}{12}\selectfont `r fontawesome::fa(name = "researchgate", fill="#65A1DF",height = "1em")` [profile/Luca-Menghini](https://www.researchgate.net/profile/Luca-Menghini)  `r fontawesome::fa(name = "twitter", fill="#65A1DF",height = "1em")` [@LuMenPsy](https://twitter.com/LuMenPsy) `r fontawesome::fa(name = "linkedin", fill="#65A1DF",height = "1em")` [in/menghiniluca](https://linkedin.com/in/menghiniluca/) `r fontawesome::fa(name = "github", fill="#65A1DF",height = "1em")` [Luca-Menghini](https://github.com/Luca-Menghini)
+
+\fontsize{6pt}{12}\selectfont \color{black} Codice R disponibile da \color{blue} [https://luca-menghini.github.io/pResentations](https://luca-menghini.github.io/pResentations)
+
+```{=tex}
+\end{center}
+```
+
+\endcol \begincol{0\textwidth}
+
+\endcol \endcols
+
+# Riferimenti
+
+## Riferimenti (I/O)
+
+\fontsize{6pt}{12}\selectfont
+- Byington & Felps (2017). Solutions to the credibility crisis in management science. *Academy of Management Learning and Education, 16*(1), 142-162. https://doi.org/10.5465/amle.2015.0035
+
+- Torka, A. K., Mazei, J., Bosco, F. A., Cortina, J. M., Götz, M., Kepes, S., ... & Hüffmeier, J. (2023). How well are open science practices implemented in industrial and organizational psychology and management?. *European Journal of Work and Organizational Psychology, 32*(4), 461-475. https://doi.org/10.1080/1359432X.2023.2206571
+
+- Toth, A. A., Banks, G. C., Mellor, D., O’Boyle, E. H., Dickson, A., Davis, D. J., ... & Borns, J. (2021). Study preregistration: An evaluation of a method for transparent reporting. *Journal of Business and Psychology, 36*, 553-571. https://doi.org/10.1007/s10869-020-09695-3
+
+## Riferimenti (non I/O)
+
+\fontsize{6pt}{12}\selectfont
+- Artner, R., Verliefde, T., Steegen, S., Gomes, S., Traets, F., Tuerlinckx, F., & Vanpaemel, W. (2021). The reproducibility of statistical results in psychological research: An investigation using unpublished raw data. *Psychological Methods, 26*(5), 527–546. https://doi.org/10.1037/met0000365
+
+- Lakens, D. (2022). Sample size justification. Collabra: psychology, 8(1), 33267. https://doi.org/10.1525/collabra.33267
+
+- Open Science Collaboration. (2015). Estimating the reproducibility of psychological science. Science, 349(6251), aac4716. https://doi.org/10.1126/science.aac4716
+
+- Schimmack, U. (2021). The validation crisis in psychology. Meta-Psychology, 5. https://doi.org/10.15626/MP.2019.1645
