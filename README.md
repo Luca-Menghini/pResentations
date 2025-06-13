@@ -1,7 +1,11 @@
 # Luca Menghini, Ph.D.
 This repository hosts the PDF and R code of my presentations at different National and International conferences. 
 
+## 2025
+
 ## 2024
+
+- Menghini, L. Pre-Conference Workshop "Multiverse, Multilevel, and Bayesian Data Analysis in Psychophysiology" at Society for Psychophysiological Research (SPR) 2025 Conference, Prague, Czech Republic, October 23 2024 [From the lab to the real world Multilevel Analysis of Intensive Longitudinal Data in Ambulatory Psychophysiology](https://luca-menghini.github.io/pResentations/2024/SPR2024/multilevel-slides.pdf). [[code](https://luca-menghini.github.io/pResentations/2024/ONIRI2024/SPR2024/multilevel-slides.Rmd)] [[full workshop repository](https://osf.io/c3a9q/)]
 
 - Menghini, L. Giornata di Studi sulla Psicologia del Sonno organizzata dal gruppo tematico AIP ONIRI, Italian Association of Psychology (AIP), Padova, Italy, June 21 2024 [Stress, perseverazioni cognitive e prestazioni sul lavoro: Il contributo della ricerca sul sonno per la psicologia della salute occupazionale](https://luca-menghini.github.io/pResentations/2024/ONIRI2024/oniricamente.pdf). [[code](https://luca-menghini.github.io/pResentations/2024/ONIRI2024/oniricamente.Rmd)]
 
