@@ -1,0 +1,735 @@
+---
+title: "State Workaholism 2023 study"
+subtitle: "Job-related predictors of workaholism"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+    toc: true
+    toc_float: true
+    toc_depth: 6
+    css: styles.css
+    code_download: true
+    code_folding: hide
+  pdf_document: default
+  word_document: default
+  theme: united
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      class.source = "fold-hide")
+```
+
+<br>
+
+# Aims and content
+
+The present report includes the data pre-processing and analyses steps implemented on the data collected by the "*State workaholism 2023*" project, consisting of a 10-workday protocol with 4 observations per workday (morning, lunchtime, afternoon, and evening), to analyze the **work-related predictors of state workaholism**. 
+
+Specifically, **job demands** and **job control** rated at lunchtime are used to predict **state workaholism** rated in the afternoon (DUWAS-based) and in the evening (IWAS-based). Moreover, the moderation role of **meaningful work** as measured in the preliminary questionnaire (trait level) is explored. Finally, we consider the main effects of **supervisor overwork** (lv1) and **overwork climate** (lv2) 
+
+Each step is accompanied by the corresponding R code that can be viewed by tapping the `Show` button.
+```{r warning=FALSE,message=FALSE}
+# removing all objects from the workspace
+rm(list=ls())
+
+# used R packages
+library(reshape2); library(ggplot2); library(gridExtra); library(sjPlot)
+library(lavaan); library(psych); library(lme4)
+
+# setting system time zone to GMT (for consistent temporal synchronization)
+Sys.setenv(tz="GMT")
+
+# function for extracting fit indices from MCFA models
+fit.ind <- function(model=NA,from_summary=FALSE,type="multilevel",models.names=NA,
+                    fits=c("npar","chisq","df","pvalue","rmsea","cfi","srmr_within","srmr_between")){ require(lavaan); require(MuMIn)
+  # removing level-specific fit indices when model is "monolevel"
+  if(type=="monolevel"){
+      fits <- gsub("srmr_within","srmr",fits)
+      fits <- fits[fits!="srmr_between"] }
+  if(from_summary==FALSE){
+    # returning dataframe of models fit indices when more than one model is considered
+    if(length(model)>1){
+      fit.indices <- fitmeasures(model[[1]])[fits]
+      for(i in 2:length(model)){
+        fit.indices <- rbind(fit.indices,fitmeasures(model[[i]])[fits]) }
+      if(!is.na(models.names[1])){
+        row.names(fit.indices) <- models.names }
+      return(as.data.frame(fit.indices))
+      } else { return(fitmeasures(model)[fits]) }
+    
+    } else { # in some cases the fit indices are available only from the model's summary 
+      quiet <- function(fit) { # this was written by Alicia FRANCO MARTÍNEZ on the lavaan Google group
+        sink(tempfile())
+        on.exit(sink()) 
+        invisible(summary(fit, standardized = TRUE, fit.measures=TRUE))
+        } 
+      sum <- quiet(model)
+      fit.indices <- sum$FIT[fits]
+      return(fit.indices) }}
+
+# function for computing level-specific mcDonald's omega
+MCFArel <- function(fit,level,items,item.labels){ require(lavaan)
+  if(level==1){ 
+    sl <- standardizedsolution(fit)[1:(nrow(standardizedSolution(fit))/2),] # pars within
+  } else if(level==2){ 
+    sl <- standardizedsolution(fit)[(nrow(standardizedSolution(fit))/2):nrow(standardizedsolution(fit)),] # pars between
+  } else { stop("Error: level can be either 1 or 2") }
+  sl <- sl$est.std[sl$op == "=~"][items] # standardized loadings of the selected items
+  names(sl) <- item.labels # item names
+  re <- 1 - sl^2 # residual variances of items
+  
+  # composite reliability index
+  omega <- sum(sl)^2 / (sum(sl)^2 + sum(re)) 
+  return(round(omega,2))}
+```
+
+<br>
+
+# 1. Data reading
+
+First, we read the wide-form `diaryWide` (that we rename as `dw`) dataset that we preliminary pre-processed in the `data-preProcessing_new` report. 
+```{r }
+# reading wide-form dataset (one row per day)
+load("data/datasets/diaryWide.RData")
+dw <- diaryWide
+dw$alias <- as.factor(dw$alias)
+cat("Reading wide-form dataset:",nrow(dw),"daily observations from",
+    nlevels(dw$alias),"participants")
+
+# sample description
+wide <- dw[!duplicated(dw$alias),]
+wide$alias <- as.factor(wide$alias)
+cat(nrow(wide),"participants,",nrow(wide[wide$gender=="F",]),"woman, mean age =",
+    round(mean(wide$age),2),"sd =",round(sd(wide$age),2),", mean job tenure =",
+    round(mean(wide$job.tenure),2),"sd =",round(sd(wide$job.tenure),2))
+```
+
+<br>
+
+# 2. Data selection
+
+Here, we select the variables of interest and we create different subsamples based on participant compliance related to the core variables focused by these analyses.
+
+## 2.1. Selecting variables
+
+First, we select the items measuring the variables of interest: job demands `jd`, job control `jd`, state workaholism `wh`, work engagement `we`, work addiction `wa`, and meaningful work `mw`.
+```{r warning=FALSE}
+# selecting variables wide-form
+dw <- dw[,c("alias","day", # participant ID and protocol day
+            paste0("jd",1:3), # job demand items lunchtime
+            paste0("jc",1:3), # job control items lunchtime
+            paste0("sw",1:3), # supervisor's workaholism lunchtime
+            paste0("wh",1:6), # state workaholism items in the afternoon
+            paste0("mw_",1:6), # meaningful work
+            paste0("oe_",1:7),# overwork endorsement
+            paste0("ji_",1:4),# overwork endorsement
+            "bossToday",
+            "gender","age","job.tenure","job.position","job.contract","job.sector","larrang")] 
+
+# showing first lines
+cat("Wide-form:")
+head(dw)
+```
+
+<br>
+
+## 2.2. Subsampling data
+
+### 2.2.1. All in
+
+`dw1` is the full sample including all participants and all available observations.
+```{r warning=FALSE}
+# selecting all cases
+dw1 <- dw
+
+# printing info
+cat("dw1:",nrow(dw1),"daily observations (",round(100*nrow(dw1)/nrow(dw),1),
+    "% ) from",nlevels(dw1$alias),"participants (",
+    round(100*nlevels(dw1$alias)/nlevels(dw$alias),1),"% )")
+```
+
+### 2.2.2. 1+ complete days
+
+`dw2` is the subsample including all participants with **at least 1 day with nonmissing response** to the first item of any considered variable (`jd1`, `jc1`, `sw1`, `wh1`, `we1`, `wa1`).
+```{r warning=FALSE}
+# removing participants with 0 nonmissing response to any considered variables
+dw2 <- dw[0,]
+for(alias in levels(dw$alias)){ # 1+ day(s)
+  if(nrow(dw[dw$alias == alias & 
+             !is.na(dw$jd1) & !is.na(dw$jc1) & !is.na(dw$sw1) &
+             !is.na(dw$wh1),]) >= 1){
+    dw2 <- rbind(dw2,dw[dw$alias == alias,]) }}
+
+# re-leveling alias
+dw2$alias <- as.factor(as.character(dw2$alias))
+
+# printing info
+cat("dw2:",nrow(dw2),"daily observations (",round(100*nrow(dw2)/nrow(dw),1),
+    "% ) from",nlevels(dw2$alias),"participants (",
+    round(100*nlevels(dw2$alias)/nlevels(dw$alias),1),"% )")
+```
+
+<br>
+
+### 2.2.3. 3+ complete days
+
+`dw3` is the subsamples that only include those participants with **at least 3 days with nonmissing response** to the first item of any considered variable (`jd1`, `jc1`, `sw1`, `wh1`, `we1`, `wa1`).
+```{r warning=FALSE}
+# removing participants with less than 3 responses to any considered variables
+dw3 <- dw[0,]
+for(alias in levels(dw$alias)){ # 1+ day(s)
+  if(nrow(dw[dw$alias == alias & 
+             !is.na(dw$jd1) & !is.na(dw$jc1) & !is.na(dw$sw1) &
+             !is.na(dw$wh1),]) >= 3){
+    dw3 <- rbind(dw3,dw[dw$alias == alias,]) }}
+
+# re-leveling alias
+dw3$alias <- as.factor(as.character(dw3$alias))
+
+# printing info
+cat("dw3:",nrow(dw3),"daily observations (",round(100*nrow(dw3)/nrow(dw),1),
+    "% ) from",nlevels(dw3$alias),"participants (",
+    round(100*nlevels(dw3$alias)/nlevels(dw$alias),1),"% )")
+```
+
+<br>
+
+### 2.2.4. 5+ complete days
+
+`dw3` is the subsamples that only include those participants with **at least 5 days with nonmissing response** to the first item of any considered variable (`jd1`, `jc1`, `sw1`, `wh1`, `we1`, `wa1`).
+```{r warning=FALSE}
+# removing participants with less than 5 responses to any considered variables
+dw4 <- dw[0,]
+for(alias in levels(dw$alias)){ # 1+ day(s)
+  if(nrow(dw[dw$alias == alias & 
+             !is.na(dw$jd1) & !is.na(dw$jc1) & !is.na(dw$sw1) &
+             !is.na(dw$wh1),]) >= 5){
+    dw4 <- rbind(dw4,dw[dw$alias == alias,]) }}
+
+# re-leveling alias
+dw4$alias <- as.factor(as.character(dw4$alias))
+
+# printing info
+cat("dw4:",nrow(dw4),"daily observations (",round(100*nrow(dw4)/nrow(dw),1),
+    "% ) from",nlevels(dw4$alias),"participants (",
+    round(100*nlevels(dw4$alias)/nlevels(dw$alias),1),"% )")
+```
+
+<br>
+
+### 2.2.4. Dataset list
+
+Here, we include all subsamples in the `w` dataset lists, which we use below to optimize the data processing and data analysis.
+```{r }
+# creating dataset list
+w <- list(dw1, dw2, dw3, dw4)
+
+# naming datasets within lists
+names(w) <- c("All in","1+ full days", "3+ full days", "4+ full days")
+```
+
+<br>
+
+# 3. Psychometrics
+
+Here, we evaluate the psychometric properties of the considered self-report measures in the full sample and in each of the subsamples created above.
+
+## 3.1. State workaholism
+
+First, we evaluate the construct validity of the 6-item state workaholism scale (adapted from DUWAS) by running a MCFA with weak cross-level invariance by inspecting fit indices and factor loadings at both levels, and by computing the level-specific McDonald's $\omega$ coefficients.
+```{r }
+for(i in 1:length(w)){
+ 
+ # fitting MCFA models with weak cross-level invariance
+ fit <- cfa('level: 1
+             WE.w =~ L1*wh1 + L2*wh3 + L3*wh5
+             WC.w =~ L4*wh2 + L5*wh4 + L6*wh6
+             level: 2
+             WE.b =~ L1*wh1 + L2*wh3 + L3*wh5
+             WC.b =~ L4*wh2 + L5*wh4 + L6*wh6', 
+            data=w[[i]], cluster="alias", estimator="MLR", std.lv=TRUE)
+ 
+ # fit indices
+ p1 <- round(fit.ind(model=fit),3)
+ 
+ # factor loadings
+ p2 <- standardizedSolution(fit)[standardizedSolution(fit)$op=="=~",]
+ 
+ # correlations
+ p2.2 <- standardizedSolution(fit)
+ p2.2[p2.2$op=="~~" & p2.2$lhs!=p2.2$rhs,]
+ 
+ # mcDonald's omega
+ p3 <- data.frame(measure=c("wh_tot"),
+                  omega_w=MCFArel(fit=fit,level=1,items=1:6,item.labels=paste0("wh",1:6)),
+                  omega_b=MCFArel(fit=fit,level=2,items=1:6,item.labels=paste0("wh",1:6)))
+ 
+ # printing info
+ cat(names(w)[i],":\n"); print(list(p1,p2,p2.2,p3)) }
+```
+
+<br>
+
+## 3.2. Daily job demand
+
+Second, we evaluate the construct validity of the 3-item job demand scale by running a multilevel confirmatory factor analysis (MCFA) with weak cross-level invariance by inspecting fit indices and factor loadings at both levels, and by computing the level-specific McDonald's $\omega$ coefficients.
+```{r }
+for(i in 1:length(w)){
+ 
+ # fitting MCFA models with weak cross-level invariance
+ fit <- cfa('level: 1
+             jd.w =~ a*jd1 + b*jd2 + c*jd3
+             level: 2
+             jd.b =~ a*jd1 + b*jd2 + c*jd3', 
+            data=w[[i]], cluster="alias", estimator="MLR", std.lv=TRUE)
+ 
+ # fit indices
+ p1 <- round(fit.ind(model=fit),3)
+ 
+ # factor loadings
+ p2 <- standardizedSolution(fit)[standardizedSolution(fit)$op=="=~",]
+ 
+ # mcDonald's omega
+ p3 <- data.frame(measure=c("jd"),
+                  omega_w=MCFArel(fit=fit,level=1,items=1:3,item.labels=paste0("jd",1:3)),
+                  omega_b=MCFArel(fit=fit,level=2,items=1:3,item.labels=paste0("jd",1:3)))
+ 
+ # printing info
+ cat(names(w)[i],":\n"); print(list(p1,p2,p3)) }
+```
+
+<br>
+
+## 3.2. Daily job control
+
+Second, we evaluate the construct validity of the 3-item job control scale by running a MCFA with weak cross-level invariance by inspecting fit indices and factor loadings at both levels, and by computing the level-specific McDonald's $\omega$ coefficients.
+```{r }
+for(i in 1:length(w)){
+ 
+ # fitting MCFA models with weak cross-level invariance
+ fit <- cfa('level: 1
+             jc.w =~ a*jc1 + b*jc2 + c*jc3
+             level: 2
+             jc.b =~ a*jc1 + b*jc2 + c*jc3', 
+            data=w[[i]], cluster="alias", estimator="MLR", std.lv=TRUE)
+ 
+ # fit indices
+ p1 <- round(fit.ind(model=fit),3)
+ 
+ # factor loadings
+ p2 <- standardizedSolution(fit)[standardizedSolution(fit)$op=="=~",]
+ 
+ # mcDonald's omega
+ p3 <- data.frame(measure=c("jc"),
+                  omega_w=MCFArel(fit=fit,level=1,items=1:3,item.labels=paste0("jc",1:3)),
+                  omega_b=MCFArel(fit=fit,level=2,items=1:3,item.labels=paste0("jc",1:3)))
+ 
+ # printing info
+ cat(names(w)[i],":\n"); print(list(p1,p2,p3)) }
+```
+
+<br>
+
+## 3.3. Supervisor overwork
+
+Third, we evaluate the construct validity of the 3-item supervisor's workaholism scale by running a MCFA with weak cross-level invariance by inspecting fit indices and factor loadings at both levels, and by computing the level-specific McDonald's $\omega$ coefficients.
+```{r }
+for(i in 1:length(w)){
+ 
+ # fitting MCFA models with weak cross-level invariance
+ fit <- cfa('level: 1
+             sw.w =~ a*sw1 + b*sw2 + c*sw3
+             level: 2
+             sw.b =~ a*sw1 + b*sw2 + c*sw3', 
+            data=w[[i]], cluster="alias", estimator="MLR", std.lv=TRUE)
+ 
+ # fit indices
+ p1 <- round(fit.ind(model=fit),3)
+ 
+ # factor loadings
+ p2 <- standardizedSolution(fit)[standardizedSolution(fit)$op=="=~",]
+ 
+ # mcDonald's omega
+ p3 <- data.frame(measure=c("sw"),
+                  omega_w=MCFArel(fit=fit,level=1,items=1:3,item.labels=paste0("sw",1:3)),
+                  omega_b=MCFArel(fit=fit,level=2,items=1:3,item.labels=paste0("sw",1:3)))
+ 
+ # printing info
+ cat(names(w)[i],":\n"); print(list(p1,p2,p3)) }
+```
+
+<br>
+
+## 3.4. Overwork endorsement
+
+Fourth, we evaluate the reliability of the 7-item meaningful work scale scale administered in the preliminary questionnaire (trait level) by computing the Cronbach's alpha and its 95% confidence intervals. Note that we reverse the last 3 items so that higher scores indicate higher meaningful work for each considered item.
+```{r fig.width=6,fig.height=3}
+for(i in 1:length(w)){ cat(names(w)[i],":\n")
+  print(psych::alpha(w[[i]][!duplicated(w[[i]]$alias),paste0("oe_",1:7)])$feld) }
+```
+
+<br>
+
+## 3.5. Job insecurity
+
+Fifth, we evaluate the reliability of the 6-item meaningful work scale scale administered in the preliminary questionnaire (trait level) by computing the Cronbach’s alpha and its 95% confidence intervals. Note that we reverse the last 3 items so that higher scores indicate higher meaningful work for each considered item.
+```{r fig.width=6,fig.height=3}
+# reversing items
+for(i in 1:length(w)){ w[[i]]$ji_4 <- 6 - w[[i]]$ji_4 }
+
+for(i in 1:length(w)){ cat(names(w)[i],":\n")
+  print(psych::alpha(w[[i]][!duplicated(w[[i]]$alias),paste0("ji_",1:4)])$feld) }
+```
+
+<br>
+
+# 4. Composite scores
+
+Here, we compute the composite scores for each multi-item scale considered in the analyses. Then, we compute the **cluster-mean-centered** version `cmc` of time-varying variables and the **grand-mean-centered** version `gmc` of time-invariant variables from the **listwise-deleted versions** of each subsample (i.e., only including data points with nonmissing response to `jd`, `jc`, `sw`,`wh`, `we`, and `wa`).
+```{r warning=FALSE,message=FALSE}
+for(i in 1:length(w)){ cat(names(w)[i],":\n\n")
+  
+  # lv-1 composite scores
+  w[[i]]$jd <- apply(w[[i]][,paste0("jd",1:3)],1,mean) # job demand
+  w[[i]]$jc <- apply(w[[i]][,paste0("jc",1:3)],1,mean) # job control
+  w[[i]]$sw <- apply(w[[i]][,paste0("sw",1:3)],1,mean) # supervisor workaholism
+  w[[i]]$wh <- apply(w[[i]][,paste0("wh",1:6)],1,mean) # state workaholism
+  
+  # lv-2 composite scores
+  wide <- w[[i]][!duplicated(w[[i]]$alias),
+                 c("alias",paste0("mw_",1:3),paste0("oe_",1:7),paste0("ji_",1:4))]
+  wide$mw <- apply(wide[,paste0("mw_",1:3)],1,mean)
+  wide$oe <- apply(wide[,paste0("oe_",1:6)],1,mean)
+  wide$ji <- apply(wide[,paste0("ji_",1:4)],1,mean)
+  w[[i]] <- plyr::join(w[[i]],wide[,c("alias","mw","oe","ji")],by="alias")
+  
+  # list-wise deletion (excluding cases with missing responses to ht, ht.lag or jd)
+  w[[i]] <- na.omit(w[[i]])
+  w[[i]]$alias <- as.factor(as.character(w[[i]]$alias)) # re-leveling participants' IDs
+  cat("Listwise deletion: including",nrow(w[[i]]),"observations (",
+      round(100*nrow(w[[i]])/nrow(dw),1),"% ) from",nlevels(w[[i]]$alias),"participants (",
+      round(100*nlevels(w[[i]]$alias)/nlevels(dw$alias),1),"% )\n\n")
+  
+  # cluster means of lv-1 variables
+  wide <- aggregate(w[[i]][,c("jd","jc","sw","wh")], 
+                    by=list(w[[i]]$alias), FUN=mean, na.rm=TRUE)
+  colnames(wide) <- c("alias",paste0(c("jd","jc","sw","wh"),".m"))
+  w[[i]] <- plyr::join(w[[i]], wide, by="alias")
+  
+  # cluster-mean-centered lv-1 variables
+  w[[i]]$jd.cmc <- w[[i]]$jd - w[[i]]$jd.m 
+  w[[i]]$jc.cmc <- w[[i]]$jc - w[[i]]$jc.m 
+  w[[i]]$sw.cmc <- w[[i]]$sw - w[[i]]$sw.m 
+  w[[i]]$wh.cmc <- w[[i]]$wh - w[[i]]$wh.m
+  
+  # grand-mean-centered lv-2 variables
+  for(Var in c("mw","oe","ji")){ 
+    w[[i]][,paste0(Var,".gmc")] <- w[[i]][,Var] - mean(w[[i]][!duplicated(w[[i]]$alias),Var]) }}
+```
+
+<br>
+
+# 5. Descriptives
+
+Here, we compute the descriptive statistics of, and the level-specific correlations between, the considered variables.
+
+```{r warning=FALSE,message=FALSE}
+s3 <- w[[3]]
+wide <- s3[!duplicated(s3$alias),]
+nrow(s3)
+nlevels(s3$alias)
+mean(wide$age)
+sd(wide$age)
+table(wide$gender)/nrow(wide)*100
+mean(wide$job.tenure)
+sd(wide$job.tenure)
+table(wide$job.position)/nrow(wide)*100
+table(wide$job.contract)/nrow(wide)*100
+
+round(mean(s3$wh),2);round(sd(s3$wh),2)
+round(mean(s3$jd),2);round(sd(s3$jd),2)
+round(mean(s3$jc),2);round(sd(s3$jc),2)
+round(mean(s3$sw),2);round(sd(s3$sw),2)
+round(mean(wide$oe),2);round(sd(wide$oe),2)
+round(mean(wide$ji),2);round(sd(wide$ji),2)
+
+grid.arrange(ggplot(s3,aes(wh)) + geom_histogram(fill="white",bins=20) +
+               xlab("LV-1 Workaholism (1-7)") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     panel.background = element_rect(fill="black",color="black"),
+                     panel.grid = element_blank(),
+                     axis.text=element_text(size=6,color="white"),
+                     axis.title = element_text(color="white")),
+             ggplot(s3,aes(jd)) + geom_histogram(fill="white",bins=20) +
+               xlab("LV-1 Job demands (1-7)") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     panel.background = element_rect(fill="black",color="black"),
+                     panel.grid = element_blank(),
+                     axis.text=element_text(size=6,color="white"),
+                     axis.title = element_text(color="white")),
+             ggplot(s3,aes(jc)) + geom_histogram(fill="white",bins=20) +
+               xlab("LV-1 Job control (1-7)") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     panel.background = element_rect(fill="black",color="black"),
+                     panel.grid = element_blank(),
+                     axis.text=element_text(size=6,color="white"),
+                     axis.title = element_text(color="white")),
+             ggplot(s3[s3$bossToday=="yes",],aes(sw)) + geom_histogram(fill="white",bins=20) +
+               xlab("LV-1 Supervisor overwork (1-7)") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     panel.background = element_rect(fill="black",color="black"),
+                     panel.grid = element_blank(),
+                     axis.text=element_text(size=6,color="white"),
+                     axis.title = element_text(color="white")),
+             ggplot(s3[!duplicated(s3$alias),],aes(oe)) + geom_histogram(fill="white",bins=10) +
+               xlab("LV-2 Overwork endorsement (1-5)") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     panel.background = element_rect(fill="black",color="black"),
+                     panel.grid = element_blank(),
+                     axis.text=element_text(size=6,color="white"),
+                     axis.title = element_text(color="white")),
+             ggplot(s3[!duplicated(s3$alias),],aes(ji)) + geom_histogram(fill="white",bins=10) +
+               xlab("LV-2 Job insecurity (1-5)") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     panel.background = element_rect(fill="black",color="black"),
+                     panel.grid = element_blank(),
+                     axis.text=element_text(size=6,color="white"),
+                     axis.title = element_text(color="white")),
+             nrow=6)
+
+cors.b <- cor(s3[,c("wh.m","jd.m","jc.m","sw.m","oe","ji")])
+cors.w <- cor(s3[,c("wh.cmc","jd.cmc","jc.cmc","sw.cmc","oe","ji")])
+cors.w[5:6,] <- NA
+cors.w[,5:6] <- NA
+cors.b[lower.tri(cors.b)] <- cors.w[lower.tri(cors.w)]
+cors <- cors.b
+cors <- round(cors,2)
+
+# cors <- reshape2::melt(cors(s2[,c("wrrs.ar","wrrs.pp","wrrs.pd",
+#                                  "wl","ts.ti","tasw","wfc",
+#                                  "sd","depr.anx","burnout")]))
+# cors <- cors[grepl("wrrs",cors$Var2) & !grepl("wrrs",cors$Var1),]
+# cors.stressors <- cors[cors$Var1%in%c("wl","ts.ti","tasw","wfc"),]
+
+cors <- reshape2::melt(cors)
+# cors$Var1 <- factor(cors$Var1,
+#                     levels=levels(cors$Var1)[6:1])
+cors$Var2 <- factor(cors$Var2,
+                    levels=levels(cors$Var2)[6:1])
+ggplot(data =cors,
+       aes(x=Var1,y=Var2, fill=value)) + geom_tile() + labs(x="",y="") +
+  # geom_text(aes(x=Var1,y=Var2,label=round(value,2)),color="black",size=3.5)+
+  scale_fill_gradient2(low="darkblue",high="#f03b20",mid="white",midpoint=0,
+                       limit = c(-1,1),space="Lab",name="Pearson\nCorrelations",
+                       guide="legend",breaks=round(seq(1,-1,length.out = 11),2),
+                       minor_breaks=round(seq(1,-1,length.out = 11),2))+
+  geom_text(aes(label=round(value,2))) +
+  theme(axis.text=element_text(face="bold",size=10,color="white"),
+        plot.background = element_rect(fill="black",color="black"),
+        panel.background = element_rect(fill="black",color="black"),
+        panel.grid = element_blank(),
+        legend.background = element_rect(fill="black"),
+        legend.text=element_text(color="white"),
+        legend.title = element_text(color="white"))
+```
+
+<br>
+
+# 6. Modeling
+
+Here, we analyze the relationships between the considered variables by fitting the following multilevel auto-regressive models predicting state workaholism `wh` and work engagement ratings `we`:
+
+- A model `m1` including the main within-individual effects of job demands `jd.cmc` and job control `jc.cmc`, and the main between-individual effect of meaningful work `mw.gmc`
+
+- A model `m2` also including the main within-individual effects of supervisor overwork `sw.cmc` the between-individual effect of overwork endorsement `oe.gmc`
+
+- A model `m3` also including the within-individual interaction between `jd.cmc` and `jc.cmc` 
+
+- A model `m4` (alternative to `m3`) that includes the cross-level interaction between `jd.cmc` and `mw.m.gmc`
+
+- A model `m5` (alternative to `m4` and `m5`) that includes the cross-level interaction between `jc.cmc` and `mw.m.gmc`
+
+These models are replicated in each considered (sub)samples.
+```{r fig.width=12,fig.height=4}
+for(i in 1:length(w)){ cat(names(w)[i],":\n")
+  m1 <- lmer(wh ~ jd.cmc + jc.cmc + sw.cmc + (1|alias), 
+             data = w[[i]]) 
+  cat("\nModel 1:\n"); print(summary(m1)$coefficients)
+  m2 <- lmer(wh ~ jd.cmc + jc.cmc + sw.cmc + oe.gmc + ji.gmc + (1|alias), 
+             data = w[[i]]) 
+  cat("\nModel 2:\n"); print(summary(m2)$coefficients)
+  m3 <- lmer(wh ~ jd.cmc * jc.cmc + sw.cmc + oe.gmc + ji.gmc + (1|alias), 
+             data = w[[i]]) 
+  cat("\nModel 3:\n"); print(summary(m3)$coefficients)
+  m4 <- lmer(wh ~ jd.cmc + jc.cmc + sw.cmc + oe.gmc + ji.gmc + jc.cmc:oe.gmc + (jd.cmc|alias), 
+             data = w[[i]]) 
+  cat("\nModel 4:\n"); print(summary(m4)$coefficients)
+  m5 <- lmer(wh ~ jd.cmc + jc.cmc + sw.cmc + oe.gmc + ji.gmc + jc.cmc:ji.gmc + (jc.cmc|alias), 
+             data = w[[i]]) 
+  cat("\nModel 5:\n"); print(summary(m5)$coefficients)
+  grid.arrange(plot_model(m3,type="pred",terms=c("jd.cmc","jc.cmc")),
+               plot_model(m4,type="pred",terms=c("jd.cmc","ji.gmc")),
+               plot_model(m5,type="pred",terms=c("jc.cmc","ji.gmc")),nrow=1) }
+```
+
+<br>
+
+# Models without JD
+```{r fig.width=12,fig.height=4}
+s3 <- w[[3]]
+# s3 <- w[[3]][w[[3]]$bossToday=="yes",] # to select cases with bossToday = "yes"
+
+# M1: level-1 predictors
+m1 <- lmer(wh ~ jc.cmc + sw.cmc + (1|alias), 
+           data = s3) 
+cat("\nModel 1:\n"); print(summary(m1)$coefficients)
+
+# M2: adding level-2 predictors
+m2 <- lmer(wh ~ jc.cmc + sw.cmc + oe.gmc + ji.gmc + (1|alias), 
+           data = s3) 
+cat("\nModel 2:\n"); print(summary(m2)$coefficients)
+
+# M3: OE x Job control (nothing)
+m3 <- lmer(wh ~ jc.cmc + sw.cmc + oe.gmc + ji.gmc + jc.cmc:oe.gmc + (jc.cmc|alias), 
+           data = s3) 
+cat("\nModel 3:\n"); print(summary(m3)$coefficients)
+
+# M4: JI x Job control (nothing)
+m4 <- lmer(wh ~ jc.cmc + sw.cmc + oe.gmc + ji.gmc + jc.cmc:ji.gmc + (jc.cmc|alias), 
+           data = s3) 
+cat("\nModel 4:\n"); print(summary(m4)$coefficients)
+
+tab_model(m1,m2,m3,m4,
+          collapse.se = TRUE,string.est="b (SE)",
+          show.stat = TRUE,string.stat="t",
+          show.ci = FALSE, show.p = FALSE,
+          show.r2=FALSE)
+Weights(AIC(m1,m2,m3,m4))
+Weights(BIC(m1,m2,m3,m4))
+anova(m1,m2,m3)
+anova(m2,m4)
+
+grid.arrange(plot_model(m2,type="pred",terms=c("jc.cmc")) +
+               xlab("Job control (lv1)") + ylab("Workaholism") + ggtitle("") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     axis.text=element_text(face="bold",size=10,color="white"),
+                     axis.title = element_text(color="white")),
+             plot_model(m2,type="pred",terms=c("sw.cmc")) +
+               xlab("Supervisor overwork (lv1)") + ylab("Workaholism") + ggtitle("") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     axis.text=element_text(face="bold",size=10,color="white"),
+                     axis.title = element_text(color="white")),
+             plot_model(m2,type="pred",terms=c("oe.gmc")) +
+               xlab("Overwork endorsement (lv2)") + ylab("Workaholism") + ggtitle("") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     axis.text=element_text(face="bold",size=10,color="white"),
+                     axis.title = element_text(color="white")),
+             nrow=3) 
+```
+
+# Models with JD
+```{r fig.width=12,fig.height=4}
+s3 <- w[[3]]
+
+# M1: level-1 predictors
+m1 <- lmer(wh ~ jd.cmc + jc.cmc + sw.cmc + (1|alias), 
+           data = s3) 
+cat("\nModel 1:\n"); print(summary(m1)$coefficients)
+
+# M2: adding level-2 predictors
+m2 <- lmer(wh ~ jd.cmc + jc.cmc + sw.cmc + oe.gmc + ji.gmc + (1|alias), 
+           data = s3) 
+cat("\nModel 2:\n"); print(summary(m2)$coefficients)
+
+# M3: OE x Job control (nothing)
+m3 <- lmer(wh ~ jd.cmc + jc.cmc + sw.cmc + oe.gmc + ji.gmc + jc.cmc:oe.gmc + (jc.cmc|alias), 
+           data = s3) 
+cat("\nModel 3:\n"); print(summary(m3)$coefficients)
+
+# M4: JI x Job control (nothing)
+m4 <- lmer(wh ~ jd.cmc + jc.cmc + sw.cmc + oe.gmc + ji.gmc + jc.cmc:ji.gmc + (jc.cmc|alias), 
+           data = s3) 
+cat("\nModel 4:\n"); print(summary(m4)$coefficients)
+
+tab_model(m1,m2,m3,m4,
+          collapse.se = TRUE,string.est="b (SE)",
+          show.stat = TRUE,string.stat="t",
+          show.ci = FALSE, show.p = FALSE,
+          show.r2=FALSE)
+Weights(AIC(m1,m2,m3,m4))
+Weights(BIC(m1,m2,m3,m4))
+anova(m1,m2,m3)
+anova(m2,m4)
+
+grid.arrange(plot_model(m2,type="pred",terms=c("jc.cmc")) +
+               xlab("Job control (lv1)") + ylab("Workaholism") + ggtitle("") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     axis.text=element_text(face="bold",size=10,color="white"),
+                     axis.title = element_text(color="white")),
+             plot_model(m2,type="pred",terms=c("sw.cmc")) +
+               xlab("Supervisor overwork (lv1)") + ylab("Workaholism") + ggtitle("") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     axis.text=element_text(face="bold",size=10,color="white"),
+                     axis.title = element_text(color="white")),
+             plot_model(m2,type="pred",terms=c("oe.gmc")) +
+               xlab("Overwork endorsement (lv2)") + ylab("Workaholism") + ggtitle("") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     axis.text=element_text(face="bold",size=10,color="white"),
+                     axis.title = element_text(color="white")),
+             nrow=3) 
+plot_model(m2,type="pred",terms=c("jd.cmc")) +
+               xlab("Job demand (lv1)") + ylab("Workaholism") + ggtitle("") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     axis.text=element_text(face="bold",size=10,color="white"),
+                     axis.title = element_text(color="white"))
+```
+
+<br>
+
+# Models with JD and only bossToday="yes"
+```{r fig.width=12,fig.height=4}
+s3 <- w[[3]][w[[3]]$bossToday=="yes",] # to select cases with bossToday = "yes"
+
+# M1: level-1 predictors
+m1 <- lmer(wh ~ jd.cmc + jc.cmc + sw.cmc + (1|alias), 
+           data = s3) 
+cat("\nModel 1:\n"); print(summary(m1)$coefficients)
+
+# M2: adding level-2 predictors
+m2 <- lmer(wh ~ jd.cmc + jc.cmc + sw.cmc + oe.gmc + ji.gmc + (1|alias), 
+           data = s3) 
+cat("\nModel 2:\n"); print(summary(m2)$coefficients)
+
+tab_model(m1,m2,
+          collapse.se = TRUE,string.est="b (SE)",
+          show.stat = TRUE,string.stat="t",
+          show.ci = FALSE, show.p = FALSE,
+          show.r2=FALSE)
+Weights(AIC(m1,m2))
+Weights(BIC(m1,m2))
+anova(m1,m2)
+
+grid.arrange(plot_model(m2,type="pred",terms=c("jc.cmc")) +
+               xlab("Job control (lv1)") + ylab("Workaholism") + ggtitle("") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     axis.text=element_text(face="bold",size=10,color="white"),
+                     axis.title = element_text(color="white")),
+             plot_model(m2,type="pred",terms=c("sw.cmc")) +
+               xlab("Supervisor overwork (lv1)") + ylab("Workaholism") + ggtitle("") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     axis.text=element_text(face="bold",size=10,color="white"),
+                     axis.title = element_text(color="white")),
+             plot_model(m2,type="pred",terms=c("oe.gmc")) +
+               xlab("Overwork endorsement (lv2)") + ylab("Workaholism") + ggtitle("") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     axis.text=element_text(face="bold",size=10,color="white"),
+                     axis.title = element_text(color="white")),
+             nrow=3) 
+plot_model(m2,type="pred",terms=c("jd.cmc")) +
+               xlab("Job demand (lv1)") + ylab("Workaholism") + ggtitle("") +
+               theme(plot.background = element_rect(fill="black",color="black"),
+                     axis.text=element_text(face="bold",size=10,color="white"),
+                     axis.title = element_text(color="white"))
+```
