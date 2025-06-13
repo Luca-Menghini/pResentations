@@ -3,7 +3,7 @@ This repository hosts the PDF and R code of my presentations at different Nation
 
 ## 2025
 
-- Menghini, L., Monaro, M., Gamberini, L. ONIRICAMENTE (II edition). Workshop on Sleep Psychology, Thematic Group ONIRI - Sleep, Rhythms, and Psychobiological Well-being, Italian Association of Psychology (AIP), Rome, Italy, June 13 2025 [Oltre l'orario di lavoro. Gli effetti del lavoro supplementare digitale \newline sulla quantità e qualità del sonno](https://luca-menghini.github.io/pResentations/2025/ONIRI2025/ONIRI2025_TASW.pdf). [[code](https://luca-menghini.github.io/pResentations/2025/ONIRI2025/ONIRI2025_TASW.Rmd)]
+- Menghini, L., Monaro, M., Gamberini, L. ONIRICAMENTE (II edition). Workshop on Sleep Psychology, Thematic Group ONIRI - Sleep, Rhythms, and Psychobiological Well-being, Italian Association of Psychology (AIP), Rome, Italy, June 13 2025 [Oltre l'orario di lavoro. Gli effetti del lavoro supplementare digitale sulla quantità e qualità del sonno](https://luca-menghini.github.io/pResentations/2025/ONIRI2025/ONIRI2025_TASW.pdf). [[code](https://luca-menghini.github.io/pResentations/2025/ONIRI2025/ONIRI2025_TASW.Rmd)]
 
 - Menghini, L., Monaro, M., Gamberini, L. European Association of Work and Organizational Psychology (EAWOP) 2019, Prague, Czech Republic, May 21-24 2025 [Towards the Italian version of the Work-related Rumination Scale: Development and Psychometrics](https://luca-menghini.github.io/pResentations/2025/EAWOP2025/Menghini_IT-WRRS_EAWOP25.pdf). [[code](https://luca-menghini.github.io/pResentations/2025/EAWOP2025/WRRS_analyses_EAWOP25.R)]
 
