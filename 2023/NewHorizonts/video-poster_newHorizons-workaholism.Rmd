@@ -1,0 +1,376 @@
+---
+title: 'Daily Assessment of State Workaholism'
+subtitle: 'Psychometric qualities of the \newline state-version Dutch Work Addiction Scale'
+author:  | 
+ | \fontsize{9pt}{12}\selectfont Luca Menghini, Ph.D. \fontsize{6pt}{12}\selectfont
+ | Dep. of Psychology & Cognitive Science, University of Trento, Italy \fontsize{9pt}{12}\selectfont 
+ | 
+ | Cristian Balducci, Ph.D. \fontsize{6pt}{12}\selectfont
+ | Dep. of Quality of Life, University of Bologna, Italy
+ |
+ | ![](img/logo.PNG){width=3.3in}
+ | \fontsize{10pt}{12}\selectfont _New Horizons in Psychological Assessment_ \fontsize{6pt}{12}\selectfont
+ | Padova, Italy, September 22-23 2023
+logo: img/logo3.png
+output:
+  beamer_presentation:
+    fonttheme: serif
+    theme: Singapore
+    slide_level: 2
+    includes:
+      in_header: mystyle.tex
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Background
+
+## From workaholic people to workaholic days
+
+```{=tex}
+\begincols
+  \begincol{.5\textwidth}
+```
+\fontsize{6.5pt}{12}\selectfont Workaholism = Dysfunctional form of
+heavy work investment (***'work addiction'***):
+
+-   **working compulsively**
+
+-   **working excessively**
+
+```{r , echo = FALSE, out.width="150px",fig.align='center'}
+knitr::include_graphics("img/whlsmTime.PNG")
+```
+
+\fontsize{6.5pt}{12}\selectfont Mostly considered as a **stable trait**
+to be assessed with retrospective measures, e.g., Dutch Work Addiction
+Scale - **DUWAS** \fontsize{5pt}{12}\selectfont (Schaufeli et al 2009)
+
+\endcol \begincol{.5\textwidth}
+
+\fontsize{6.5pt}{12}\selectfont
+
+**BUT** poorly explained by personality / linked to working conditions
+like overwork climate \fontsize{5pt}{12}\selectfont (Clark et al 2016;
+Mazzetti et al 2016)
+
+\fontsize{6.5pt}{12}\selectfont \color{blue}
+
+**+Whole Trait Theory** \fontsize{5pt}{12}\selectfont (Fleeson, 2017)
+\fontsize{6.5pt}{12}\selectfont \newline Traits = distributions of
+**personality states** \color{black}
+
+```{r , echo = FALSE, out.width="150px",fig.align='center'}
+knitr::include_graphics("img/wholeTrait.PNG")
+```
+
+\fontsize{6.5pt}{12}\selectfont __State workaholism__ = Daily level of
+an individual's work-related compulsion and overwork, compared to the
+individual's usual level \~ **Work craving episodes**
+
+\endcol \endcols
+
+# Method
+
+## State & trait workaholism: Multilevel construct?
+
+```{=tex}
+\begincols
+  \begincol{.5\textwidth}
+```
+```{r , echo = FALSE, warning=FALSE,message=FALSE}
+# loading data
+rm(list=ls())
+load("DATI/diaryData.RData")
+nPart <- nlevels(diary$ID)
+nObs <- nrow(na.omit(diary[,paste0("WHLSM",1:6)]))
+```
+
+\fontsize{7.5pt}{12}\selectfont __Participants & procedure__
+\fontsize{6.5pt}{12}\selectfont `r nObs` obs. from `r nPart` full-time
+office workers, 51% women, 42.1±12.6 years, 41.2±9.8 work hours/week.
+\fontsize{7.5pt}{12}\selectfont
+
+Intensive longitudinal design: \fontsize{6.5pt}{12}\selectfont 2-week
+diary protocol ($N\times10$) (see \color{blue}[osf.io/h9zvq](https://osf.io/h9zvq)\color{black})
+
+```{r , echo = FALSE, out.width="150px",fig.align='center'}
+knitr::include_graphics("img/protocol.PNG")
+```
+
+\fontsize{7.5pt}{12}\selectfont __Measure__:
+\fontsize{6.5pt}{12}\selectfont Six 7-point DUWAS items \newline Adapted to reflect the daily experience
+\fontsize{5pt}{12}\selectfont \newline "Usually I feel ..." → "Today I felt ..."
+
+\endcol \begincol{.45\textwidth}
+
+\fontsize{7.5pt}{12}\selectfont \color{blue}
+
+Whole trait theory: \fontsize{6.5pt}{12}\selectfont a personality state
+should reflect *the same content domain* of the corresponding trait
+\fontsize{5pt}{12}\selectfont (Fleeson, 2017)
+\fontsize{7.5pt}{12}\selectfont \newline \color{black}
+
+→ Configural cluster construct \fontsize{6.5pt}{12}\selectfont Requiring
+equivalent factor loadings across the *between* & the *within* level
+\newline = **cross-level isomorphism**
+\newline \fontsize{5pt}{12}\selectfont (Stapleton et a, 2016; Jack &
+Jorgensen 2017) \newline
+
+\fontsize{7.5pt}{12}\selectfont
+
+**Data analysis** \newline '$2\times2$' multilevel CFA with
+MLR\fontsize{6.5pt}{12}\selectfont \newline - One- vs. Two-factor structure \newline - Configural vs. Metric invariance \newline \color{white} - \color{black}(factor loadings fixed to be equal)
+
+\endcol \endcols
+
+# Results & discussion
+
+## Results: Partial cross-level isomorphism?
+
+```{=tex}
+\begincols
+  \begincol{.65\textwidth}
+```
+\fontsize{6.5pt}{12}\selectfont
+
+```{r , echo = FALSE, warning=FALSE,message=FALSE}
+# function to return fit indices from multiple models
+fit.ind <- function(model=NA,from_summary=FALSE,type="multilevel",models.names=NA,
+                    fits=c("npar","chisq","df","rmsea","cfi","srmr_within","srmr_between"),robust=FALSE,
+                    infocrit=TRUE,digits=3){
+  require(lavaan); require(MuMIn)
+
+  # removing level-specific fit indices when model is "monolevel"
+  if(type=="monolevel"){
+      fits <- gsub("srmr_within","srmr",fits)
+      fits <- fits[fits!="srmr_between"] }
+
+  # robust fit indices
+  if(robust==TRUE){ fits <- gsub("rmsea","rmsea.robust",
+                                 gsub("cfi","cfi.robust",
+                                      gsub("chisq","chisq.scaled",
+                                           gsub("df","df.scaled",fits)))) }
+
+  # returning dataframe of models fit indices when more than one model is considered
+  if(from_summary==FALSE){
+    if(length(model)>1){
+      fit.indices <- fitmeasures(model[[1]])[fits]
+      for(i in 2:length(model)){
+        fit.indices <- rbind(fit.indices,fitmeasures(model[[i]])[fits]) }
+      if(infocrit==TRUE){
+        fit.indices <- cbind(fit.indices,
+                             AICw=Weights(sapply(model,AIC)),BICw=Weights(sapply(model,BIC)))  }
+      if(!is.na(models.names[1])){ row.names(fit.indices) <- models.names }
+      fit.indices <- round(as.data.frame(fit.indices),digits)
+      return(as.data.frame(fit.indices))
+      } else { return(fitmeasures(model)[fits]) }
+
+    } else { # in some cases the fit indices are available only from the model's summary
+      quiet <- function(fit) { # this was written by Alicia FRANCO MARTÍNEZ on the lavaan Google group
+        sink(tempfile())
+        on.exit(sink())
+        invisible(summary(fit, standardized = TRUE, fit.measures=TRUE)) }
+      sum <- quiet(model)
+      fit.indices <- sum$FIT[fits]
+      return(fit.indices)}}
+
+# function to return reliability from MCFA
+MCFArel <- function(fit,level,items,item.labels){ require(lavaan)
+  if(level==1){
+    sl <- standardizedsolution(fit)[1:(nrow(standardizedSolution(fit))/2),] # pars within
+  } else if(level==2){
+    sl <- standardizedsolution(fit)[(nrow(standardizedSolution(fit))/2):nrow(standardizedsolution(fit)),] # pars between
+  } else { stop("Error: level can be either 1 or 2") }
+  sl <- sl$est.std[sl$op == "=~"][items] # standardized loadings of the selected items
+  names(sl) <- item.labels # item names
+  re <- 1 - sl^2 # residual variances of items
+
+  # composite reliability index
+  omega <- sum(sl)^2 / (sum(sl)^2 + sum(re))
+  return(round(omega,2))}
+
+# MCFA
+library(lavaan)
+
+# 1-factor configural invariance
+config1 <- cfa('level: 1
+                 sWHLSM =~ WHLSM1 + WHLSM2 + WHLSM3 + WHLSM4 + WHLSM5 + WHLSM6
+                 level: 2
+                 tWHLSM =~ WHLSM1 + WHLSM2 + WHLSM3 + WHLSM4 + WHLSM5 + WHLSM6', data = diary, cluster = "ID",
+                 std.lv = TRUE, estimator = "MLR")
+
+# 1-factor metric invariance
+metric1 <- cfa('level: 1
+                sWHLSM =~ L1*WHLSM1 + L2*WHLSM2 + L3*WHLSM3 + L4*WHLSM4 + L5*WHLSM5 + L6*WHLSM6
+                ## free and label variances to define factor ICC
+                sWHLSM ~~ NA*sWHLSM + wWHLSM*sWHLSM
+                level: 2
+                tWHLSM =~ L1*WHLSM1 + L2*WHLSM2 + L3*WHLSM3 + L4*WHLSM4 + L5*WHLSM5 + L6*WHLSM6
+                ## free and label variances to define factor ICC
+                tWHLSM ~~ NA*tWHLSM + bWHLSM*tWHLSM
+                ## constrain between-level variances to == ICCs
+                bWHLSM == 1 - wWHLSM ', data = diary, cluster = "ID",
+                std.lv = TRUE, estimator = "MLR")
+
+# 2-factor configural
+config2 <- cfa('level: 1
+                 sWE =~ WHLSM1 + WHLSM3 + WHLSM5
+                 sWC =~ WHLSM2 + WHLSM4 + WHLSM6
+                 level: 2
+                 tWE =~ WHLSM1 + WHLSM3 + WHLSM5
+                 tWC =~ WHLSM2 + WHLSM4 + WHLSM6', data = diary, cluster = "ID",
+                 std.lv = TRUE, estimator = "MLR")
+
+# 2-factor metric
+metric2 <- cfa('level: 1
+                sWE =~ L1*WHLSM1 + L2*WHLSM3 + L3*WHLSM5
+                sWC =~ L4*WHLSM2 + L5*WHLSM4 + L6*WHLSM6
+                ## free and label variances to define factor ICC
+                sWE ~~ NA*sWE + wWE*sWE
+                sWC ~~ NA*sWC + wWC*sWC
+                level: 2
+                tWE =~ L1*WHLSM1 + L2*WHLSM3 + L3*WHLSM5
+                tWC =~ L4*WHLSM2 + L5*WHLSM4 + L6*WHLSM6
+                ## free and label variances to define factor ICC
+                tWE ~~ NA*tWE + bWE*tWE
+                tWC ~~ NA*tWC + bWC*tWC
+                ## constrain between-level variances to == ICCs
+                bWE == 1 - wWE
+                bWC == 1 - wWC', data = diary, cluster = "ID",
+                std.lv = TRUE, estimator = "MLR")
+
+# 2-factor partial metric
+metric2.part <- cfa('level: 1
+                sWE =~ WHLSM1 + L2*WHLSM3 + L3*WHLSM5
+                sWC =~ L4*WHLSM2 + L5*WHLSM4 + L6*WHLSM6
+                ## free and label variances to define factor ICC
+                sWE ~~ NA*sWE + wWE*sWE
+                sWC ~~ NA*sWC + wWC*sWC
+                level: 2
+                tWE =~ WHLSM1 + L2*WHLSM3 + L3*WHLSM5
+                tWC =~ L4*WHLSM2 + L5*WHLSM4 + L6*WHLSM6
+                ## free and label variances to define factor ICC
+                tWE ~~ NA*tWE + bWE*tWE
+                tWC ~~ NA*tWC + bWC*tWC
+                ## constrain between-level variances to == ICCs
+                bWE == 1 - wWE
+                bWC == 1 - wWC', data = diary, cluster = "ID",
+                std.lv = TRUE, estimator = "MLR")
+
+# fit indices
+fit <- fit.ind(model=c(config1,metric1,config2,metric2,metric2.part),
+               models.names=c("1F conf","1F metr","2F conf","2F metr","2F partMetr"),
+               robust=TRUE)
+fit$chisq.scaled <- paste0(round(fit$chisq.scaled,1)," (",fit$df.scaled,")")
+fit$df.scaled <- fit$AICw <- fit$chisq.scaled <- fit$npar <- NULL
+fit$rmsea.robust <- gsub("0\\.",".",fit$rmsea.robust)
+fit$cfi.robust <- gsub("0\\.",".",fit$cfi.robust)
+fit$srmr_within <- gsub("0\\.",".",fit$srmr_within)
+fit$srmr_between <- gsub("0\\.",".",fit$srmr_between)
+fit$BICw <- gsub("0\\.",".",fit$BICw)
+knitr::kable(fit,col.names=c("rmsea","cfi","srmrW","srmrB","BICw"))
+```
+
+```{r , echo = FALSE, out.width="200px"}
+knitr::include_graphics("img/mcfa.png")
+```
+
+\endcol \begincol{.35\textwidth}
+
+```{r , echo = FALSE, warning=FALSE,message=FALSE}
+# workload mixed
+config_mixWL <- cfa('level: 1
+                 sWE =~ WHLSM1 + WHLSM3 + WHLSM5 + WL1 + WL2 + WL3
+                 sWC =~ WHLSM2 + WHLSM4 + WHLSM6
+                 level: 2
+                 tWE =~ WHLSM1 + WHLSM3 + WHLSM5 + WL1 + WL2 + WL3
+                 tWC =~ WHLSM2 + WHLSM4 + WHLSM6', data = diary, cluster = "ID",
+                 std.lv = TRUE, estimator = "MLR")
+
+# workload different
+config_diffWL <- cfa('level: 1
+                 sWE =~ WHLSM1 + WHLSM3 + WHLSM5
+                 sWC =~ WHLSM2 + WHLSM4 + WHLSM6
+                 sWL =~  WL1 + WL2 + WL3
+                 level: 2
+                 tWE =~ WHLSM1 + WHLSM3 + WHLSM5 + WL1 + WL2 + WL3
+                 tWC =~ WHLSM2 + WHLSM4 + WHLSM6
+                 tWL =~  WL1 + WL2 + WL3', data = diary, cluster = "ID",
+                 std.lv = TRUE, estimator = "MLR")
+
+# fit indices
+fit <- fit.ind(model=c(config_mixWL,config_diffWL),
+               models.names=c("2F","3F"),
+               robust=TRUE) # best fit for the model discriminating WHLSM and WL
+#    npar chisq.scaled df.scaled rmsea.robust cfi.robust srmr_within srmr_between AICw BICw
+# 2F   47      293.300        52        0.081      0.929       0.053        0.076    0    0
+# 3F   54      153.873        45        0.059      0.967       0.033        0.067    1    1
+```
+
+\fontsize{6.5pt}{12}\selectfont
+
+Best fit for 2-factor model with partial metric invariance (i.e., not
+for item $*$): overlapping with workload? It doesn't seem so. \newline
+
+Further developments are needed \newline e.g., Multidimensional
+Workaholism Scale: "*I work more than what is expected of me*"
+\fontsize{5pt}{12}\selectfont(Clark et al 2020) \newline
+
+\fontsize{7.5pt}{12}\selectfont \color{blue}
+
+Towards the **momentary assessment** of workaholism, its proximal
+predictors, and short-term responses
+
+\endcol \endcols
+
+# Thank you!
+
+## New Horizons in Psychological Assessment
+
+```{=tex}
+\begincols
+  \begincol{1\textwidth}
+```
+
+```{=tex}
+\begin{center} 
+```
+
+\fontsize{6pt}{12}\selectfont Padova, Italy, September 22-23 2023
+
+```{r , echo = FALSE, out.width = "5px"}
+knitr::include_graphics("img/white.png")
+```
+
+```{r , echo = FALSE, out.width="140px",warning=FALSE,message=FALSE,fig.align='center'}
+knitr::include_graphics("img/thanks.PNG")
+```
+
+\fontsize{10pt}{12}\selectfont Luca Menghini, Ph.D.
+
+\fontsize{6.5pt}{12}\selectfont Department of Psychology and Cognitive Science, University of Trento 
+
+\fontsize{7.5pt}{12}\selectfont \color{blue}luca.menghini-1@unitn.it 
+
+\fontsize{6.5pt}{12}\selectfont `r fontawesome::fa(name = "researchgate", fill="#65A1DF",height = "1em")` [profile/Luca-Menghini](https://www.researchgate.net/profile/Luca-Menghini)  `r fontawesome::fa(name = "twitter", fill="#65A1DF",height = "1em")` [@LuMenPsy](https://twitter.com/LuMenPsy) `r fontawesome::fa(name = "linkedin", fill="#65A1DF",height = "1em")` [in/menghiniluca](https://linkedin.com/in/menghiniluca/) `r fontawesome::fa(name = "github", fill="#65A1DF",height = "1em")` [Luca-Menghini](https://github.com/Luca-Menghini)
+
+```{r , echo = FALSE}
+knitr::include_graphics("img/white.png")
+```
+
+\fontsize{6pt}{12}\selectfont \color{black} Data & R code available from 
+
+\color{blue} [github.com/Luca-Menghini/measuring-StateWorkaholism](https://github.com/Luca-Menghini/measuring-StateWorkaholism)
+
+```{=tex}
+\end{center}
+```
+
+```{=tex}
+\endcol \begincol{0\textwidth}
+```
+```{=tex}
+\endcol \endcols
+```
