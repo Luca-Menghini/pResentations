@@ -1,0 +1,518 @@
+---
+title: 'States of workaholism and daily relationships with sleep quality and recovery experiences'
+# subtitle: 'Better understanding the individual functioning at work'
+author: | 
+ | \fontsize{9pt}{8}\selectfont Luca Menghini Ph.D.,$^1$ & Cristian Balducci Ph.D.$^2$
+ |
+ | \fontsize{7pt}{7.2}\selectfont 1. Dep. of General Psychology, University of Padova, Italy
+ | 2. Dep. of Psychology, University of Bologna, Italy
+ |
+ | ![](img/logo.PNG){width=3.2in} 
+ |
+ | **XXI Conference EU Association of Work and Organizational Psychology**
+ |
+ | Katowice, Poland, 24-27 May 2023
+ |
+ | Symposium:
+ |
+ | "***Recovery and sleep ...***"
+ |
+logo: img/logo3.png
+output:
+  beamer_presentation:
+    fonttheme: serif
+    theme: Singapore
+    slide_level: 2
+    includes:
+      in_header: mystyle.tex
+---
+
+# Background
+
+## Workaholism
+
+## Workaholism and sleep
+
+\fontsize{7pt}{12}\selectfont
+Cross-sectional:\newline \fontsize{6pt}{12}\selectfont
+Andreassen et al (2010). 661 employees: + insomnia symptoms \newline
+Kubota et al (2010). 312 hospital nurses: + risk of sleep problems, but not insomnia \newline
+Salanova et al (2016). 537 hospital employees: + sleep problems \newline
+Andreassen et al (2018). 988 employees: demands &rightarrow; whlsm &rightarrow; anxiety/insomnia \newline
+Spagnoli et al (2018). 146 employees: whlsm &rightarrow; job-related neg. affect &rightarrow; anxiety before sleep \newline
+Spagnoli et al (2019). 418 employees: whlsm &rightarrow; ICT use & daytime sleepiness &rightarrow; sleep quality
+
+\fontsize{7pt}{12}\selectfont
+Longitudinal: \newline \fontsize{6pt}{12}\selectfont
+Kubota et al (2014). 1,603 employees: + sleep latency, daytime dysf., not overall sleep quality
+
+\fontsize{7pt}{12}\selectfont
+Diary studies: \newline \fontsize{6pt}{12}\selectfont
+?
+
+## Workaholism and recovery experiences (RE)
+
+\fontsize{7pt}{12}\selectfont
+Cross-sectional:\newline \fontsize{6pt}{12}\selectfont
+Burke et al (2009). 887 managers: + Mastery & Control \newline
+Shimazu et al (2014). 2,520 employees: - Psychological Detachment
+Gaudiino & Di Stefano (2021). 342 employees: - Psychological Detachment, + neg. affect
+
+\fontsize{7pt}{12}\selectfont
+Longitudinal: \newline \fontsize{6pt}{12}\selectfont
+Gordon & Shi (2021). 302 managers: RE * whlsm (+) &rightarrow; well-being, carreer success
+
+
+\fontsize{7pt}{12}\selectfont
+Daily recostruction method: \newline \fontsize{6pt}{12}\selectfont
+Bakker et al (2013). 85 employees: recovery activities  * whlsm (+) &rightarrow; RE
+
+\fontsize{7pt}{12}\selectfont
+Diary studies: \newline \fontsize{6pt}{12}\selectfont
+van Wijhe et al (2013). 118 employees (5-day): - trait and state RE \newline Job-related neg. affect * whlsm (+) &rightarrow; - RE \newline
+Job-related neg. affect * whlsm (+) &rightarrow; + late work
+
+## States of Workaholism
+
+# Aim & hypotheses
+
+# Method
+
+## Participants
+
+\fontsize{7pt}{12}\selectfont
+```{r, fig.width=12, fig.height=8,echo=FALSE}
+# removing all objets from the workspace
+rm(list=ls())
+
+# setting system time zone to GMT (for consistent temporal synchronization)
+Sys.setenv(tz="GMT")
+
+# loading processed datasets
+load("data/diary_aggregated.RData")
+load("data/prelqs_aggregated.RData")
+
+# selecting diary variables
+diary <- diary[,c("ID","age","gender","day","aft","eve","mor",
+                  "WHLSM","WL","workHours", # afternoon
+                  "RDet","RRel","RMas","confounders_eve","lateWorkHours","dailyHassles_eve", # evening
+                  "SQ.mean","wakeTime")] # morning
+diary[,c("confounders_eve","lateWorkHours")] <- lapply(diary[,c("confounders_eve","lateWorkHours")],as.factor)
+# str(diary) # data structure
+# par(mfrow=c(4,3)) # plotting variables
+# for(Var in colnames(diary)[6:(ncol(diary)-1)]){ 
+#   if(class(diary[,Var])=="numeric"){ hist(diary[,Var],main=Var) }else{ plot(diary[,Var],main=Var) }}
+
+# selecting prelqs variables
+prelqs <- prelqs[,c("ID",
+                    "gender","age","edu","mStatus","home","children",
+                    "sleep_dysf",
+                    "job","position","sector","weekHours","workTime","WHLSM.retro")]
+prelqs$age <- as.numeric(prelqs$age)
+# str(prelqs) # data structure
+# par(mfrow=c(4,4)) # plotting variables
+# for(Var in colnames(prelqs)[2:ncol(prelqs)]){ 
+#   if(class(prelqs[,Var])=="numeric"){ hist(prelqs[,Var],main=Var) }else{ plot(prelqs[,Var],main=Var) }}
+
+```
+
+For the present analyses, we only consider the inclusion criteria of having **at least three complete days** (i.e., Afternoon + Evening + Morning) over the assessment period. In contrast, the presence of sleep dysfunctions `sleep_dysf` is considered as a confounding variable rather than an exclusion criterion.
+
+Here, we exclude all participants with less then three complete days of self-report ratings.
+```{r, fig.width=12, fig.height=8,echo=FALSE}
+clean <- diary[0,]
+for(ID in levels(diary$ID)){ 
+  if(nrow(diary[diary$ID==ID & diary$aft==1 & diary$eve==1 & diary$mor==1,])>3){ 
+    clean <- rbind(clean,diary[diary$ID==ID,]) }}
+clean$ID <- as.factor(as.character(clean$ID))
+cat("excluded",nlevels(diary$ID)-nlevels(clean$ID),"participants and",nrow(diary)-nrow(clean),"observations")
+
+# sample size
+diary <- clean
+prelqs <- prelqs[prelqs$ID%in%c(diary$ID),]
+prelqs$ID <- as.factor(as.character(prelqs$ID))
+cat(nrow(diary),"daily reports from",nlevels(diary$ID),"participants")
+cat(nrow(diary[!is.na(diary$WHLSM) & !is.na(diary$SQ.mean) & !is.na(diary$RDet),]),"complete days")
+
+# gender and age
+summary(prelqs$gender)
+cat("age =",round(mean(prelqs$age),2),"SD =",round(sd(prelqs$age),2))
+
+# one or two weeks
+prelqs$nWeeks <- 1
+for(ID in levels(diary$ID)){
+  if(nrow(diary[diary$ID==ID & diary$day > 5,])>1){ prelqs[prelqs$ID==ID,"nWeeks"] <- 2 }}
+100*summary(as.factor(prelqs$nWeeks))/nrow(prelqs)
+```
+
+# Results
+
+## Descriptives
+
+\fontsize{7pt}{12}\selectfont
+```{r echo=FALSE}
+multidesc <- function(long=NA,wide=NA,cluster="ID",lv1=NA,lv2=NA){ require(Rmisc); require(lme4)
+  
+  # HRV and ESM data
+  out <- data.frame(Measure=lv1[1],
+                    N=summarySE(long,lv1[1],na.rm=TRUE)[,2],
+                    Mean=paste(round(summarySE(long,lv1[1],na.rm=TRUE)[,3],2)," (",
+                               round(summarySE(long,lv1[1],na.rm=TRUE)[,4],2),")",sep=""))
+  for(i in 2:length(lv1)){
+    out <- rbind(out,
+                 data.frame(Measure=lv1[i],
+                            N=summarySE(long,lv1[i],na.rm=TRUE)[,2],
+                            Mean=paste(round(summarySE(long,lv1[i],na.rm=TRUE)[,3],2)," (",
+                                       round(summarySE(long,lv1[i],na.rm=TRUE)[,4],2),")",sep="")))}
+  
+  # PrelQS data
+  if(!is.na(lv2[1])){
+    for(i in 1:length(lv2)){
+      out <- rbind(out,
+                   data.frame(Measure=lv2[i],
+                              N=summarySE(wide,lv2[i],na.rm=TRUE)[,2],
+                              Mean=paste(round(summarySE(wide,lv2[i],na.rm=TRUE)[,3],2)," (",
+                                         round(summarySE(wide,lv2[i],na.rm=TRUE)[,4],2),")",sep="")))}}
+  
+  # ICC
+  out$ICC <- NA
+  for(i in 1:length(lv1)){
+    m <- lmer(formula=gsub("var",lv1[i],gsub("ID",cluster,"var~(1|ID)")),data=long) # VAR_between / (VAR_between + VAR_within)
+    out[out$Measure==lv1[i],"ICC"] <- round(as.data.frame(VarCorr(m))[1,4]/
+                                              (as.data.frame(VarCorr(m))[1,4]+as.data.frame(VarCorr(m))[2,4]),2)}
+  rownames(out) <- gsub(".cm","",rownames(out))
+  return(out)}
+```
+```{r echo=FALSE}
+multicorr <- function(long,wide,lv1,lv2,cluster="ID"){ require(Hmisc); require(Rmisc)
+  
+  colnames(long)[which(colnames(long)==cluster)] <- "ID"
+  
+  # individual means (lv2) of lv1 variables
+  for(VAR in lv1){
+    wide <- cbind(wide,newVar=summarySE(long,VAR,"ID",na.rm=TRUE)[,3])
+    colnames(wide)[which(colnames(wide)=="newVar")] <- paste(VAR,".cm",sep="") }
+  
+  # joining individual means (lv2) to the long dataset
+  long <- plyr::join(long,
+                     wide[,c(which(colnames(wide)==cluster),
+                             which(colnames(wide)==paste(lv1[1],
+                                                         ".cm",sep="")):which(colnames(wide)==paste(lv1[length(lv1)],
+                                                                                                    ".cm",sep="")))],
+                     type="left",by="ID")
+  
+  # mean-centered (lv1) values
+  for(VAR in lv1){
+    long$newVar <- long[,VAR] - long[,paste(VAR,".cm",sep="")]
+    colnames(long)[which(colnames(long)=="newVar")] <- paste(VAR,".dm",sep="") }
+  
+  # between-subjects correlations (all variables)
+  out.b <- rcorr(as.matrix(wide[,c(paste(lv1,".cm",sep=""),lv2)]), type = "pearson")
+  rb <- round(out.b$r,2)
+  rb[lower.tri(rb)] <- NA
+  
+  # within-participant correlations (HRV and ESM deviations from individual mean)
+  out.w <- rcorr(as.matrix(long[,paste(lv1,".dm",sep="")]), type = "pearson")
+  rw <- round(out.w$r,2)
+  rw[upper.tri(rw)] <- NA
+  
+  # filling rb empty cells
+  rb[1:length(lv1),1:length(lv1)][lower.tri(rb[1:length(lv1),1:length(lv1)])] <- rw[lower.tri(rw)]
+  
+  rownames(rb) <- gsub(".cm","",rownames(rb))
+  
+  return(t(rb))}
+```
+```{r warning=FALSE,message=FALSE, fig.width=8,fig.height=4,echo=FALSE}
+Lv1 <- c("WHLSM","WL","workHours","RDet","RRel","RMas","SQ.mean")
+Lv2 <- c("WHLSM.retro","age")
+desc <- cbind(multidesc(wide=prelqs,long=diary,lv1=Lv1,lv2=Lv2), 
+               multicorr(wide=prelqs,long=diary,lv1=Lv1,lv2=Lv2))
+desc$Measure <- c("Workaholism (1-7)","Workload (1-7)","Work hours (No.)",
+                  "Psy Detachment (1-7)","Relaxation (1-7)","Mastery (1-7)","Sleep quality (1-7)",
+                  "Workaholism retr. (1-5)","Age (years)")
+knitr::kable(desc[,1:4])
+```
+
+## Correlations
+
+```{r warning=FALSE,message=FALSE, fig.width=8,fig.height=4,echo=FALSE}
+# rappresentazione grafica delle correlazioni
+library(ggplot2);library(reshape2)
+ggplot(melt(as.matrix(multicorr(wide=prelqs,long=diary,
+                                lv1=c("WHLSM","WL","workHours","RDet","RRel","RMas","SQ.mean"),
+                                lv2=Lv2))),
+       aes(x=Var1,y=Var2,fill=value)) + geom_tile() +
+  geom_text(aes(x=Var1,y=Var2,label=round(value,2)),color="black",size=3.5)+labs(x="",y="")+
+  scale_fill_gradient2(low="darkblue",high="#f03b20",mid="white",midpoint=0,limit = c(-1,1), space = "Lab",
+                       name="Pearson\nCorrelation",guide="legend",breaks=round(seq(1,-1,length.out = 11),2),
+                       minor_breaks=round(seq(1,-1,length.out = 11),2))+
+  theme(text=element_text(face="bold",size=10),axis.text.x=element_text(angle=30))
+```
+
+## Workaholism and Psychological Detachment
+
+\fontsize{7pt}{12}\selectfont
+```{r , echo = FALSE, out.width="220px"}
+knitr::include_graphics("img/white.PNG")
+```
+```{r warning=FALSE,message=FALSE, fig.width=8,fig.height=4,echo=FALSE,results=FALSE}
+# computing lagged sleep quality
+diary$SQ.lag <- NA
+for(i in 2:nrow(diary)){
+  if(diary[i,"ID"]==diary[i-1,"ID"] & diary[i,"day"]==diary[i-1,"day"]+1){
+    diary[i,"SQ.lag"] <- diary[i-1,"SQ.mean"] }}
+
+# listwise deletion
+diary.eve <- diary[!is.na(diary$WHLSM) & !is.na(diary$RDet),] # evening outcomes
+diary.mor <- diary[!is.na(diary$WHLSM) & !is.na(diary$RDet) & !is.na(diary$SQ.mean),] # morning outcomes
+diary.lag <- diary[!is.na(diary$WHLSM) & !is.na(diary$RDet) & !is.na(diary$SQ.mean) & !is.na(diary$SQ.lag),] # lagged pred.
+diary <- list(diary.eve,diary.mor,diary.lag)
+
+# computing individual means
+library(Rmisc)
+vars <- c("WHLSM","WL","workHours","RDet","RRel","RMas","SQ.lag")
+retro <- list()
+for(i in 1:3){
+  retro[[i]] <- cbind(prelqs[prelqs$ID%in%diary[[i]]$ID,],
+                summarySE(diary[[i]],"WHLSM","ID",na.rm=TRUE)[,3],summarySE(diary[[i]],"WL","ID",na.rm=TRUE)[,3],
+                summarySE(diary[[i]],"workHours","ID",na.rm=TRUE)[,3],summarySE(diary[[i]],"RDet","ID",na.rm=TRUE)[,3],
+                summarySE(diary[[i]],"RRel","ID",na.rm=TRUE)[,3],summarySE(diary[[i]],"RMas","ID",na.rm=TRUE)[,3],
+                summarySE(diary[[i]],"SQ.lag","ID",na.rm=TRUE)[,3]) 
+  colnames(retro[[i]])[(ncol(retro[[i]])-6):ncol(retro[[i]])] <- paste(vars,".cm",sep="") }
+
+# computing mean-centered values
+for(i in 1:3){
+  diary[[i]] <- plyr::join(diary[[i]],retro[[i]][,c("ID",paste(vars,".cm",sep=""))],by="ID",type="left")
+  for(Var in vars){
+    diary[[i]]$X <- diary[[i]][,Var] - diary[[i]][,paste(Var,".cm",sep="")]
+    colnames(diary[[i]])[ncol(diary[[i]])] <- paste(Var,".mc",sep="")}
+  diary[[i]]$age.gmc <- diary[[i]]$age - mean(retro[[i]]$age) } # computing grand-mean-centered values
+
+# modeling
+library(lme4); library(sjPlot)
+m1.det <- lmer(RDet ~ gender + age.gmc + workHours.mc + 
+                 (1|ID),data=diary[[1]])
+m2.det <- lmer(RDet ~ gender + age.gmc + workHours.mc + WHLSM.cm + 
+                 (1|ID),data=diary[[1]])
+m3.det <- lmer(RDet ~ gender + age.gmc + workHours.mc + WHLSM.cm + WHLSM.mc +
+                 (1|ID),data=diary[[1]])
+# plot_model(m3,type="diag") # diagnostics (not super normal but ok)
+tab_model(m1.det,m2.det,m3.det,digits=3,transform=NULL,
+          show.ci=FALSE,show.icc=FALSE,show.p=FALSE,show.stat=TRUE,show.se=TRUE,collapse.se=TRUE,
+          show.re.var=FALSE,show.r2=FALSE,show.ngroups = FALSE,show.obs = FALSE,
+          string.est="b (SE)",string.stat="t",
+          title=paste0("Multilevel models predicting Detachment (N =",nrow(diary[[1]]),")"),
+          dv.labels=c("Step 1","Step 2","Step 3"),file="regTable1.html")
+```
+```{r , warning = FALSE, message=FALSE, echo = FALSE, fig.width=8, fig.height=2.5}
+library(webshot)
+webshot("regTable1.html", "regTable1.png")
+```
+
+## Workaholism and Relaxation
+
+\fontsize{7pt}{12}\selectfont
+```{r , echo = FALSE, out.width="220px"}
+knitr::include_graphics("img/white.PNG")
+```
+```{r warning=FALSE,message=FALSE, fig.width=8,fig.height=4,echo=FALSE,results=FALSE}
+m1.rel <- lmer(RRel ~ gender + age.gmc + workHours.mc + 
+                 (1|ID),data=diary[[1]])
+m2.rel <- lmer(RRel ~ gender + age.gmc + workHours.mc + WHLSM.cm + 
+                 (1|ID),data=diary[[1]])
+m3.rel <- lmer(RRel ~ gender + age.gmc + workHours.mc + WHLSM.cm + WHLSM.mc +
+                 (1|ID),data=diary[[1]])
+# plot_model(m3,type="diag") # diagnostics (not super normal but ok)
+tab_model(m1.rel,m2.rel,m3.rel,digits=3,transform=NULL,
+          show.ci=FALSE,show.icc=FALSE,show.p=FALSE,show.stat=TRUE,show.se=TRUE,collapse.se=TRUE,
+          show.re.var=FALSE,show.r2=FALSE,show.ngroups = FALSE,show.obs = FALSE,
+          string.est="b (SE)",string.stat="t",
+          title=paste0("Multilevel models predicting Relaxation (N =",nrow(diary[[1]]),")"),
+          dv.labels=c("Step 1","Step 2","Step 3"),file="regTable2.html")
+```
+```{r , warning = FALSE, message=FALSE, echo = FALSE, fig.width=8, fig.height=2.5}
+library(webshot)
+webshot("regTable2.html", "regTable2.png")
+```
+
+## Workaholism and Mastery
+
+\fontsize{7pt}{12}\selectfont
+```{r , echo = FALSE, out.width="220px"}
+knitr::include_graphics("img/white.PNG")
+```
+```{r warning=FALSE,message=FALSE, fig.width=8,fig.height=4,echo=FALSE,results=FALSE}
+m1.mas <- lmer(RMas ~ gender + age.gmc + workHours.mc + 
+                 (1|ID),data=diary[[1]])
+m2.mas <- lmer(RMas ~ gender + age.gmc + workHours.mc + WHLSM.cm + 
+                 (1|ID),data=diary[[1]])
+m3.mas <- lmer(RMas ~ gender + age.gmc + workHours.mc + WHLSM.cm + WHLSM.mc +
+                 (1|ID),data=diary[[1]])
+# plot_model(m3,type="diag") # diagnostics (not super normal but ok)
+tab_model(m1.mas,m2.mas,m3.mas,digits=3,transform=NULL,
+          show.ci=FALSE,show.icc=FALSE,show.p=FALSE,show.stat=TRUE,show.se=TRUE,collapse.se=TRUE,
+          show.re.var=FALSE,show.r2=FALSE,show.ngroups = FALSE,show.obs = FALSE,
+          string.est="b (SE)",string.stat="t",
+          title=paste0("Multilevel models predicting Mastery (N =",nrow(diary[[1]]),")"),
+          dv.labels=c("Step 1","Step 2","Step 3"),file="regTable3.html")
+```
+```{r , warning = FALSE, message=FALSE, echo = FALSE, fig.width=8, fig.height=2.5}
+library(webshot)
+webshot("regTable3.html", "regTable3.png")
+```
+
+## Workaholism and Sleep Quality (lagged)
+
+\fontsize{7pt}{12}\selectfont
+```{r , echo = FALSE, out.width="220px"}
+knitr::include_graphics("img/white.PNG")
+```
+```{r warning=FALSE,message=FALSE, fig.width=8,fig.height=4,echo=FALSE,results=FALSE}
+# modeling
+m1.sq <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + RDet.mc + RRel.mc + RMas.mc + 
+                (1|ID), data=diary[[2]])
+m2.sq <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + RDet.mc + RRel.mc + RMas.mc +  WHLSM.cm +
+                (1|ID), data=diary[[2]])
+m3.sq <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + RDet.mc + RRel.mc + RMas.mc +  WHLSM.cm + WHLSM.mc +
+                (1|ID), data=diary[[2]])
+# # model comparison
+# anova(m1.sq,m2.sq,m3.sq)
+# plot_model(m3,type="diag") # diagnostics (not super normal but ok)
+tab_model(m1.sq,m2.sq,m3.sq,digits=3,transform=NULL,
+          show.ci=FALSE,show.icc=FALSE,show.p=FALSE,show.stat=TRUE,show.se=TRUE,collapse.se=TRUE,
+          show.re.var=FALSE,show.r2=FALSE,show.ngroups = FALSE,show.obs = FALSE,
+          string.est="b (SE)",string.stat="t",
+          title=paste0("Multilevel models predicting Sleep Quality (N =",nrow(diary[[2]]),")"),
+          dv.labels=c("Step 1","Step 2","Step 3"),file="regTable4.html")
+```
+```{r , warning = FALSE, message=FALSE, echo = FALSE, fig.width=8, fig.height=2.5}
+library(webshot)
+webshot("regTable4.html", "regTable4.png")
+```
+
+## Workaholism and Sleep Quality (cross-lagged)
+
+\fontsize{7pt}{12}\selectfont
+```{r , echo = FALSE, out.width="220px"}
+knitr::include_graphics("img/white.PNG")
+```
+```{r warning=FALSE,message=FALSE, fig.width=8,fig.height=4,echo=FALSE,results=FALSE}
+# modeling
+m1.sq2 <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + RDet.mc + RRel.mc + RMas.mc + SQ.lag +
+                (1|ID), data=diary[[3]])
+m2.sq2 <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + RDet.mc + RRel.mc + RMas.mc + SQ.lag + 
+                 WHLSM.cm +
+                (1|ID), data=diary[[3]])
+m3.sq2 <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + RDet.mc + RRel.mc + RMas.mc + SQ.lag + 
+                 WHLSM.cm + WHLSM.mc +
+                (1|ID), data=diary[[3]])
+# plot_model(m3,type="diag") # diagnostics (not super normal but ok)
+tab_model(m1.sq2,m2.sq2,m3.sq2,digits=3,transform=NULL,
+          show.ci=FALSE,show.icc=FALSE,show.p=FALSE,show.stat=TRUE,show.se=TRUE,collapse.se=TRUE,
+          show.re.var=FALSE,show.r2=FALSE,show.ngroups = FALSE,show.obs = FALSE,
+          string.est="b (SE)",string.stat="t",
+          title=paste0("Multilevel models predicting Sleep Quality (N =",nrow(diary[[3]]),")"),
+          dv.labels=c("Step 1","Step 2","Step 3"),file="regTable5.html")
+```
+```{r , warning = FALSE, message=FALSE, echo = FALSE, fig.width=8, fig.height=2.5}
+library(webshot)
+webshot("regTable5.html", "regTable5.png")
+```
+
+## Psych. Detachment and Sleep Quality by Whlsm
+
+\fontsize{7pt}{12}\selectfont
+```{r , echo = FALSE, out.width="220px"}
+knitr::include_graphics("img/white.PNG")
+```
+```{r warning=FALSE,message=FALSE, fig.width=8,fig.height=4,echo=FALSE,results=FALSE}
+m4.det <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + WHLSM.cm + WHLSM.mc + RDet.mc +
+                (RDet.mc|ID), data=diary[[2]])
+m5.det <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + WHLSM.cm + WHLSM.mc + RDet.mc + RDet.mc:WHLSM.cm +
+                (RDet.mc|ID), data=diary[[2]])
+m6.det <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + WHLSM.cm + WHLSM.mc + RDet.mc + RDet.mc:WHLSM.mc +
+                (RDet.mc|ID), data=diary[[2]])
+# # model comparison
+# anova(m4.det,m5.det)
+# anova(m4.det,m6.det)
+
+# plot_model(m3,type="diag") # diagnostics (not super normal but ok)
+tab_model(m4.det,m5.det,m6.det,digits=3,transform=NULL,
+          show.ci=FALSE,show.icc=FALSE,show.p=FALSE,show.stat=TRUE,show.se=TRUE,collapse.se=TRUE,
+          show.re.var=FALSE,show.r2=FALSE,show.ngroups = FALSE,show.obs = FALSE,
+          string.est="b (SE)",string.stat="t",
+          title=paste0("Multilevel models predicting Sleep Quality (N =",nrow(diary[[2]]),")"),
+          dv.labels=c("Step 4","Step 5A","Step 5B"))
+```
+```{r , warning = FALSE, message=FALSE, echo = FALSE, fig.width=8, fig.height=2.5}
+library(webshot)
+webshot("regTable6.html", "regTable6.png")
+```
+
+## Relaxation and Sleep Quality by Whlsm
+
+\fontsize{7pt}{12}\selectfont
+```{r , echo = FALSE, out.width="220px"}
+knitr::include_graphics("img/white.PNG")
+```
+```{r warning=FALSE,message=FALSE, fig.width=8,fig.height=4,echo=FALSE,results=FALSE}
+m4.rel <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + WHLSM.cm + WHLSM.mc + RRel.mc +
+                (RRel.mc|ID), data=diary[[2]])
+m5.rel <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + WHLSM.cm + WHLSM.mc + RRel.mc + RRel.mc:WHLSM.cm +
+                (RRel.mc|ID), data=diary[[2]])
+m6.rel <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + WHLSM.cm + WHLSM.mc + RRel.mc + RRel.mc:WHLSM.mc +
+                (RRel.mc|ID), data=diary[[2]])
+# # model comparison
+# anova(m4.rel,m5.rel)
+# anova(m4.rel,m6.rel)
+
+# plot_model(m3,type="diag") # diagnostics (not super normal but ok)
+tab_model(m4.rel,m5.rel,m6.rel,digits=3,transform=NULL,
+          show.ci=FALSE,show.icc=FALSE,show.p=FALSE,show.stat=TRUE,show.se=TRUE,collapse.se=TRUE,
+          show.re.var=FALSE,show.r2=FALSE,show.ngroups = FALSE,show.obs = FALSE,
+          string.est="b (SE)",string.stat="t",
+          title=paste0("Multilevel models predicting Sleep Quality (N =",nrow(diary[[2]]),")"),
+          dv.labels=c("Step 4","Step 5A","Step 5B"),file="regTable7.html")
+```
+```{r , warning = FALSE, message=FALSE, echo = FALSE, fig.width=8, fig.height=2.5}
+library(webshot)
+webshot("regTable7.html", "regTable7.png")
+```
+
+## Mastery and Sleep Quality by Whlsm
+
+\fontsize{7pt}{12}\selectfont
+```{r , echo = FALSE, out.width="220px"}
+knitr::include_graphics("img/white.PNG")
+```
+```{r warning=FALSE,message=FALSE, fig.width=8,fig.height=4,echo=FALSE,results=FALSE}
+m4.mas <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + WHLSM.cm + WHLSM.mc + RMas.mc +
+                (RMas.mc|ID), data=diary[[2]])
+m5.mas <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + WHLSM.cm + WHLSM.mc + RMas.mc + RMas.mc:WHLSM.cm +
+                (RMas.mc|ID), data=diary[[2]])
+m6.mas <- lmer(SQ.mean ~ gender + age.gmc + workHours.mc + lateWorkHours + WHLSM.cm + WHLSM.mc + RMas.mc + RMas.mc:WHLSM.mc +
+                (RMas.mc|ID), data=diary[[2]])
+
+# plot_model(m3,type="diag") # diagnostics (not super normal but ok)
+tab_model(m4.mas,m5.mas,m6.mas,digits=3,transform=NULL,
+          show.ci=FALSE,show.icc=FALSE,show.p=FALSE,show.stat=TRUE,show.se=TRUE,collapse.se=TRUE,
+          show.re.var=FALSE,show.r2=FALSE,show.ngroups = FALSE,show.obs = FALSE,
+          string.est="b (SE)",string.stat="t",
+          title=paste0("Multilevel models predicting Sleep Quality (N =",nrow(diary[[2]]),")"),
+          dv.labels=c("Step 4","Step 5A","Step 5B"),file="regTable8.html")
+```
+```{r , warning = FALSE, message=FALSE, echo = FALSE, fig.width=8, fig.height=2.5}
+library(webshot)
+webshot("regTable8.html", "regTable8.png")
+```
+
+# Discussion & refs
+
+## Discussion
+
+Summary of results
+
+## Discussion
+
+WHLSM & circadian typology
