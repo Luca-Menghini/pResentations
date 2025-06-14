@@ -9,7 +9,7 @@ This repository hosts the PDF and R code of my presentations at different Nation
 
 - Menghini, L., Perinelli, E., Balducci, C., Psicostat Core Team. Symposium: "Open Science Bazaar: What can we do to increase trust in Work and Organizational Psychology?" European Association of Work and Organizational Psychology (EAWOP) 2019, Prague, Czech Republic, May 21-24 2025 [From Open Materials to Multiverses of Datasets: A Tutorial on Intensive Longitudinal Data Pre-processing](https://luca-menghini.github.io/pResentations/2025/EAWOP2025/LucaMenghini_OpenMaterials.pdf). [[Full symposium repository]([https://luca-menghini.github.io/pResentations/2025/EAWOP2025/WRRS_analyses_EAWOP25.R](https://osf.io/y7b5n/))]
 
-- Menghini, L., Tommasi, F., Balducci, C., Psicostat Core Team. Symposium: "Open Science Bazaar: What can we do to increase trust in Work and Organizational Psychology?" European Association of Work and Organizational Psychology (EAWOP) 2019, Prague, Czech Republic, May 21-24 2025 [WORKAHOLISM BEGINS. Work related triggers of compulsive overwork in early career knowledge workers](https://luca-menghini.github.io/pResentations/2025/EAWOP2025/22052025_Luca Menghini_Workaholism-Begins.pdf). [[code]([whlsm-x-jobPredictors.Rmd))]
+- Menghini, L., Tommasi, F., Balducci, C., Psicostat Core Team. Symposium: "Open Science Bazaar: What can we do to increase trust in Work and Organizational Psychology?" European Association of Work and Organizational Psychology (EAWOP) 2019, Prague, Czech Republic, May 21-24 2025 [WORKAHOLISM BEGINS. Work related triggers of compulsive overwork in early career knowledge workers](https://luca-menghini.github.io/pResentations/2025/EAWOP2025/Menghini_Workaholism-Begins.pdf). [[code]([whlsm-x-jobPredictors.Rmd))]
 
 ## 2024
 
