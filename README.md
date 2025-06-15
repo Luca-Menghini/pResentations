@@ -31,7 +31,7 @@ This repository hosts the PDF and R code of my presentations at different Nation
 
 ## 2023
 
-- Menghini, L., Balducci, C. New Horizons in Psychological Assessment 2023, Padova, Italy, September 22-23 2023 [Daily Assessment of State Workaholism: The Psychometric Qualities of the State Version the Dutch Work Addiction Scale](https://luca-menghini.github.io/pResentations/2023/NewHorisonts/MenghiniLuca_DailyAssessmentOfStateWorkaholism.pdf). [[code](https://github.com/Luca-Menghini/pResentations/blob/main/2023/NewHorisonts/video-poster_newHorizons-workaholism.Rmd)]
+- Menghini, L., Balducci, C. New Horizons in Psychological Assessment 2023, Padova, Italy, September 22-23 2023 [Daily Assessment of State Workaholism: The Psychometric Qualities of the State Version the Dutch Work Addiction Scale](https://luca-menghini.github.io/pResentations/2023/NewHorizonts/MenghiniLuca_DailyAssessmentOfStateWorkaholism.pdf). [[code](https://github.com/Luca-Menghini/pResentations/blob/main/2023/NewHorizonts/video-poster_newHorizons-workaholism.Rmd)]
 
 
 - Menghini, L., Balducci, C. European Association of Work and Organizational Psychology (EAWOP) 2023, Katowice, Poland, May 24-27 2023 [Daily fluctuations in state workaholism, sleep quality, and recovery experiences: Does workaholism act as an internal stressor?](https://luca-menghini.github.io/pResentations/2023/EAWOP2023/EAWOP2023.pdf). [[code](https://github.com/Luca-Menghini/pResentations/blob/main/2023/EAWOP2023/EAWOP2023.Rmd)]
