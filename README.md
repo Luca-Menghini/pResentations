@@ -3,6 +3,8 @@ This repository hosts the PDF and R code of my presentations at different Nation
 
 ## 2025
 
+- Menghini, L. Psicostat Royal Rumble, Padova, Italy, October 30 2025. [3-level dataset with level-1 time-series: How should I analyze it?](https://luca-menghini.github.io/pResentations/2025/PSICOSTAT_RR2025/PSICOSTAT2025_hrv.pdf). [[code]](https://github.com/Luca-Menghini/pResentations/blob/main/2025/PSICOSTAT_RR2025/PSICOSTAT2025_hrv.Rmd)
+
 - Menghini, L., Monaro, M., Gamberini, L. ONIRICAMENTE (II edition). Workshop on Sleep Psychology, Thematic Group ONIRI - Sleep, Rhythms, and Psychobiological Well-being, Italian Association of Psychology (AIP), Rome, Italy, June 13 2025 [Oltre l'orario di lavoro. Gli effetti del lavoro supplementare digitale sulla quantità e qualità del sonno](https://luca-menghini.github.io/pResentations/2025/ONIRI2025/ONIRI2025_TASW.pdf). [[code](https://github.com/Luca-Menghini/pResentations/blob/main/2025/ONIRI2025/ONIRI2025_TASW.Rmd)]
 
 - Menghini, L., Monaro, M., Gamberini, L. European Association of Work and Organizational Psychology (EAWOP) 2025, Prague, Czech Republic, May 21-24 2025 [Towards the Italian version of the Work-related Rumination Scale: Development and Psychometrics](https://luca-menghini.github.io/pResentations/2025/EAWOP2025/Menghini_IT-WRRS_EAWOP25.pdf). [[code](https://github.com/Luca-Menghini/pResentations/blob/main/2025/EAWOP2025/WRRS_analyses_EAWOP25.R)]
