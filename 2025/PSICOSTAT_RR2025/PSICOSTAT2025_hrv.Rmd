@@ -366,6 +366,10 @@ knitr::include_graphics("img/lpa.png")
 
 ## Thank you!
 
+```{r , echo = FALSE, out.width="100px",fig.align='center'}
+knitr::include_graphics("img/hogan.jpg")
+```
+
 \begincols
   \begincol{1\textwidth}
 
@@ -373,7 +377,7 @@ knitr::include_graphics("img/lpa.png")
 \begin{center} 
 ```
 
-\fontsize{11pt}{12}\selectfont _PSICOSTAT ROYAL RUMBLE_
+\fontsize{11pt}{12}\selectfont PSICOSTAT [ROYAL RUMBLE](https://media.tenor.com/4Ky3N3QZCZ0AAAAM/hulk-hogan-hulk-hogan-beard.gif)
 
 \fontsize{6pt}{12}\selectfont Padova, October 30 2025
 
