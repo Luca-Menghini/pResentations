@@ -30,6 +30,8 @@ This repository hosts the PDF and R code of my presentations at different Nation
 - Menghini, L., Balducci, C., de Zambotti, M. 16th Conference European Academy of Occupational Health Psychology (EAOHP), Granada, Spain, June 5-7 2024. [Wearable Sleep Trackers in Occupational Health Psychology](https://luca-menghini.github.io/pResentations/2024/EAOHP24/EAOHP2024_sleep.pdf). [[code](https://github.com/Luca-Menghini/pResentations/blob/main/2024/EAOHP24/EAOHP2024_sleep.Rmd)]
 
 - Menghini, L., Tommasi, F., & Balducci, C. 16th Conference European Academy of Occupational Health Psychology (EAOHP), Granada, Spain, June 5-7 2024. [Towards the conceptualization of daily dynamics in state workaholism: Evidence from two experience sampling method studies](https://luca-menghini.github.io/pResentations/2024/EAOHP24/EAOHP2024.pdf). [[code](https://github.com/Luca-Menghini/pResentations/blob/main/2024/EAOHP24/EAOHP2024.Rmd)]
+  
+- Menghini, L. Psicostat handZone, Padova, March 26th 2024. [Analisi fattoriale confermativa multilivello: Introduzione, sintassi ed esempi pratici](https://luca-menghini.github.io/pResentations/2024/PSICOSTAT/MCFA-intro.pdf). [[code](https://luca-menghini.github.io/pResentations/2024/PSICOSTAT/MCFA-intro.Rmd)]
 
 ## 2023
 
