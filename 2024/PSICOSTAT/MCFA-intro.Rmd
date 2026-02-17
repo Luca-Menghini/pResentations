@@ -1,0 +1,1175 @@
+---
+title: 'Analisi fattoriale confermativa multilivello'
+subtitle: 'Introduzione, sintassi ed esempi pratici'
+author:  |
+ |
+ | Luca Menghini Ph.D. \fontsize{9pt}{7.2}\selectfont
+ |
+ | Dipartimento di Psicologia Generale, 
+ | Università degli Studi di Padova
+ |
+ | luca.menghini@unipd.it
+ |
+ | *** \fontsize{12pt}{7.2}\selectfont \color{red}
+ |
+ | Psicostat hand***Z***one \fontsize{9pt}{7.2}\selectfont \color{black}
+ |
+ | Università degli Studi di Padova
+ | 26 Marzo 2024
+ |
+ | ![](img/logo.PNG){width=1.3in} \fontsize{8pt}{7.2}\selectfont 
+ |
+date: "`r Sys.Date()`"
+output:
+  beamer_presentation:
+    fonttheme: serif
+    theme: Singapore
+    slide_level: 2
+    includes:
+      in_header: mystyle.tex
+---
+
+## Outline
+
+\fontsize{9pt}{12}\selectfont
+
+- SEM, CFA e razionale della CFA multilivello \newline
+
+- Hand***Z***one: Come condurre una CFA multilivello con `lavaan`  \newline
+
+- Esempio pratico: Gruppi e individui \newline
+
+- Esempi pratici: Misure ripetute \newline
+
+- Invarianza cross-livello: Dalla pratica alla teoria
+
+# Multilevel CFA
+
+## Multilevel what!?
+
+\fontsize{8.5pt}{12}\selectfont
+__Modelli di equazioni strutturali (SEM)__: \newline modelli *lineari* multivariati formalizzati da sistemi di equazioni \newline 
+
+\begincols
+  \begincol{.5\textwidth}
+
+\fontsize{7pt}{12}\selectfont
+**Modelli lineari 'standard'**: stimano la relazione tra una variabile dipendente e 1+ predittori attraverso una singola equazione tipo: \color{blue} $PERF = \beta_1IQ + \beta_2ANX + \epsilon$ \color{black}
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+library(DiagrammeR); library(DiagrammeRsvg); library(rsvg)
+
+tmp <- grViz(
+'digraph boxes_and_circles {
+  graph [layout = neato]
+  node [shape = box]
+  x1 [label = <IQ> pos="-2,0.5!"]
+  x2 [label = <ANX> pos="-2,-0.5!"]
+  y [label = <PERF> pos="0,0!"]
+  node [shape = plaintext]
+  e [label = <&epsilon;> pos="1,0!"]
+  # edges
+  x1->y [label = <&beta;<SUB>1</SUB>>]
+  x2->y [label = <&beta;<SUB>2</SUB>>]
+  e->y}')
+
+# Convert to SVG, then save as png
+tmp = export_svg(tmp)
+tmp = charToRaw(tmp) # flatten
+rsvg_png(tmp, "img/lm.png") # saved graph as png in current working directory
+```
+```{r , echo = FALSE, out.width = "130px",fig.align="center"}
+knitr::include_graphics("img/lm.png")
+```
+
+Possono predirre solo **una variabile dipendente alla volta** &rightarrow; *univariati* (solo intercetta) o *bivariati* (intercetta + pendenze).
+
+  \endcol
+\begincol{.5\textwidth}
+
+\fontsize{7pt}{12}\selectfont
+**SEM**: permettono di modellare simultaneamente più variabili ~~dependenti~~ *endogene* attraverso un sistema di equazioni tipo: \color{blue}
+$$ \begin{cases} ANX = \beta_{1}SEFF + \epsilon_2 \\\\ PERF = \beta_{2}SEFF + \beta_{3}ANX + \epsilon_3 \end{cases} $$
+
+```{r echo=FALSE}
+library(DiagrammeR); library(DiagrammeRsvg); library(rsvg)
+
+tmp <- grViz(
+'digraph boxes_and_circles {
+  graph [layout = neato]
+  node [shape = box]
+  x1 [label = <SEFF> pos="-2,0!"]
+  y2 [label = <ANX> pos="0,0.5!"]
+  y3 [label = <PERF> pos="0,-0.5!"]
+  node [shape = plaintext]
+  e2 [label = <&epsilon;<SUB>2</SUB>> pos="1,0.5!"]
+  e3 [label = <&epsilon;<SUB>3</SUB>>pos="1,-0.5!"]
+  # edges
+  x1->y2 [label = <&beta;<SUB>1</SUB>>]
+  x1->y3 [label = <&beta;<SUB>2</SUB>>]
+  y2->y3 [label = <&beta;<SUB>3</SUB>>]
+  e2->y2
+  e3->y3}')
+
+# Convert to SVG, then save as png
+tmp = export_svg(tmp)
+tmp = charToRaw(tmp) # flatten
+rsvg_png(tmp, "img/sem1.png") # saved graph as png in current working directory
+```
+```{r , echo = FALSE, out.width = "130px",fig.align="center"}
+knitr::include_graphics("img/sem1.png")
+```
+
+  \endcol
+\endcols
+
+## Le due parti fondamentali di un SEM
+
+\fontsize{9pt}{12}\selectfont
+I SEM permettono di quantificare le relazioni tra **variabili latenti** (cerchi), a partire dalla matrice varianza-covarianza tra un set di \newline __variabili osservate__ (quadrati).
+
+```{r echo=FALSE,message=FALSE,warning=FALSE}
+library(DiagrammeR); library(DiagrammeRsvg); library(rsvg)
+tmp <- grViz(
+'digraph boxes_and_circles {
+  graph [layout = neato]
+  node [shape = oval]
+  E1 [label = <&eta;<SUB>1</SUB>> pos="-0.5,0!"]
+  E2 [label = <&eta;<SUB>2</SUB>> pos="0.5,0!"]
+  node [shape = box]
+  x1 [label = <x<SUB>1</SUB>> pos="-2,1!"]
+  x2 [label = <x<SUB>2</SUB>> pos="-2,0!"]
+  x3 [label = <x<SUB>3</SUB>> pos="-2,-1!"]
+  x4 [label = <x<SUB>4</SUB>> pos="2,1!"]
+  x5 [label = <x<SUB>5</SUB>> pos="2,0!"]
+  x6 [label = <x<SUB>6</SUB>> pos="2,-1!"]
+  node [shape = plaintext]
+  e1 [label = <&epsilon;<SUB>1</SUB>> pos="-3,1!"]
+  e2 [label = <&epsilon;<SUB>2</SUB>>pos="-3,0!"]
+  e3 [label = <&epsilon;<SUB>3</SUB>>pos="-3,-1!"]
+  e4 [label = <&epsilon;<SUB>4</SUB>> pos="3,1!"]
+  e5 [label = <&epsilon;<SUB>5</SUB>>pos="3,0!"]
+  e6 [label = <&epsilon;<SUB>6</SUB>>pos="3,-1!"]
+  z2 [label = <&zeta;<SUB>2</SUB>>pos="0.5,0.8!"]
+  # edges
+  E1->x1 [color="#ED028C"]
+  E1->x2 [color="#ED028C"] 
+  E1->x3 [color="#ED028C"]
+  E2->x4 [color="#ED028C"]
+  E2->x5 [color="#ED028C"] 
+  E2->x6 [color="#ED028C"] 
+  E1->E2 [color="blue"] 
+  
+  e1->x1
+  e2->x2
+  e3->x3
+  e4->x4
+  e5->x5
+  e6->x6
+  z2->E2}')
+# Convert to SVG, then save as png
+tmp = export_svg(tmp)
+tmp = charToRaw(tmp) # flatten
+rsvg_png(tmp, "img/sem3.png") # saved graph as png in current working directory
+```
+```{r , echo = FALSE, out.width = "180px",fig.align="center"}
+knitr::include_graphics("img/sem3.png")
+```
+
+Un SEM include generalmente due parti:
+
+1. \color{blue}**Modello strutturale**\color{black}: Relazioni "regression-like" tra variabili latenti o tra variaibli osservate (*path analysis*)
+
+2. \color{magenta}**Modello di misurazione** (*latent variable model*)\color{black}: Relazioni tra le variabili latenti e le variabili osservate corrispondenti (indicative delle latenti) &rightarrow; CFA
+
+## Analisi fattoriale confermativa (CFA)
+
+\fontsize{8pt}{12}\selectfont
+Un modello di CFA include soltanto il modello di misurazione (senza modello strutturale) per 'formare' le variabili latenti e quantificarne le relazioni con le relative variabili osservate. \newline
+
+Queste relazioni sono chiamate **saturazioni** (*factor loadings*) e sono considerate indicatori quantitativi della **validità di costrutto** di un set di indicatori osservati (es. item di un questionario).
+
+```{r , echo = FALSE,fig.width=12,fig.height=3,out.width="280px",fig.align='center'}
+knitr::include_graphics("img/cfa1.PNG")
+```
+
+## Struttura fattoriale
+
+\begincols
+  \begincol{.4\textwidth}
+  
+```{r , echo = FALSE,fig.width=12,fig.height=3,out.width="130px"}
+knitr::include_graphics("img/cfa2.PNG")
+```
+  
+  \endcol
+\begincol{.6\textwidth}
+
+\fontsize{8pt}{12}\selectfont
+Una struttura fattoriale (*factor structure*) è una delle possibili configurazioni di relazioni tra un set di variabili osservate che si assumono essere indicative di un particolare fattore latente, definendo: \newline 
+
+1. il __numero__ di variabili latenti (es. modello a uno, due, ..., *n* fattori)
+
+2. le __relazioni__ tra ciascuna variabile osservata e la variabile latente corrispondente
+
+  \endcol
+\endcols
+
+\color{white}_\color{black}\newline
+
+\fontsize{8pt}{12}\selectfont
+A partire dalla matrice di varianza-covarianza delle variabili osservate, una CFA testa la **bontà di adattamento** di una o più strutture fattoriali ipotizzate e fornisce una stima delle relative **saturazioni**.
+
+## Il punto di partenza: Matrice di varianza-covarianza
+
+\begincols
+  \begincol{.5\textwidth}
+
+\fontsize{7pt}{12}\selectfont
+Il punto di partenza di un modello lineare 'standard' è un vettore (o un set di vettori) di valori attribuiti a una o più variabile (i.e., colonne di un dataset):
+```{r , echo = FALSE}
+data( earlymath, package = "ADati" )
+rownames(earlymath) <- 1:nrow(earlymath)
+df <- earlymath[,2:5]
+colnames(df) <- paste0("x",1:4)
+```
+```{r comment=NA}
+head(df,4)
+```
+
+  \endcol
+\begincol{.5\textwidth}
+
+\fontsize{7pt}{12}\selectfont
+Il punto di partenza di un SEM (inclusa CFA) è **la matrice di covarianza tra le variabili osservate**: \newline \color{blue} `r fontawesome::fa(name = "microscope", fill = "blue", height = "1em")` $cov(x,y) =\sum(x_i - \overline{x})(y_i-\overline{y})/N$ \color{black} 
+```{r eval=FALSE}
+cov(df)
+```
+```{r echo=FALSE,comment=NA}
+round(cov(df),2)
+```
+
+  \endcol
+\endcols
+
+\color{white}_ \newline \color{black}
+
+\fontsize{8pt}{12}\selectfont
+I SEM (incluse le CFA) stima un certo numero di parametri \color{blue} $\theta$ \color{black} in modo che la **matrice di covarianza predetta** sulla base dei parametri stimati \color{blue} $\hat\sum(\theta)$ \color{black} sia quanto più 'vicina' alla **matrice di covarianza osservata** \color{blue} $S$\color{black}. \newline \color{blue} \fontsize{7.5pt}{12}\selectfont
+
+Nota: anche i parametri del modello sono stimati in **matrici di parametri** `r fontawesome::fa(name = "face-flushed", height = "1em",fill = "blue")`
+
+## E se i dati sono multilivello?
+
+\fontsize{8pt}{12}\selectfont
+Quando le nostre osservazioni sono **nidificate** entro dei fattori di raggruppamento (**cluster**), si creano delle **dipendenze locali** (correlazioni tra osservazioni appartenenti allo stesso cluster) che violano l'assunto di indipendenza tra le osservazioni e possono produrre delle stime distorte degli errori standard. \newline
+
+\begincols
+  \begincol{.5\textwidth}
+
+\fontsize{8pt}{12}\selectfont
+Ad esempio:
+
+- soggetti nidificati entro **gruppi** (es. scuole, classi, organizzazioni)
+
+>- misure ripetute nidificate **entro i soggetti**(es. disegni longitudinali intensivi)
+
+  \endcol
+\begincol{.5\textwidth}
+
+\fontsize{8pt}{12}\selectfont
+```{r , echo = FALSE}
+df <- cbind(cluster=c(rep(1:24,each=5)),df[,1:4])
+```
+```{r comment=NA}
+head(df,10)
+```
+
+  \endcol
+\endcols
+
+## Scomposizione della (co)varianza
+
+\fontsize{8pt}{12}\selectfont
+In questi casi, è possibile **scomporre la (co)varianza** su due (o più) livelli. \newline
+
+\begincols
+  \begincol{.5\textwidth}
+
+\fontsize{8pt}{12}\selectfont
+__Livello 2: Between-clusters__ \newline __Punteggi medi__ ottenuti da ciascun cluster per ogni variabile.
+
+\fontsize{7pt}{12}\selectfont
+```{r comment=NA}
+# calcolo medie per cluster
+wide <- 
+  cbind(
+    aggregate(
+      x1~cluster, data=df, FUN=mean),
+    x2 = aggregate(
+      x2~cluster, data=df, FUN=mean)[,2])
+head(wide)
+```
+
+  \endcol
+\begincol{.5\textwidth}
+
+\fontsize{8pt}{12}\selectfont
+\fontsize{8pt}{12}\selectfont
+__Livello 1: Within-clusters__ \newline __Punteggi centrati sulla media__ di ogni cluster.
+
+\fontsize{7pt}{12}\selectfont
+```{r comment=NA}
+# aggiungo le medie al dataset long
+colnames(wide)[2:3] <- c("x1.b","x2.b")
+df <- plyr::join(df,wide,by="cluster")
+
+# calcolo deviazioni dalla media
+df$x1.w <- df$x1 - df$x1.b
+df$x2.w <- df$x2 - df$x2.b
+head(df[,c("cluster","x1","x1.b","x1.w")])
+```
+
+  \endcol
+\endcols
+
+## Matrici livello-specifiche
+
+\fontsize{8pt}{12}\selectfont
+A partire da questi valori, è possibile calcolare due matrici di covarianza distinte. \newline
+
+\begincols
+  \begincol{.5\textwidth}
+
+\fontsize{8pt}{12}\selectfont
+__Livello 2: Between-clusters__ \newline Covarianza tra i punteggi medi:
+
+\fontsize{7pt}{12}\selectfont
+```{r comment=NA}
+cov(wide[,c("x1.b","x2.b")])
+```
+
+\color{white}_\color{black}
+
+\fontsize{8pt}{12}\selectfont
+_I cluster con un `QI` medio più elevato hanno anche un `MAT` medio più elevato?_  \newline  \newline  \newline \newline \newline 
+
+  \endcol
+\begincol{.5\textwidth}
+
+\fontsize{8pt}{12}\selectfont
+\fontsize{8pt}{12}\selectfont
+__Livello 1: Within-clusters__ \newline Covarianza tra i punteggi centrati:
+
+\fontsize{7pt}{12}\selectfont
+```{r comment=NA}
+cov(df[,c("x1.w","x2.w")])
+```
+
+\color{white}_\color{black}
+
+\fontsize{8pt}{12}\selectfont
+_I soggetti con un `QI` più elevato della media del loro gruppo hanno anche un `MAT` più alto della media?_ \newline
+
+_Nelle occasioni in cui un soggetto mostra un `QI` più alto del solito, anche il suo `MAT` è più elevato del solito?_
+
+  \endcol
+\endcols
+
+## Multilevel CFA
+
+\fontsize{8pt}{12}\selectfont
+L'analisi fattoriale multilivello parte da queste due matrici di varianza-covarianza per testare la bontà di adattamento di una o più strutture fattoriali e quantificarne le saturazioni su entrambi i livelli.
+
+```{r echo=FALSE,message=FALSE,warning=FALSE}
+library(DiagrammeR); library(DiagrammeRsvg); library(rsvg)
+tmp <- grViz(
+'digraph boxes_and_circles {
+  graph [layout = neato]
+  node [shape = oval]
+  E1_b [label = <&eta;<SUB>_b</SUB>> pos="0,1!"]
+  E1_w [label = <&eta;<SUB>_w</SUB>> pos="0,-1!"]
+  node [shape = box]
+  x1 [label = <x<SUB>1</SUB>> pos="-1.5,0!"]
+  x2 [label = <x<SUB>2</SUB>> pos="-0.5,0!"]
+  x3 [label = <x<SUB>3</SUB>> pos="0.5,0!"]
+  x4 [label = <x<SUB>4</SUB>> pos="1.5,0!"]
+  node [shape = plaintext]
+  lv2 [label = <Between (lv2)> pos="1,1!"]
+  lv1 [label = <Within  (lv1)> pos="1,-1!"]
+  # edges
+  E1_b->x1
+  E1_b->x2
+  E1_b->x3
+  E1_b->x4
+  E1_w->x1
+  E1_w->x2
+  E1_w->x3
+  E1_w->x4}')
+
+# Convert to SVG, then save as png
+tmp = export_svg(tmp)
+tmp = charToRaw(tmp) # flatten
+rsvg_png(tmp, "img/sem4.png") # saved graph as png in current working directory
+```
+```{r , echo = FALSE, out.width = "180px",fig.align="center"}
+knitr::include_graphics("img/sem4.png")
+```
+
+# Hand***Z***one
+
+## Hand***Z***one: CFA con `r fontawesome::fa(name = "r-project",fill="#3333B2", height = "1em")`
+
+\begincols
+  \begincol{.65\textwidth}
+
+\fontsize{7pt}{12}\selectfont 
+```{r }
+data( HolzingerSwineford1939, package = "lavaan" )
+p <- cov(HolzingerSwineford1939[,paste0("x",1:9)])
+p[upper.tri(p)] <- NA
+round(p,2)
+```
+  \endcol
+\begincol{.35\textwidth}
+
+```{r , echo = FALSE,out.width="110px"}
+knitr::include_graphics("img/hs39.PNG")
+```
+
+  \endcol
+\endcols
+
+## CFA con `lavaan`: Fittare un modello su dei dati
+
+\fontsize{8pt}{12}\selectfont 
+In `lavaan` le saturazioni sono indicate con il simbolo "\color{blue}`=~`\color{black}" ("*is reflected by*").
+```{r warning=FALSE, message=FALSE}
+# specifico modello a tre fattori
+m1 <- 'visual =~ x1 + x2 + x3
+       textual =~ x4 + x5 + x6
+       speed =~ x7 + x8 + x9'
+
+# fitto modello
+library(lavaan)
+fit1 <- cfa(model = m1, data = HolzingerSwineford1939)
+
+# specifico e fitto modello alternativo a un fattore
+m2 <- 'general =~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9'
+fit2 <- cfa(model = m2, data = HolzingerSwineford1939)
+```
+
+## CFA con `lavaan`: Indici di fit e confronto tra modelli
+
+\fontsize{8pt}{12}\selectfont 
+Gli indici di fit sono generalmente indicativi della **similarità/distanza** tra la matrice di covarianza osservata e quella predetta dal modello sulla base dei parametri stimati.
+```{r }
+round(
+  lavInspect(fit1, what = "fit")[c("rmsea","cfi","tli","srmr")], 3)
+```
+
+Gli indici di fit e altri criteri (es. AIC e BIC) possono essere usati per confrontare più modelli (strutture fattoriali alternative).
+```{r }
+round(
+  lavInspect(fit2, what = "fit")[c("rmsea","cfi","tli","srmr")], 3)
+
+library(MuMIn)
+Weights(AIC(fit1, fit2))
+Weights(BIC(fit1, fit2))
+```
+
+## CFA con `lavaan`: Parametri stimati
+
+\fontsize{8pt}{12}\selectfont 
+Una volta selezionato un modello, possiamo valutare le saturazioni:
+```{r }
+parameterestimates(fit1)[1:9,] # soluzione non standardizzata
+standardizedsolution(fit2)[1:9,] # soluzione standardizzata
+```
+
+## CFA con `lavaan`: Cmq sarebbero dati ordinali :)
+
+\fontsize{10pt}{12}\selectfont 
+```{r eval=FALSE}
+fit <- cfa(model = m1, data = HolzingerSwineford1939, 
+           
+           ordered = TRUE) # ;)
+```
+
+## MCFA con `r fontawesome::fa(name = "r-project",fill="#3333B2", height = "1em")`
+
+\begincols
+  \begincol{.60\textwidth}
+
+\fontsize{7pt}{12}\selectfont 
+```{r results='hide',message=FALSE,warning=FALSE}
+# scarico e leggo dataset da repository OSF
+library(osfr) 
+repo <- 
+  osf_retrieve_node(
+    "https://doi.org/10.17605/OSF.IO/87A9P")
+osf_download(osf_ls_files(repo)[1, ],
+             conflicts="overwrite") 
+load("S5_processedData/ESM_processed.RData")
+```
+```{r , echo = FALSE,out.width="200px"}
+knitr::include_graphics("img/mcfa1.PNG")
+```
+
+  \endcol
+\begincol{.45\textwidth}
+
+\fontsize{7pt}{12}\selectfont 
+```{r }
+# item job-related Task Demand (TD)
+head(ESMdata[,c("ID","day",
+                "d1","d2","d3","d4")],
+     18)
+```
+
+\color{white} _ \newline \newline \newline \newline
+
+  \endcol
+\endcols
+
+## Multilevel CFA: Fittare un modello su dei dati
+
+\fontsize{8pt}{12}\selectfont 
+Con un modello a due livelli, possiamo usare la sintassi "`level: 1`" e "`level: 2`" per specificare la struttura fattoriale sui due livelli, aggiungendo l'argomento `cluster = "cluster_name"` nella funzione `cfa()`.
+```{r warning=FALSE, message=FALSE}
+# specifico modello a tre fattori
+m1 <- 'level: 1
+       TD_w =~ d1 + d2 + d3 + d4
+       level: 2
+       TD_b =~ d1 + d2 + d3 + d4'
+
+# fitto modello
+library(lavaan)
+fit1 <- cfa(model = m1, data = ESMdata, cluster = "ID")
+```
+
+## Multilevel CFA: Indici di fit livello-specifici
+
+\fontsize{8pt}{12}\selectfont 
+Gli indici come RMSEA, CFI e TLI sono **indici di fit "globali"** che sono per lo più imputabili a informazioni sul fit a livello within (perché ci sono più osservazioni a livello 1) mentre sono risultati poco sensibili a "misspecification" a livello between. \newline
+
+Al contrario, **l'SRMR è un indice livello-specifico** che può essere calcolato separatamente per la matrice between e quella within. Quindi l'**SRMR between** è l'unico indice informativo del fit a livello 2 \fontsize{6.5pt}{12}\selectfont (Ryu & West, 2009; Hsu et al. 2015).
+
+```{r }
+round(
+  lavInspect(fit1, what = "fit")[
+    c("rmsea","cfi","srmr_within","srmr_between")
+    ], 3)
+```
+
+## Multilevel CFA: Parametri livello-specifici
+
+\fontsize{8pt}{12}\selectfont 
+```{r }
+# Saturazioni standardizzate a livello within:
+standardizedsolution(fit1)[1:4,]
+# Saturazioni standardizzate a livello between:
+standardizedsolution(fit1)[15:18,]
+```
+
+Nota: Le saturazioni sono sempre più forti a livello between perché l'errore di misura tende ad accumularsi a livello 1 \fontsize{6.5pt}{12}\selectfont  (Hox, 2010)
+
+## Multilevel CFA: Cmq sarebbero dati ordinali
+
+\fontsize{10pt}{12}\selectfont 
+```{r eval=FALSE}
+fit <- cfa(model = m1, data = ESMdata, cluster = "ID",
+           ordered = TRUE) # :(
+```
+
+```{r , echo = FALSE,out.width="320px"}
+knitr::include_graphics("img/error.PNG")
+```
+
+# Gruppi
+
+## Soggetti nidificati entro gruppi
+
+\fontsize{9pt}{12}\selectfont
+Quando reclutiamo i soggetti da diversi gruppi (es. classi, scuole, organizzazioni), dovremmo tenere conto delle **dipendenze locali**: correlazioni più forti tra soggetti appartenenti allo stesso gruppo che tra soggetti appartnenti a gruppi diversi.
+
+## Esempio con dati reali \newline _Individual vs. Team participation_
+
+\fontsize{6.5pt}{12}\selectfont Menghini, Balducci & Toderi (*In preparation*)
+
+\fontsize{8pt}{12}\selectfont
+- _Campione_: 608 educatrici/tori nidificate/i in 68 scuole d'infanzia 
+
+>- _Misura_: Grado di partecipazione a programmi di prevenzione e gestione dei rischi psicosociali (es. "*Sei stata/o coinvolta/o nelle attività di valutazione e riduzione dello stress?*") - 4 item da 1 (Per niente) a 5 (Moltissimo)
+
+\fontsize{7pt}{12}\selectfont 
+
+\begincols
+  \begincol{.5\textwidth}
+
+```{r echo=FALSE}
+load("data/edudata_raw.RData")
+colnames(edudata)[which(colnames(edudata)%in%paste0("part",2:5))] <- paste0("p",2:5)
+```
+```{r }
+head(edudata[,c("schoolID",
+                paste0("p",2:5))],4)
+```
+
+  \endcol
+\begincol{.5\textwidth}
+
+```{r }
+p <- cor(edudata[,paste0("p",2:5)],
+         use="complete.obs")
+p[upper.tri(p)] <- NA
+round(p, 2)
+```
+
+  \endcol
+\endcols
+
+## Single-level CFA
+
+\fontsize{7pt}{12}\selectfont
+```{r fig.width=12,fig.height=2.5}
+par(mfrow=c(1,5)); for(p in paste0("p",2:5)){hist(edudata[,p],main=p)}
+```
+```{r }
+m1 <- 'EP =~ p2 + p3 + p4 + p5'
+# Maximum Likelihood robust estimator
+fit1 <- cfa(m1, edudata, estimator = "MLR") 
+round(lavInspect(fit1,"fit")[c("chisq","df","rmsea.robust","cfi.robust","srmr")],3)
+# Weighted Least Square Mean and Variance adjusted
+fit2 <- cfa(m1, edudata, ordered = TRUE, estimator = "WLSMV") 
+round(lavInspect(fit2,"fit")[c("chisq","df","rmsea.robust","cfi.robust","srmr")],3)
+```
+## Multilevel CFA: Modelli preliminari (lv1)
+
+\fontsize{8pt}{12}\selectfont
+Hox (2010, cap 14) suggerisce di specificare un set di modelli preliminari per valutare la struttura fattoriale sui due livelli:
+
+- A **livello 1 (within)**, fittiamo una CFA 'classica' sulla matrice di covarianza *pooled* a livello within. \fontsize{7pt}{12}\selectfont
+
+```{r }
+# listwise deletion
+lwd <- na.omit(edudata[,c("schoolID",paste0("p",2:5))])
+# centro i punteggi sulle medie delle scuole
+ms <- data.frame(p2=ave(lwd$p2,lwd$schoolID),p3=ave(lwd$p3,lwd$schoolID),
+                 p4=ave(lwd$p4,lwd$schoolID),p5=ave(lwd$p5,lwd$schoolID))
+cs <- lwd[,2:ncol(lwd)] - ms 
+# pooled within-cluster covariance matrix
+pw.cov <- (cov(cs) * (nrow(lwd) - 1))/(nrow(lwd) - nlevels(lwd$schoolID))
+# fitto modello ed estraggo indici di fit
+fit <- cfa(m1, sample.cov = pw.cov, sample.nobs=nrow(lwd))
+round(lavInspect(fit,"fit")[c("chisq","df","rmsea","cfi","tli","srmr")])
+```
+
+## Multilevel CFA: Modelli preliminari (lv2)
+
+\fontsize{8pt}{12}\selectfont
+Hox (2010, cap 14) suggerisce di specificare un set di modelli preliminari per valutare la struttura fattoriale sui due livelli:
+
+- A **livello 2 (between)**, fittiamo una serie di MCFA 'banchmark' al livello del cluster:
+
+1. __Modello nullo__: Nessuna struttura a livello 2 \newline &rightarrow; se ha un buon fit, significa che "*non c'è proprio una struttura a livello 2*" (meglio usare CFA classica)
+
+2. __Modello indipendente__: Solo varianze ma non covarianze a livello 2 \newline &rightarrow; se ha un buon fit, significa che "*c'è una struttura a livello 2 ma non un modello strutturale sostanzialmente interessante*" (meglio usare la matrice within pooled)
+
+3. __Modello saturo__: Rendiamo il modello saturo a livello 2 \newline &rightarrow; se ha un buon fit, significa che "*il costrutto 'esiste' solo a livello 1, mentre le covarianze a livello 2 sono spurie*"
+
+## Multilevel CFA: Modelli preliminari (lv2)
+
+\begincols
+  \begincol{.4\textwidth}
+
+\fontsize{7pt}{12}\selectfont 
+Modello nullo
+```{r }
+m1 <- 'level: 1
+       p.w =~ p2 + p3 + p4 + p5
+       level: 2
+       p2 ~~ 0*p2 
+       p3 ~~ 0*p3
+       p4 ~~ 0*p4
+       p5 ~~ 0*p5' 
+```
+
+Modello indipendente
+```{r }
+m2 <- 'level: 1
+       p.w =~ p2 + p3 + p4 + p5
+       level: 2
+       p2 ~~ p2 
+       p3 ~~ p3
+       p4 ~~ p4
+       p5 ~~ p5' 
+```
+
+  \endcol
+\begincol{.65\textwidth}
+
+\fontsize{7pt}{12}\selectfont 
+
+Modello saturo
+```{r }
+m3 <- 'level: 1
+       p.w =~ p2 + p3 + p4 + p5
+       level: 2
+       p2 ~~ p2 + p3 + p4 + p5
+       p3 ~~ p3 + p4 + p5
+       p4 ~~ p4 + p5
+       p5 ~~ p5' 
+```
+
+Fitto modelli ed estraggo gli indici di fit:
+```{r warning=FALSE}
+fit1 <- cfa(m1,edudata,cluster="schoolID",estimator="MLR")
+fit2 <- cfa(m2,edudata,cluster="schoolID",estimator="MLR")
+fit3 <- cfa(m3,edudata,cluster="schoolID",estimator="MLR")
+f <- c("df","rmsea.robust","cfi.robust","srmr_within","srmr_between")
+round( rbind(lavInspect(fit1,"fit")[f],lavInspect(fit2,"fit")[f],
+             lavInspect(fit3,"fit")[f]), 3)
+```
+
+  \endcol
+\endcols
+
+## MCFA
+
+\fontsize{7pt}{12}\selectfont 
+
+Modello ipotizzato (notare che alcuni cluster non mostrano variabilità)
+```{r }
+m4 <- 'level: 1
+       p.w =~ p2 + p3 + p4 + p5
+       level: 2
+       p.b =~ p2 + p3 + p4 + p5' 
+fit4 <- cfa(m4, edudata, cluster = "schoolID", estimator = "MLR")
+```
+
+## MCFA model comparison
+
+\fontsize{8pt}{12}\selectfont 
+
+Modello ipotizzato (notare che alcuni cluster non mostrano variabilità)
+```{r }
+round( rbind(lavInspect(fit1,"fit")[f],lavInspect(fit2,"fit")[f],
+             lavInspect(fit3,"fit")[f],lavInspect(fit4,"fit")[f]), 3)
+Weights(AIC(fit1,fit2,fit3,fit4))
+Weights(BIC(fit1,fit2,fit3,fit4))
+```
+
+Non propro alla grande :(
+
+## Saturazioni livello-specifiche
+
+\fontsize{8pt}{12}\selectfont 
+```{r }
+(sl <- standardizedsolution(fit4)[c(1:4,15:18),1:6])
+```
+
+Nota: le saturazioni possono essere usate per stimare dei coefficienti di attendibilità $\omega$ livello-specifici \fontsize{6.5pt}{12}\selectfont  (Geldhof et al., 2014). \fontsize{8pt}{12}\selectfont 
+```{r }
+sl.w <- sl[1:4,"est.std"] # saturazioni within
+re.w <- 1 - sl.w^2 # varianza res. within
+round( sum(sl.w)^2 / (sum(sl.w)^2 + sum(re.w)), 2) # omega within
+sl.b<- sl[5:8,"est.std"] # saturazioni between
+re.b <- 1 - sl.b^2 # varianza res. between
+round( sum(sl.b)^2 / (sum(sl.b)^2 + sum(re.b)), 2) # omega between
+```
+
+# Misure ripetute
+
+## Osservazioni nidificate entro soggetti
+
+\fontsize{9pt}{12}\selectfont
+Quando somministriamo gli stessi item agli stessi soggetti in più occasioni (es. disegno longitudinale intensivo), dovremmo tenere conto delle **dipendenze locali**: correlazioni più forti tra i punteggi forniti dallo stesso soggetto che tra i punteggi forniti da soggetti diversi.
+
+## Esempio con dati reali: *Stressor e strain*
+
+\fontsize{6.5pt}{12}\selectfont
+Menghini, Pastore & Balducci (2023) https://doi.org/10.1027/1015-5759/a000725
+
+\fontsize{8pt}{12}\selectfont
+
+- _Campione_: 139 lavoratrici/tori d'ufficio
+
+- _Procedura_: 7 questionari al giorno per 3 giorni lavorativi non consecutivi
+
+```{r , echo = FALSE, out.width = "200px",fig.align="center"}
+knitr::include_graphics("img/esm.png")
+```
+
+## MCFA con più di un fattore
+
+\fontsize{8pt}{12}\selectfont
+Quando abbiamo una struttura fattoriale ipotizzata con più di un fattore possiamo confrontarla con strutture alternative manipolando il numero di fattori su entrambi i livelli.
+
+```{r , echo = FALSE, out.width = "200px",fig.align="center"}
+knitr::include_graphics("img/mcfa2.png")
+```
+
+## MCFA con più di un fattore
+
+\fontsize{7pt}{12}\selectfont 
+
+\begincols
+  \begincol{.5\textwidth}
+
+```{r }
+m3x3 <- 
+  'level: 1
+   NV_w =~ v1 + v2 + v3
+   TA_w =~ t1 + t2 + t3
+   FA_w =~ f1 + f2 + f3
+   level: 2
+   NV_b =~ v1 + v2 + v3
+   TA_b =~ t1 + t2 + t3
+   FA_b =~ f1 + f2 + f3'
+
+m2x3 <- 
+  'level: 1
+   NV_w =~ v1 + v2 + v3
+   TA_w =~ t1 + t2 + t3
+   FA_w =~ f1 + f2 + f3
+   level: 2
+   NV_b =~ v1 + v2 + v3 + t1 + t2 + t3
+   FA_b =~ f1 + f2 + f3'
+```
+
+  \endcol
+\begincol{.5\textwidth}
+
+\fontsize{7pt}{12}\selectfont 
+
+```{r }
+m2x2 <- 
+  'level: 1
+   NV_w =~ v1 + v2 + v3 + t1 + t2 + t3
+   FA_w =~ f1 + f2 + f3
+   level: 2
+   NV_b =~ v1 + v2 + v3 + t1 + t2 + t3
+   FA_b =~ f1 + f2 + f3'
+
+m3x2 <- 
+  'level: 1
+   NV_w =~ v1 + v2 + v3 + t1 + t2 + t3
+   FA_w =~ f1 + f2 + f3
+   level: 2
+   NV_b =~ v1 + v2 + v3 
+   TA_b =~ t1 + t2 + t3
+   FA_b =~ f1 + f2 + f3'
+```
+
+  \endcol
+\endcols
+
+## Fitto i modelli
+
+\fontsize{8pt}{12}\selectfont 
+
+```{r warning=FALSE}
+fit2x2 <- cfa(m2x2, ESMdata, cluster="ID")
+fit3x2 <- cfa(m3x2, ESMdata, cluster="ID")
+fit2x3 <- cfa(m2x3, ESMdata, cluster="ID")
+fit3x3 <- cfa(m3x3, ESMdata, cluster="ID")
+```
+```{r echo=FALSE}
+fit3x3 <- cfa(m3x3, ESMdata[!ESMdata$ID%in%c("S015","S056"),], cluster="ID")
+```
+
+## Varianze negative!? `r fontawesome::fa(name = "face-flushed", height = "1em",fill = "blue")`
+
+\fontsize{8pt}{12}\selectfont 
+Il problema delle **varianze negative a livello 2** (Heywood cases o soluzioni inappropriate) è molto comune nelle MCFA perché l'errore tende ad accumularsi a livello 1, mentre a livello 2 ci sono spesso saturazioni molto forti e (di conseguenza) varianze residue molto basse, vicine allo zero (Hox, 2010). \newline
+
+Kolenikov & Bollen (2012) suggeriscono una serie di controlli per valutare se queste varianze negative possono essere dovute ad una 'misspecification' empirica (saturazioni vicine a zero, overfactoring, correlazioni tra fattori vicine a 0 o a 1) o strutturale (se i 95% CI non includono lo zero) o ad altre ragioni (es. problemi di convergenza, dati mancanti).
+```{r }
+p <- parameterestimates(fit3x3)
+p[p$op=="~~" & p$ci.lower<0,]
+```
+
+## Varianze negative e analisi dei casi influenti
+
+\fontsize{8pt}{12}\selectfont 
+Quando possiamo escludere queste possibili spiegazioni, è probabile che la varianza negativa sia il risultato di **fluttuazioni campionarie** intorno ad un parametro di popolazione vicino a zero. \newline
+
+In questo caso, un approccio utile è quello dell'**analisi dei casi influenti**: escludiamo i soggetti (o le osservaioni) uno alla volta a partire da quelli la cui esclusione aumenta il valore della varianza negativa, finché la varianza non torna negativa.
+
+```{r warning=FALSE}
+clean <- ESMdata[!ESMdata$ID %in% c("S017","S035","S139","S008","S106","S142","S067"),]
+
+fit2x2 <- cfa(m2x2, clean, cluster="ID")
+fit3x2 <- cfa(m3x2, clean, cluster="ID")
+fit2x3 <- cfa(m2x3, clean, cluster="ID")
+fit3x3 <- cfa(m3x3, clean, cluster="ID")
+```
+
+Niente male! ;)
+
+## Confronto tra modelli
+
+\fontsize{8pt}{12}\selectfont 
+
+```{r }
+f <- c("df","rmsea","cfi","srmr_within","srmr_between")
+round( rbind(lavInspect(fit2x2,"fit")[f],lavInspect(fit3x2,"fit")[f],
+             lavInspect(fit2x3,"fit")[f],lavInspect(fit3x3,"fit")[f]), 3)
+Weights(AIC(fit2x2,fit3x2,fit2x3,fit3x3))
+Weights(BIC(fit2x2,fit3x2,fit2x3,fit3x3))
+```
+
+# Invarianza
+
+## Invarianza tra gruppi
+
+\fontsize{8pt}{12}\selectfont 
+
+Problema: stiamo misurando la stessa cosa in tutti i soggetti/cluster? \newline
+
+Solitamente rispondiamo a questa domanda con una **CFA multigruppo**, in cui applichiamo una serie di restrizioni (*constraints*) progressivamente restrittive per rendere i parametri inviarianti tra gruppi.
+
+```{r , echo = FALSE, out.width = "220px",fig.align="center"}
+knitr::include_graphics("img/invariance.png")
+```
+
+\fontsize{6.5pt}{12}\selectfont Altoé (2018)
+
+## Invarianza tra cluster!? `r fontawesome::fa(name = "face-flushed", height = "1em",fill = "blue")`
+
+\fontsize{8pt}{12}\selectfont 
+Però la CFA multigruppo diventa impraticabile quando abbiamo tanti cluster (nel nostro dataset sono 139). Come fare? \newline
+
+Ancora una volta entra in gioco la **logica multilivello**: trattiamo i gruppi come **effetti random** anziché come effetti fissi e ci concentriamo sull'**invarianza cross-livello**. Diversi studi di simulazione (es. Jak & Jorgensen, 2017) mostrano infatti la corrispondenza tra le assunzioni dell'invarianza tra gruppi e quelle dell'invarianza tra livello within e livello between.
+
+```{r , echo = FALSE, out.width = "300px",fig.align="center"}
+knitr::include_graphics("img/inv.jpg")
+```
+
+## Invarianza cross-livello: Invarianza configurale
+
+\fontsize{7pt}{12}\selectfont 
+Qui proviamo a testare i tre livelli di invarianza sui nostri dati: \newline
+
+Nel primo (**configurale**) specifichiamo la stessa struttura fattoriale sui due livelli
+
+```{r }
+conf <- # invarianza configurale (stessa struttura a livello 1 e 2)
+  'level: 1
+   NV_w =~ v1 + v2 + v3
+   TA_w =~ t1 + t2 + t3
+   FA_w =~ f1 + f2 + f3
+   level: 2
+   NV_b =~ v1 + v2 + v3
+   TA_b =~ t1 + t2 + t3
+   FA_b =~ f1 + f2 + f3'
+```
+
+## Invarianza cross-livello: Invarianza debole
+
+\fontsize{7pt}{12}\selectfont 
+Nel secondo (**debole**) specifichiamo la stessa struttura fattoriale sui due livelli e fissiamo le saturazioni (non standardizzate) perché siano equivalenti tra i due livelli.
+
+```{r }
+weak <- # invarianza 'debole' (stessa struttura e saturazioni equivalenti)
+  'level: 1
+   NV_w =~ a*v1 + b*v2 + c*v3
+   TA_w =~ d*t1 + e*t2 + f*t3
+   FA_w =~ g*f1 + h*f2 + i*f3
+   level: 2
+   NV_b =~ a*v1 + b*v2 + c*v3
+   TA_b =~ d*t1 + e*t2 + f*t3
+   FA_b =~ g*f1 + h*f2 + i*f3'
+```
+
+## Invarianza cross-livello: Invarianza debole
+
+\fontsize{7pt}{12}\selectfont 
+Nel terzo (**forte**) aggiungiamo l'ulteriore restrizione che le varianze residue sono uguali a zero a livello 2 (i.e., attendibilità perfetta! Ma con dati psicologici è praticamente impossibile!)
+
+```{r }
+strong <- # invarianza 'forte' (come 'debole' + no var. residua a livello 2)
+  'level: 1
+   NV_w =~ a*v1 + b*v2 + c*v3
+   TA_w =~ d*t1 + e*t2 + f*t3
+   FA_w =~ g*f1 + h*f2 + i*f3
+   level: 2
+   NV_b =~ a*v1 + b*v2 + c*v3
+   TA_b =~ d*t1 + e*t2 + f*t3
+   FA_b =~ g*f1 + h*f2 + i*f3
+   v1 ~~ 0*v1
+   v2 ~~ 0*v2
+   v3 ~~ 0*v3
+   t1 ~~ 0*t1
+   t2 ~~ 0*t2
+   t3 ~~ 0*t3
+   f1 ~~ 0*f1
+   f2 ~~ 0*f2
+   f3 ~~ 0*f3'
+```
+
+## Confronto tra modelli
+
+\fontsize{8pt}{12}\selectfont 
+```{r warning=FALSE}
+fit.conf <- cfa(conf, clean, cluster = "ID")
+fit.weak <- cfa(weak, clean, cluster = "ID")
+fit.strong <- cfa(strong, clean, cluster = "ID")
+
+round( rbind(lavInspect(fit.conf,"fit")[f],lavInspect(fit.weak,"fit")[f],
+             lavInspect(fit.strong,"fit")[f]), 3)
+Weights(AIC(fit.conf,fit.weak,fit.strong))
+Weights(BIC(fit.conf,fit.weak,fit.strong))
+```
+
+Bene ma non benissimo :|
+
+## Vediamo con i dati sulla partecipazione
+
+\fontsize{7pt}{12}\selectfont 
+```{r warning=FALSE}
+conf <- # invarianza configurale (stessa struttura)
+  'level: 1
+   p.w =~ p2 + p3 + p4 + p5
+   level: 2
+   p.b =~ p2 + p3 + p4 + p5'
+weak <- # invarianza 'debole' (stessa struttura e saturazioni equivalenti)
+  'level: 1
+   p.w =~ a*p2 + b*p3 + c*p4 + d*p5
+   level: 2
+   p.b =~ a*p2 + b*p3 + c*p4 + d*p5'
+strong <- # invarianza 'forte' (come 'debole' + no var. residua a livello 2)
+  'level: 1
+   p.w =~ a*p2 + b*p3 + c*p4 + d*p5
+   level: 2
+   p.b =~ a*p2 + b*p3 + c*p4 + d*p5
+   p2 ~~ 0*p2
+   p3 ~~ 0*p3
+   p4 ~~ 0*p4
+   p5 ~~ 0*p5'
+```
+
+## Vediamo con i dati sulla partecipazione
+
+\fontsize{7pt}{12}\selectfont 
+```{r warning=FALSE}
+fit.conf <- cfa(conf, edudata, cluster = "schoolID", estimator = "MLR")
+fit.weak <- cfa(weak, edudata, cluster = "schoolID", estimator = "MLR")
+fit.strong <- cfa(strong, edudata, cluster = "schoolID", estimator = "MLR")
+
+f <- c("df","rmsea.robust","cfi.robust","srmr_within","srmr_between")
+round( rbind(lavInspect(fit.conf,"fit")[f],
+             lavInspect(fit.weak,"fit")[f],
+             lavInspect(fit.strong,"fit")[f]), 3)
+Weights(AIC(fit.conf,fit.weak,fit.strong))
+Weights(BIC(fit.conf,fit.weak,fit.strong))
+```
+
+Proprio niente male! ;)
+
+## Costrutti multilivello e invarianza cross-livello
+
+\fontsize{8pt}{12}\selectfont 
+Stapleton et al (2016) identificano quattro tipi di costrutto multilivello in base alle assunzioni sulla relazione tra livello 1 e livello 2, ciascuno con delle restrizioni specifiche. In particolare, per supportare la concettualizzazione di un "*configural cluster construct*" (i.e, lv2 = forma aggregata del lv1) è necessario che ci sia un'**invarianza debole cross-livello**.
+
+```{r , echo = FALSE, out.width = "230px",fig.align="center"}
+knitr::include_graphics("img/MCFAconstructs.png")
+```
+
+## Tratti e stati di personalità
+
+\begincols
+  \begincol{.4\textwidth}
+
+\fontsize{8pt}{12}\selectfont 
+Ad esempio, alcune recenti teorie in psicologia della personalità assumono che i **tratti di personalità** non siano 'valori fissi' ma piuttosto delle distribuzioni di **stati di personalità**, che si assumono essere causate e riflessive dello stesso dominio di contenuto delle rispettive componenti di tratto. \newline
+
+Questo però richiederebbe che sia verificata l'**invarianza debole cross-livello**.
+  
+  \endcol
+\begincol{.6\textwidth}
+
+```{r , echo = FALSE,out.width="130px"}
+knitr::include_graphics("img/wholetrait.PNG")
+```
+
+  \endcol
+\endcols
+
+## Esempio con dati reali: *State workaholism*
+
+\fontsize{6.5pt}{12}\selectfont
+Menghini & Balducci (*Under review*) https://osf.io/awbxj/?view_only=99eb5bd9b91b4ab88fbcd887d9463bef
+
+\fontsize{8pt}{12}\selectfont
+
+- _Campione_: 135 lavoratrici/tori d'ufficio
+
+- _Procedura_: 3 questionari al giorno (+ pressione) per 10 giorni lavorativi
+
+```{r , echo = FALSE, out.width = "250px",fig.align="center"}
+knitr::include_graphics("img/ema.png")
+```
+
+## Tratti e stati di workaholism
+
+```{r , echo = FALSE, out.width = "250px",fig.align="center"}
+knitr::include_graphics("img/statew.png")
+```
+
+## Invarianza cross-livello
+
+\fontsize{7pt}{12}\selectfont
+```{r , echo = FALSE}
+load("data/whlsm.RData")
+```
+```{r warning=FALSE}
+conf <- # invarianza configurale (stessa struttura)
+  'level: 1
+   sWE =~ WHLSM1 + WHLSM3 + WHLSM5
+   sWC =~ WHLSM2 + WHLSM4 + WHLSM6
+   level: 2
+   tWE =~ WHLSM1 + WHLSM3 + WHLSM5
+   tWC =~ WHLSM2 + WHLSM4 + WHLSM6'
+
+weak <- # invarianza 'debole' (stessa struttura e saturazioni equivalenti)
+  'level: 1
+   sWE =~ a*WHLSM1 + b*WHLSM3 + c*WHLSM5
+   sWC =~ d*WHLSM2 + e*WHLSM4 + f*WHLSM6
+   level: 2
+   tWE =~ a*WHLSM1 + b*WHLSM3 + c*WHLSM5
+   tWC =~ d*WHLSM2 + e*WHLSM4 + f*WHLSM6'
+```
+
+## Invarianza parziale? `r fontawesome::fa(name = "face-flushed", height = "1em",fill = "blue")`
+
+\fontsize{7pt}{12}\selectfont
+```{r warning=FALSE}
+# modification indices
+mi <- modificationindices(fit.weak)
+mi[order(mi$mi,decreasing=TRUE),][1:3,]
+
+weak.part <- # invarianza 'debole' parziale (lascio 'libera' una saturazione)
+  'level: 1
+   sWE =~ WHLSM1 + b*WHLSM3 + c*WHLSM5
+   sWC =~ d*WHLSM2 + e*WHLSM4 + f*WHLSM6
+   level: 2
+   tWE =~ WHLSM1 + b*WHLSM3 + c*WHLSM5
+   tWC =~ d*WHLSM2 + e*WHLSM4 + f*WHLSM6'
+fit.weak.part <- cfa(weak.part, dat, cluster = "ID", estimator = "MLR")
+```
+
+## Confronto tra modelli
+
+```{r , echo = FALSE, out.width = "220px",fig.align="center"}
+knitr::include_graphics("img/partin.png")
+```
+
+## Costrutti multilivello e omologia cross-livello
+
+\fontsize{8pt}{12}\selectfont
+Ma non è finita qui! Una volta attestata l'**invarianza cross-livello** (similarità della misurazione tra livelli) su diversi campioni, possiamo fare un'altro step per valutare quanto il costrutto a livello 1 "funziona in modo simile" a quello a livello 2 valutandone l'**omologia cross-livello** (similarità del network nomologico tra livelli) \fontsize{6.5pt}{12}\selectfont (Chen et al, 2005)
+
+```{r , echo = FALSE, out.width = "250px",fig.align="center"}
+knitr::include_graphics("img/homology.png")
+```
